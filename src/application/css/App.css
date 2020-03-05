@@ -1,0 +1,10 @@
+div {
+  display: flex;
+}
+
+.App {
+  text-align: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}

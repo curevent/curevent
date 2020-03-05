@@ -1,0 +1,53 @@
+/*
+    Auth Form Default
+ */
+
+.auth-form {
+    width: 320px;
+    height: 200px;
+    background: #FFF;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Oswald', sans-serif;
+}
+
+.auth-input {
+    margin: 10px auto 10px auto;
+    width: 200px;
+}
+
+.auth-header {
+    width: 200px;
+    margin: 10px auto 10px auto;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.button {
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px black;
+    width: 80px;
+    height: 30px;
+    justify-content: center;
+    padding: 2px 0 2px 0;
+}
+
+.sign-in_button {
+    background: #00d3e8;
+}
+
+.login_button {
+    background: #00a8bc;
+    margin: 5px 60px 0 auto;
+    border: none;
+}
+
+#login {
+
+}
+
+#password {
+
+}
+
