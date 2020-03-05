@@ -14,7 +14,6 @@ function AuthPage() {
                     <div className="title">Name of product</div>
                     Some slogan of product here!
                 </div>
-
             </div>
             <Footer/>
         </div>

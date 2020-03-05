@@ -31,16 +31,46 @@
     height: 30px;
     justify-content: center;
     padding: 2px 0 2px 0;
+    user-select: none;
 }
 
-.sign-in_button {
+.sign-up_button {
     background: #00d3e8;
 }
 
+.sign-up_button:hover {
+    background: #57ebff;
+}
+
+.sign-up_button:active {
+    background: #97f8ff;
+}
+
 .login_button {
-    background: #00a8bc;
-    margin: 5px 60px 0 auto;
+    background: #00d3e8;
     border: none;
+    border-radius: 0;
+}
+
+.login_button:hover {
+    background: #57ebff;
+}
+
+.login_button:active {
+    background: #97f8ff;
+}
+
+.auth-bottom {
+    width: 200px;
+    margin: 0 auto 0 auto;
+    justify-content: space-around;
+}
+
+.password-recovery {
+    margin: auto 0 auto 0;
+    font-size: 15px;
+    color: #000000;
+    text-decoration: none;
 }
 
 #login {
@@ -51,3 +81,27 @@
 
 }
 
+/*
+    Footer
+ */
+
+.footer-container {
+    height: 40px;
+    background: #555555;
+    flex-direction: row;
+}
+
+.footer-link {
+    margin: auto 10px auto 10px;
+    font-family: Roboto sans-serif;
+    color: #65a8c3;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #8acfeb;
+}
+
+.footer-link:active {
+    color: #fff;
+}
