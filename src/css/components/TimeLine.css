@@ -1,0 +1,25 @@
+.timeline-container {
+    flex-direction: column;
+    flex-grow: 1;
+    margin: auto;
+}
+
+.line-container {
+    flex-direction: row;
+    height: 1px;
+    flex-grow: 1;
+}
+
+.line {
+    height: 2px;
+    width: 200px;
+    background: #555555;
+}
+
+i {
+    border: solid #555555;
+    border-width: 0 3px 3px 0;
+    margin: -4px 0 0 -8px;
+    padding: 4px;
+    transform: rotate(-45deg);
+}

@@ -1,26 +1,24 @@
 /*
-    Auth Form Default
+    Common styles
  */
 
 .auth-form {
-    width: 320px;
-    height: 200px;
-    background: #FFF;
+    width: 500px;
+    height: 320px;
+    background: rgba(255,255,255,0);
     flex-direction: column;
     justify-content: center;
     font-family: 'Oswald', sans-serif;
 }
 
 .auth-input {
-    margin: 10px auto 10px auto;
-    width: 200px;
-}
-
-.auth-header {
-    width: 200px;
-    margin: 10px auto 10px auto;
-    flex-direction: row;
-    justify-content: space-around;
+    margin: 0 auto 20px auto;
+    width: 320px;
+    height: 30px;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    color: #545454;
 }
 
 .button {
@@ -30,8 +28,18 @@
     width: 80px;
     height: 30px;
     justify-content: center;
-    padding: 2px 0 2px 0;
     user-select: none;
+}
+
+/*
+    Header styles
+ */
+
+.auth-header {
+    width: 200px;
+    margin: 0 auto 36px auto;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .sign-up_button {
@@ -46,10 +54,18 @@
     background: #97f8ff;
 }
 
+/*
+    Bottom styles
+ */
+
 .login_button {
     background: #00d3e8;
+    width: 160px;
+    height: 36px;
+    font-size: 24px;
     border: none;
     border-radius: 0;
+    font-family: 'Oswald', sans-serif;
 }
 
 .login_button:hover {
@@ -61,47 +77,16 @@
 }
 
 .auth-bottom {
-    width: 200px;
+    width: 320px;
     margin: 0 auto 0 auto;
     justify-content: space-around;
 }
+
+/* Forget password? */
 
 .password-recovery {
     margin: auto 0 auto 0;
     font-size: 15px;
     color: #000000;
     text-decoration: none;
-}
-
-#login {
-
-}
-
-#password {
-
-}
-
-/*
-    Footer
- */
-
-.footer-container {
-    height: 40px;
-    background: #555555;
-    flex-direction: row;
-}
-
-.footer-link {
-    margin: auto 10px auto 10px;
-    font-family: Roboto sans-serif;
-    color: #65a8c3;
-    text-decoration: none;
-}
-
-.footer-link:hover {
-    color: #8acfeb;
-}
-
-.footer-link:active {
-    color: #fff;
 }

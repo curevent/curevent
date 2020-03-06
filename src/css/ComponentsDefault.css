@@ -1,0 +1,25 @@
+
+/*
+    Footer
+ */
+
+.footer-container {
+    height: 40px;
+    background: #555555;
+    flex-direction: row;
+}
+
+.footer-link {
+    margin: auto 10px auto 10px;
+    font-family: Roboto sans-serif;
+    color: #8acfeb;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #b0e0f5;
+}
+
+.footer-link:active {
+    color: #fff;
+}
