@@ -12,7 +12,7 @@
 .footer-link {
     margin: auto 10px auto 10px;
     font-family: Roboto sans-serif;
-    color: #8acfeb;
+    color: #ffffff;
     text-decoration: none;
 }
 
@@ -22,4 +22,26 @@
 
 .footer-link:active {
     color: #fff;
+}
+
+/*
+    add button
+ */
+
+.add-button {
+    display: block;
+    position:absolute;
+    text-align: center;
+    vertical-align: center;
+    width: 20px;
+    height: 20px;
+    background: #71ffa9;
+    border-radius: 50%;
+}
+
+.add-button-container {
+    width: 20px;
+    height: 20px;
+    display: block;
+    position:absolute;
 }

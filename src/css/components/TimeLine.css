@@ -1,25 +1,38 @@
 .timeline-container {
     flex-direction: column;
     flex-grow: 1;
-    margin: auto;
+    justify-content: center;
+    margin: 0 100px 0 100px;
+}
+
+.time-container {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.now {
+    justify-content: center;
+    margin-top: 10px;
+    color: #555555;
 }
 
 .line-container {
-    flex-direction: row;
-    height: 1px;
-    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .line {
-    height: 2px;
-    width: 200px;
+    height: 1px;
+    width: 100%;
     background: #555555;
 }
 
-i {
-    border: solid #555555;
-    border-width: 0 3px 3px 0;
-    margin: -4px 0 0 -8px;
-    padding: 4px;
-    transform: rotate(-45deg);
+.time-mark {
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 1px;
+    height: 10px;
+    background: #555555;
 }

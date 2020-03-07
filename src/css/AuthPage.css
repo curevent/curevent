@@ -2,7 +2,7 @@
     flex-direction: row;
     flex-grow: 1;
     background: url("img/auth-bg.jpg") no-repeat #6fb7ff;
-    background-size: 100vmax;
+    background-size: cover;
 }
 
 .auth-panel {

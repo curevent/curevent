@@ -1,0 +1,31 @@
+.profile-content {
+    flex-direction: column;
+    width: 320px;
+    background: #ebebeb;
+}
+
+.user {
+    flex-direction: column;
+    margin: 80px auto 0 auto;
+    border: 1px solid #7d7d7d;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.user_img {
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: url("../img/avatar.jpg") #8acfeb;
+    background-size: cover;
+}
+
+.user_name {
+    justify-content: center;
+}
+
+.user_status {
+    margin: 10px;
+    justify-content: center;
+}

@@ -3,6 +3,7 @@
  */
 
 .auth-form {
+    margin-top: -100px;
     width: 500px;
     height: 320px;
     background: rgba(255,255,255,0);
@@ -19,6 +20,9 @@
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
     color: #545454;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 4px #000000;
 }
 
 .button {
@@ -37,7 +41,7 @@
 
 .auth-header {
     width: 200px;
-    margin: 0 auto 36px auto;
+    margin: 0 auto 64px auto;
     flex-direction: row;
     justify-content: space-around;
 }

@@ -1,0 +1,12 @@
+.header-container {
+    flex-direction: row;
+    height: 60px;
+    background: #66a8e1;
+}
+
+.header-logo {
+    font-family: 'Oswald', sans-serif;
+    font-size: 36px;
+    color: #FFFFFF;
+    margin: auto 0 auto 20px;
+}

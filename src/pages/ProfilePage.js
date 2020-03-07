@@ -7,9 +7,9 @@ import Header from "../components/Header";
 
 function ProfilePage() {
     return (
-        <div className="profile-container">
+        <div className="profile-page">
             <Header/>
-            <div className="profile-content">
+            <div className="profile-container">
                 <Profile/>
                 <TimeLine/>
             </div>

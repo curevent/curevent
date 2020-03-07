@@ -1,8 +1,9 @@
-.profile-container {
+.profile-page {
     flex-grow: 1;
     flex-direction: column;
 }
 
-.profile-content {
+.profile-container {
     flex-grow: 1;
+    flex-direction: row;
 }
