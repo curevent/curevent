@@ -5,5 +5,5 @@
 
 .profile-container {
     flex-grow: 1;
-    flex-direction: row;
+    flex-direction: column;
 }
