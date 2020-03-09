@@ -1,9 +1,9 @@
 import React from 'react';
-import '../css/AuthPage.css';
-import '../css/components/AuthForm.css';
-import AuthForm from "../components/AuthForm";
+import '../commons/components/css/AuthPage.css';
+import '../commons/components/css/components/AuthForm.css';
+import AuthForm from "./AuthForm";
 
-function AuthPage() {
+export default function LandingPage() {
     return (
         <div className="auth-container">
             <div className="auth-panel">
@@ -16,5 +16,3 @@ function AuthPage() {
         </div>
     );
 }
-
-export default AuthPage;

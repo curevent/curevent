@@ -1,10 +1,10 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import './css/App.css';
-import './css/ComponentsDefault.css'
-import AuthPage from "./pages/AuthPage";
-import ProfilePage from "./pages/ProfilePage";
-import Footer from "./components/Footer";
+import './commons/components/css/App.css';
+import './commons/components/css/ComponentsDefault.css'
+import LandingPage from "./landing/LandingPage";
+import ProfilePage from "./profile/ProfilePage";
+import Footer from "./commons/components/Footer";
 
 export const AuthContext = React.createContext({
     isAuth: false,
@@ -16,8 +16,9 @@ function App() {
       <BrowserRouter>
           <div className="App">
               <Switch>
-                  <Route path="/" exact component={AuthPage}/>
+                  <Route path="/" exact component={LandingPage}/>
                   <Route path="/profile" component={ProfilePage}/>
+                  <Route path="/search" component={ProfilePage}/>
               </Switch>
               <Footer/>
           </div>

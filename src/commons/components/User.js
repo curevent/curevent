@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/components/User.css'
+import './css/components/User.css'
 
 function User() {
     return (
