@@ -4,11 +4,11 @@
     position: absolute;
     margin-left: -25px;
     margin-top: -12px;
+    font-size: 10px;
     z-index: -1;
 }
 
 .add-button-title {
-    font-size: 10px;
     margin: auto;
 }
 
