@@ -1,4 +1,4 @@
-# CurEvent Project
+# curevent
 Timeline based social network
 
 ## frontend 
