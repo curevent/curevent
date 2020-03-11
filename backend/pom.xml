@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.curevent</groupId>
-	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Timeline social network</description>
+	<artifactId>curevent</artifactId>
+	<version>0.0.1</version>
+	<name>curevent</name>
+	<description>Timeline based social network</description>
 
 	<properties>
 		<java.version>11</java.version>
