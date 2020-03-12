@@ -1,6 +1,6 @@
-package com.curevent.repository;
+package com.curevent.repositories;
 
-import com.curevent.model.User;
+import com.curevent.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

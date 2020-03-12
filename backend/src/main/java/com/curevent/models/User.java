@@ -1,6 +1,4 @@
-package com.curevent.model;
-
-import org.springframework.stereotype.Component;
+package com.curevent.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

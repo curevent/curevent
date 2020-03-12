@@ -1,11 +1,9 @@
-package com.curevent.controller;
+package com.curevent.controllers;
 
-import com.curevent.model.User;
-import com.curevent.repository.UserRepository;
+import com.curevent.models.User;
+import com.curevent.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class UserController {
