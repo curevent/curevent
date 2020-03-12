@@ -5,6 +5,8 @@ import com.curevent.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 public class UserController {
 
@@ -12,9 +14,8 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userRepository.findById(id).stream()
-                .findAny().orElse(null); //if not found return null
+    public User getUser(@PathVariable UUID id) {
+        return userRepository.findById(id).stream().findAny().orElse(null);
     }
 
     @PostMapping("/users/add")

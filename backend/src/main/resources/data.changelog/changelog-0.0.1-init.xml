@@ -10,7 +10,7 @@
 
     <changeSet id="init-users-table" author="hardelele" runOnChange="true">
         <createTable tableName="users">
-            <column name="id" type="serial" autoIncrement="true">
+            <column name="id" type="uuid" >
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="email" type="varchar(255)"/>
