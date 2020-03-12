@@ -1,7 +1,7 @@
 package com.curevent.controllers;
 
 import com.curevent.models.User;
-import com.curevent.repositories.UserRepository;
+import com.curevent.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,16 +10,20 @@ import java.util.UUID;
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
 
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable UUID id) {
-        return userRepository.findById(id).stream().findAny().orElse(null);
+
+        return userService.getOneById(id);
     }
 
     @PostMapping("/users/add")
     public void addUser(@RequestBody User user) {
-        userRepository.save(user);
+        userService.add(user);
     }
 }
