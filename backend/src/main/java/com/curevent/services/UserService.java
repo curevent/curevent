@@ -10,7 +10,6 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    @Autowired
     private final UserRepository userRepository;
 
     @Autowired
@@ -22,9 +21,15 @@ public class UserService {
         return userRepository.findById(id).stream().findAny().orElse(null);
     }
 
+    public User getOneByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public User getOneByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public void add(User user) {
         userRepository.save(user);
     }
-
-
 }
