@@ -67,7 +67,7 @@
 
     <changeSet id="init-categories-table" author="alsntt" runOnChange="true">
         <createTable tableName="categories">
-            <column name="id" type="uuid" >
+            <column name="id" type="bigint" >
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="description" type="varchar(50)" >
