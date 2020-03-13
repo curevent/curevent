@@ -19,7 +19,7 @@
             <column name="email" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="varchar(50)"/>
+            <column name="password" type="varchar(128)"/>
             <column name="name" type="varchar(50)" />
             <column name="surname" type="varchar(50)"/>
             <column name="country" type="varchar(50)"/>
@@ -36,6 +36,29 @@
             <column name="owner_id" type="uuid" >
                 <constraints nullable="false"/>
             </column>
+            <column name="time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="interval"/>
+            <column name="title" type="varchar(50)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(100)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="geotag" type="jsonb"/>
+            <column name="privacy_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init-templated-table" author="alsntt" runOnChange="true">
+        <createTable tableName="templates">
+            <column name="id" type="uuid" >
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="owner_id" type="uuid" >
+                <constraints nullable="false"/>
+            </column>
             <column name="time" type="timestamp"/>
             <column name="duration" type="interval"/>
             <column name="repeat_time" type="interval" />
@@ -46,7 +69,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="geotag" type="jsonb"/>
-            <column name="is_template" type="boolean"/>
             <column name="privacy_id" type="bigint"/>
         </createTable>
     </changeSet>
