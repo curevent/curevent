@@ -43,7 +43,7 @@
             <column name="title" type="varchar(50)" >
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="varchar(100)" >
+            <column name="description" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
             <column name="geotag" type="jsonb"/>
@@ -65,7 +65,7 @@
             <column name="title" type="varchar(50)" >
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="varchar(100)" >
+            <column name="description" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
             <column name="geotag" type="jsonb"/>
@@ -89,10 +89,32 @@
 
     <changeSet id="init-categories-table" author="alsntt" runOnChange="true">
         <createTable tableName="categories">
-            <column name="id" type="bigint" >
+            <column name="id" type="uuid" >
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="description" type="varchar(50)" >
+            <column name="description" type="varchar(100)" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init-event_tags-table" author="alsntt" runOnChange="true">
+        <createTable tableName="event_tags">
+            <column name="id" type="uuid" >
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="event_id" type="uuid" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init-template_tags-table" author="alsntt" runOnChange="true">
+        <createTable tableName="template_tags">
+            <column name="id" type="uuid" >
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="template_id" type="uuid" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -100,13 +122,10 @@
 
     <changeSet id="init-tags-table" author="alsntt" runOnChange="true">
         <createTable tableName="tags">
-            <column name="id" type="bigint" >
+            <column name="id" type="uuid" >
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="event_id" type="uuid" >
-                <constraints nullable="false"/>
-            </column>
-            <column name="description" type="varchar(50)" >
+            <column name="description" type="varchar(100)" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -123,7 +142,7 @@
             <column name="owner_id" type="uuid" >
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="varchar(100)" >
+            <column name="description" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
