@@ -1,6 +1,6 @@
 package com.curevent.utils;
 
-import com.curevent.models.User;
+import com.curevent.models.entities.UserEntity;
 import com.curevent.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,12 +20,12 @@ public class UserValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return User.class.equals(clazz);
+        return UserEntity.class.equals(clazz);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        User user = (User) o;
+        UserEntity user = (UserEntity) o;
         if (userService.getOneByEmail(user.getEmail()) != null) {
             errors.rejectValue("email", "");
         }

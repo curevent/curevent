@@ -73,8 +73,8 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="init-friends-table" author="alsntt" runOnChange="true">
-        <createTable tableName="friends">
+    <changeSet id="init-relationship-table" author="alsntt" runOnChange="true">
+        <createTable tableName="relationships">
             <column name="owner_id" type="uuid" >
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -89,7 +89,7 @@
 
     <changeSet id="init-categories-table" author="alsntt" runOnChange="true">
         <createTable tableName="categories">
-            <column name="id" type="uuid" >
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="description" type="varchar(100)" >

@@ -1,4 +1,4 @@
-package com.curevent.models;
+package com.curevent.models.entities;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -10,11 +10,12 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
