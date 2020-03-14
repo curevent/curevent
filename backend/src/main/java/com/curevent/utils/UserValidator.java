@@ -27,14 +27,10 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
         if (userService.getOneByEmail(user.getEmail()) != null) {
-            errors.rejectValue(
-                    "email", "", "This email is already in use"
-            );
+            errors.rejectValue("email", "");
         }
         if (userService.getOneByUsername(user.getUsername()) != null) {
-            errors.rejectValue(
-                    "username", "", "This username is already in use"
-            );
+            errors.rejectValue("username", "");
         }
     }
 }

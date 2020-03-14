@@ -1,10 +1,13 @@
 package com.curevent.controllers;
 
+import com.curevent.exceptions.UserAlreadyExistsException;
+import com.curevent.exceptions.UserNotFoundException;
 import com.curevent.models.User;
 import com.curevent.services.UserService;
 import com.curevent.utils.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,14 +27,20 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable UUID id) {
-        return userService.getOneById(id);
+        User user = userService.getOneById(id);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        return user;
     }
 
     @PostMapping("/users/add")
     public void addUser(@RequestBody @Valid User user, BindingResult result) {
         userValidator.validate(user, result);
-        if (!result.hasErrors()) {
-            userService.add(user);
+        if (result.hasErrors()) {
+            FieldError fieldError = result.getFieldError();
+            throw new UserAlreadyExistsException(fieldError.getField());
         }
+        userService.add(user);
     }
 }
