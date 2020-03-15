@@ -4,9 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.Map;
+import java.sql.Timestamp;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,9 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class UserEntity {
-
+@Table(name = "events")
+public class EventEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -27,35 +25,36 @@ public class UserEntity {
     )
     private UUID id;
 
-    @Column(name = "username")
-    @NotNull
-    private String username;
+//    @Column(name = "owner_id")
+//    @NotNull
+//    private UUID ownerId;
 
-    @Email
-    @NotNull
-    @Column(name = "email")
-    private String email;
+    @ManyToOne
+    private UserEntity owner;
 
-    private String name;
-    private String surname;
-    private String country;
-    private String city;
-    private String status;
-
+    @Column(name = "time")
     @NotNull
-    @Column(name = "password")
-    private String password;
+    private Timestamp time;
+
+    @Column(name = "duration")
+    private Long duration;
+
+    @Column(name = "title")
+    @NotNull
+    private String title;
+
+    @Column(name = "description")
+    @NotNull
+    private String description;
+
+  //  @Column(name = "geotag")
+
+    @Column(name = "privacy_id")
+    private Long privacyId;
 
     @OneToMany
-    private Map <UUID, CategoryEntity> relationships;
-
-    @OneToMany
-    private Set<EventEntity> events;
-
-    @OneToMany
-    private Set<TemplateEntity> templates;
+    private Set<TagEntity> tags;
 
     @OneToMany
     private Set<CommentEntity> comments;
-
 }

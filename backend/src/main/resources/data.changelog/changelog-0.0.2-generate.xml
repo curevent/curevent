@@ -76,7 +76,7 @@
     <changeSet id="init-relationship-table" author="alsntt" runOnChange="true">
         <createTable tableName="relationships">
             <column name="owner_id" type="uuid" >
-                <constraints nullable="false" primaryKey="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="friend_id" type="uuid" >
                 <constraints nullable="false"/>
