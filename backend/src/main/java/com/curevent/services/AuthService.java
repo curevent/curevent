@@ -1,6 +1,8 @@
 package com.curevent.services;
 
 import com.curevent.exceptions.AuthenticationException;
+import com.curevent.exceptions.NotFoundException;
+import com.curevent.models.entities.RoleEntity;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.models.forms.LoginForm;
 import com.curevent.models.forms.RegisterForm;
@@ -17,8 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -50,9 +51,15 @@ public class AuthService {
             // save the user in database
             userRepository.save(userModel);
 
+            RoleEntity role = new RoleEntity();
+            role.setName("USER");
+
+            Set<RoleEntity> roles = new HashSet<>();
+            roles.add(role);
+
             // create tokens transfer object and return it
             return AuthTransfer.builder()
-                    //.accessToken(tokenProvider.createAccessToken(userModel.getUsername(), userModel.getRoles()))
+                    .accessToken(tokenProvider.createAccessToken(userModel.getUsername(), roles))
                     .refreshToken(refreshToken)
                     .tokenType(tokenProvider.getTokenType())
                     .expiresIn(tokenProvider.getExpire())
@@ -82,9 +89,12 @@ public class AuthService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getUsername(),
                     loginForm.getPassword()));
 
+            Set<RoleEntity> roles = new HashSet<>();
+            roles.add(userModel.getRole());
+
             // create tokens transfer object and return it
             return AuthTransfer.builder()
-                    .accessToken(tokenProvider.createAccessToken(userModel.getUsername(), userModel.getRoles()))
+                    .accessToken(tokenProvider.createAccessToken(userModel.getUsername(), roles))
                     .refreshToken(refreshToken)
                     .tokenType(tokenProvider.getTokenType())
                     .expiresIn(tokenProvider.getExpire())
@@ -108,13 +118,18 @@ public class AuthService {
 
     public AuthTransfer refresh(String username, String refreshToken) {
         // get instance of user model by username from database
-        Optional<UserEntity> userModel = userRepository.findByUsername(username);
+        UserEntity userModel = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("The user by username [" + username + "] not found",
+                        HttpStatus.NOT_FOUND));
+
+        Set<RoleEntity> roles = new HashSet<>();
+        roles.add(userModel.getRole());
 
         // check for equality of refresh tokens
-        if (userModel.isPresent() && userModel.get().getRefreshToken().equals(refreshToken)) {
+        if (userModel.getRefreshToken().equals(refreshToken)) {
 
             return AuthTransfer.builder()
-                    .accessToken(tokenProvider.createAccessToken(username, userModel.get().getRoles()))
+                    .accessToken(tokenProvider.createAccessToken(username, roles))
                     .refreshToken(tokenProvider.createRefreshToken())
                     .tokenType(tokenProvider.getTokenType())
                     .expiresIn(tokenProvider.getExpire())
