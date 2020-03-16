@@ -1,5 +1,7 @@
-package com.curevent.exceptions;
+package com.curevent.exceptions.handlers;
 
+import com.curevent.exceptions.UserAlreadyExistsException;
+import com.curevent.exceptions.UserNotFoundException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;

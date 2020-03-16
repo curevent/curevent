@@ -1,5 +1,6 @@
-package com.curevent.exceptions;
+package com.curevent.exceptions.handlers;
 
+import com.curevent.exceptions.CategoryNotFoundException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
