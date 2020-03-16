@@ -28,6 +28,6 @@ public class TemplateTagEntity {
     @ManyToOne
     private TagEntity tag;
 
-    @ManyToOne
-    private TemplateEntity template;
+    @Column(name = "template_id")
+    private UUID templateId;
 }

@@ -23,8 +23,8 @@ public class EventTagService {
         this.eventTagRepository = eventTagRepository;
     }
 
-    public List<EventTagEntity> getByEventId(UUID ownerId) {
-        return eventTagRepository.findByEventId(ownerId);
+    public List<EventTagEntity> getByEventId(UUID templateId) {
+        return eventTagRepository.findByEventId(templateId);
     }
     public void add(EventTagEntity eventTagEntity) {
         eventTagRepository.save(eventTagEntity);

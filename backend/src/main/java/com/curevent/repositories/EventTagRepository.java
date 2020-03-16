@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface EventTagRepository extends JpaRepository<EventTagEntity, UUID> {
-    List<EventTagEntity> findByEventId(UUID ownerId);
+    List<EventTagEntity> findByEventId(UUID eventId);
 }

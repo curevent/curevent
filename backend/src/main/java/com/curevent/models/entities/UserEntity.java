@@ -55,9 +55,9 @@ public class UserEntity {
     @JoinColumn(name = "owner_id")
     private List<EventEntity> events;
 
-//    @OneToMany
-//    @JoinColumn(name = "owner_id")
-//    private Set<TemplateEntity> templates;
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private List<TemplateEntity> templates;
 //
 //    @OneToMany
 //    private Set<CommentEntity> comments;

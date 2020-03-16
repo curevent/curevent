@@ -51,6 +51,7 @@ public class TemplateEntity {
     private Long privacyId;
 
     @OneToMany
-    private Set<TemplateTagEntity> tags;
+    @JoinColumn(name = "template_id")
+    private Set<TemplateTagEntity> templateTags;
 
 }
