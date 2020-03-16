@@ -8,14 +8,4 @@
         http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="init-users-table" author="hardelele" runOnChange="true">
-        <createTable tableName="users">
-            <column name="id" type="uuid" >
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="email" type="varchar(255)"/>
-            <column name="username" type="varchar(255)"/>
-            <column name="password" type="varchar(255)"/>
-        </createTable>
-    </changeSet>
 </databaseChangeLog>

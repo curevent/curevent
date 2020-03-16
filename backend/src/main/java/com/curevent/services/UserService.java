@@ -1,16 +1,17 @@
 package com.curevent.services;
 
-import com.curevent.models.User;
+import com.curevent.models.entities.UserEntity;
 import com.curevent.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
+@Transactional
 public class UserService {
 
-    @Autowired
     private final UserRepository userRepository;
 
     @Autowired
@@ -18,13 +19,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getOneById(UUID id) {
+    public UserEntity getOneById(UUID id) {
         return userRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public void add(User user) {
-        userRepository.save(user);
+    public UserEntity getOneByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
+    public UserEntity getOneByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
+    public void add(UserEntity user) {
+        userRepository.save(user);
+    }
 }
