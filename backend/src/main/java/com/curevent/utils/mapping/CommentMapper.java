@@ -1,8 +1,6 @@
 package com.curevent.utils.mapping;
 
-import com.curevent.models.entities.CategoryEntity;
 import com.curevent.models.entities.CommentEntity;
-import com.curevent.models.transfers.CategoryTransfer;
 import com.curevent.models.transfers.CommentTransfer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

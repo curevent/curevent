@@ -1,14 +1,9 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.EventNotFoundException;
 import com.curevent.exceptions.TemplateNotFoundException;
-import com.curevent.models.entities.EventEntity;
 import com.curevent.models.entities.TemplateEntity;
-import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.TemplateTransfer;
-import com.curevent.services.EventService;
 import com.curevent.services.TemplateService;
-import com.curevent.utils.mapping.EventMapper;
 import com.curevent.utils.mapping.TemplateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

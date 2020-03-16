@@ -1,8 +1,5 @@
 package com.curevent.models.transfers;
 
-import com.curevent.models.entities.CommentEntity;
-import com.curevent.models.entities.EventEntity;
-import com.curevent.models.entities.TemplateEntity;
 import lombok.*;
 
 import java.util.List;

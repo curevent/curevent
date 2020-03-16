@@ -1,9 +1,7 @@
 package com.curevent.utils.mapping;
 
-import com.curevent.models.entities.EventEntity;
 import com.curevent.models.entities.EventTagEntity;
 import com.curevent.models.transfers.EventTagTransfer;
-import com.curevent.models.transfers.EventTransfer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

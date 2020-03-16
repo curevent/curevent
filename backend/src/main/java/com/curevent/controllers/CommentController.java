@@ -1,14 +1,9 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.CategoryNotFoundException;
 import com.curevent.exceptions.CommentNotFoundException;
-import com.curevent.models.entities.CategoryEntity;
 import com.curevent.models.entities.CommentEntity;
-import com.curevent.models.transfers.CategoryTransfer;
 import com.curevent.models.transfers.CommentTransfer;
-import com.curevent.services.CategoryService;
 import com.curevent.services.CommentService;
-import com.curevent.utils.mapping.CategoryMapper;
 import com.curevent.utils.mapping.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,14 +1,9 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.CategoryNotFoundException;
 import com.curevent.exceptions.EventNotFoundException;
-import com.curevent.models.entities.CategoryEntity;
 import com.curevent.models.entities.EventEntity;
-import com.curevent.models.transfers.CategoryTransfer;
 import com.curevent.models.transfers.EventTransfer;
-import com.curevent.services.CategoryService;
 import com.curevent.services.EventService;
-import com.curevent.utils.mapping.CategoryMapper;
 import com.curevent.utils.mapping.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

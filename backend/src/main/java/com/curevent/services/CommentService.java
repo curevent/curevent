@@ -1,8 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.models.entities.CategoryEntity;
 import com.curevent.models.entities.CommentEntity;
-import com.curevent.repositories.CategoryRepository;
 import com.curevent.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

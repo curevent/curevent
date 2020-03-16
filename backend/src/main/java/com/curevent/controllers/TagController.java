@@ -1,14 +1,9 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.EventNotFoundException;
 import com.curevent.exceptions.TagNotFoundException;
-import com.curevent.models.entities.EventEntity;
 import com.curevent.models.entities.TagEntity;
-import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.TagTransfer;
-import com.curevent.services.EventService;
 import com.curevent.services.TagService;
-import com.curevent.utils.mapping.EventMapper;
 import com.curevent.utils.mapping.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

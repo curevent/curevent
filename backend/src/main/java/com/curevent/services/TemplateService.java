@@ -1,8 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.models.entities.EventEntity;
 import com.curevent.models.entities.TemplateEntity;
-import com.curevent.repositories.EventRepository;
 import com.curevent.repositories.TemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

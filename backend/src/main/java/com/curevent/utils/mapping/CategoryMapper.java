@@ -1,9 +1,7 @@
 package com.curevent.utils.mapping;
 
 import com.curevent.models.entities.CategoryEntity;
-import com.curevent.models.entities.UserEntity;
 import com.curevent.models.transfers.CategoryTransfer;
-import com.curevent.models.transfers.UserTransfer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

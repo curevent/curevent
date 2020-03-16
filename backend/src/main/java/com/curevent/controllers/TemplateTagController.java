@@ -1,12 +1,8 @@
 package com.curevent.controllers;
 
-import com.curevent.models.entities.EventTagEntity;
 import com.curevent.models.entities.TemplateTagEntity;
-import com.curevent.models.transfers.EventTagTransfer;
 import com.curevent.models.transfers.TemplateTagTransfer;
-import com.curevent.services.EventTagService;
 import com.curevent.services.TemplateTagService;
-import com.curevent.utils.mapping.EventTagMapper;
 import com.curevent.utils.mapping.TemplateTagMapper;
 import org.springframework.web.bind.annotation.*;
 

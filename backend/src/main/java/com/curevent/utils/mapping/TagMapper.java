@@ -1,8 +1,6 @@
 package com.curevent.utils.mapping;
 
-import com.curevent.models.entities.EventTagEntity;
 import com.curevent.models.entities.TagEntity;
-import com.curevent.models.transfers.EventTagTransfer;
 import com.curevent.models.transfers.TagTransfer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

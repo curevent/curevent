@@ -1,13 +1,9 @@
 package com.curevent.controllers;
 
 import com.curevent.models.entities.EventTagEntity;
-import com.curevent.models.entities.RelationshipEntity;
 import com.curevent.models.transfers.EventTagTransfer;
-import com.curevent.models.transfers.RelationshipTransfer;
 import com.curevent.services.EventTagService;
-import com.curevent.services.RelationshipService;
 import com.curevent.utils.mapping.EventTagMapper;
-import com.curevent.utils.mapping.RelationshipMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

@@ -1,8 +1,6 @@
 package com.curevent.utils.mapping;
 
-import com.curevent.models.entities.EventEntity;
 import com.curevent.models.entities.TemplateEntity;
-import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.TemplateTransfer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
