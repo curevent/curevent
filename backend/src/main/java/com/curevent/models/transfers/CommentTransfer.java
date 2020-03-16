@@ -1,4 +1,4 @@
-package com.curevent.models.entities;
+package com.curevent.models.transfers;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,25 +14,10 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "comments")
 
-public class CommentEntity {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+public class CommentTransfer {
     private UUID id;
-
-    @Column(name = "event_id")
     private UUID eventId;
-
-    @Column(name = "owner_id")
     private UUID ownerId;
-
-    @Column(name = "description")
-    @NotNull
     private String description;
 }

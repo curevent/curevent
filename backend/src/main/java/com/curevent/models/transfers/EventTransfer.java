@@ -1,6 +1,7 @@
 package com.curevent.models.transfers;
 
 import com.curevent.models.entities.CategoryEntity;
+import com.curevent.models.entities.CommentEntity;
 import com.curevent.models.entities.EventTagEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,7 +29,5 @@ public class EventTransfer {
   //  @Column(name = "geotag")
     private CategoryTransfer privacy;
     private List<EventTagTransfer> eventTags;
-
-//    @OneToMany
-//    private Set<CommentEntity> comments;
+    private List<CommentTransfer> comments;
 }

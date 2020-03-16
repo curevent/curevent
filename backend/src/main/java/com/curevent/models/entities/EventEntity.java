@@ -54,6 +54,7 @@ public class EventEntity {
     @JoinColumn(name = "event_id")
     private List<EventTagEntity> eventTags;
 
-//    @OneToMany
-//    private Set<CommentEntity> comments;
+    @OneToMany
+    @JoinColumn(name = "event_id")
+    private List<CommentEntity> comments;
 }

@@ -1,5 +1,6 @@
 package com.curevent.models.transfers;
 
+import com.curevent.models.entities.CommentEntity;
 import com.curevent.models.entities.EventEntity;
 import com.curevent.models.entities.TemplateEntity;
 import lombok.*;
@@ -28,4 +29,5 @@ public class UserTransfer {
     private List<RelationshipTransfer> relationships;
     private List<EventTransfer> events;
     private List<TemplateTransfer> templates;
+    private List<CommentTransfer> comments;
 }
