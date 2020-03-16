@@ -24,4 +24,7 @@ public class UserTransfer {
     private String password;
 
     private List<RelationshipTransfer> relationships;
+    private List<EventTransfer> events;
+    private List<TemplateTransfer> templates;
+    private List<CommentTransfer> comments;
 }

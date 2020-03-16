@@ -28,10 +28,4 @@ public class TagEntity {
     @Column(name = "description")
     @NotNull
     private String description;
-
-    @ManyToOne
-    private TemplateTagEntity templateTag;
-
-    @ManyToOne
-    private EventTagEntity eventTag;
 }

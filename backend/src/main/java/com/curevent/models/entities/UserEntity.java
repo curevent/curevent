@@ -1,6 +1,5 @@
 package com.curevent.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -8,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -51,16 +49,19 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
-    @OneToMany()
+    @OneToMany
     @JoinColumn(name="owner_id")
     private List <RelationshipEntity> relationships;
 
-//    @OneToMany
-//    private Set<EventEntity> events;
-//
-//    @OneToMany
-//    private Set<TemplateEntity> templates;
-//
-//    @OneToMany
-//    private Set<CommentEntity> comments;
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private List<EventEntity> events;
+
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private List<TemplateEntity> templates;
+
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private List<CommentEntity> comments;
 }

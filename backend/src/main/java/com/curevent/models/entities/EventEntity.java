@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -25,11 +25,12 @@ public class EventEntity {
     )
     private UUID id;
 
-    @ManyToOne
-    private UserEntity owner;
+    @Column(name = "owner_id")
+    @NotNull
+    private UUID ownerId;
 
     @Column(name = "time")
-    @NotNull
+  //  @NotNull
     private Timestamp time;
 
     @Column(name = "duration")
@@ -45,12 +46,15 @@ public class EventEntity {
 
   //  @Column(name = "geotag")
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "privacy_id")
     private CategoryEntity privacy;
 
     @OneToMany
-    private Set<EventTagEntity> tags;
+    @JoinColumn(name = "event_id")
+    private List<EventTagEntity> eventTags;
 
     @OneToMany
-    private Set<CommentEntity> comments;
+    @JoinColumn(name = "event_id")
+    private List<CommentEntity> comments;
 }

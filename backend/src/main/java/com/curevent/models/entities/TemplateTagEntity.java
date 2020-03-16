@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
@@ -28,6 +27,6 @@ public class TemplateTagEntity {
     @ManyToOne
     private TagEntity tag;
 
-    @ManyToOne
-    private TemplateEntity template;
+    @Column(name = "template_id")
+    private UUID templateId;
 }
