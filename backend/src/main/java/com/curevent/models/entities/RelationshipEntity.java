@@ -1,5 +1,6 @@
 package com.curevent.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tags")
-public class TagEntity {
+@Table(name = "relationships")
+public class RelationshipEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -25,13 +26,13 @@ public class TagEntity {
     )
     private UUID id;
 
-    @Column(name = "description")
-    @NotNull
-    private String description;
+    @Column(name = "owner_id")
+    private UUID ownerId;
+
+    @Column(name = "friend_id")
+    private UUID friendId;
 
     @ManyToOne
-    private TemplateTagEntity templateTag;
-
-    @ManyToOne
-    private EventTagEntity eventTag;
+    @JoinColumn(name = "privacy_id")
+    private CategoryEntity category;
 }

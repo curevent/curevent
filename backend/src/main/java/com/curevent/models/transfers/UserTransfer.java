@@ -1,6 +1,8 @@
 package com.curevent.models.transfers;
 
 import lombok.*;
+
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -20,4 +22,6 @@ public class UserTransfer {
     private String city;
     private String status;
     private String password;
+
+    private List<RelationshipTransfer> relationships;
 }

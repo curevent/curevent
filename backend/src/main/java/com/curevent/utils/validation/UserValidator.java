@@ -1,4 +1,4 @@
-package com.curevent.utils;
+package com.curevent.utils.validation;
 
 import com.curevent.models.entities.UserEntity;
 import com.curevent.services.UserService;

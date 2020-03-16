@@ -15,8 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tags")
-public class TagEntity {
+@Table(name = "template_tags")
+public class TemplateTagEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -25,13 +25,9 @@ public class TagEntity {
     )
     private UUID id;
 
-    @Column(name = "description")
-    @NotNull
-    private String description;
+    @ManyToOne
+    private TagEntity tag;
 
     @ManyToOne
-    private TemplateTagEntity templateTag;
-
-    @ManyToOne
-    private EventTagEntity eventTag;
+    private TemplateEntity template;
 }

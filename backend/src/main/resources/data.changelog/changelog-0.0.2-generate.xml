@@ -75,6 +75,9 @@
 
     <changeSet id="init-relationship-table" author="alsntt" runOnChange="true">
         <createTable tableName="relationships">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
             <column name="owner_id" type="uuid" >
                 <constraints nullable="false"/>
             </column>
@@ -100,8 +103,11 @@
 
     <changeSet id="init-event_tags-table" author="alsntt" runOnChange="true">
         <createTable tableName="event_tags">
-            <column name="id" type="uuid" >
+            <column name="id" type="uuid">
                 <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="tag_id" type="uuid" >
+                <constraints nullable="false"/>
             </column>
             <column name="event_id" type="uuid" >
                 <constraints nullable="false"/>
@@ -111,8 +117,11 @@
 
     <changeSet id="init-template_tags-table" author="alsntt" runOnChange="true">
         <createTable tableName="template_tags">
-            <column name="id" type="uuid" >
+            <column name="id" type="uuid">
                 <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="tag_id" type="uuid" >
+                <constraints nullable="false"/>
             </column>
             <column name="template_id" type="uuid" >
                 <constraints nullable="false"/>

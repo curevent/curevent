@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
@@ -15,8 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tags")
-public class TagEntity {
+@Table(name = "event_tags")
+public class EventTagEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -25,13 +24,10 @@ public class TagEntity {
     )
     private UUID id;
 
-    @Column(name = "description")
-    @NotNull
-    private String description;
+    @ManyToOne
+    private TagEntity tag;
 
     @ManyToOne
-    private TemplateTagEntity templateTag;
+    private EventEntity event;
 
-    @ManyToOne
-    private EventTagEntity eventTag;
 }

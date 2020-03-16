@@ -1,15 +1,15 @@
 package com.curevent.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,9 +26,12 @@ public class CategoryEntity {
     @NotNull
     private String description;
 
-    @ManyToOne
-    private EventEntity event;
+//    @OneToMany(mappedBy = "category")
+//    private List<RelationshipEntity> relationships;
 
-    @ManyToOne
-    private TemplateEntity template;
+//    @ManyToOne
+//    private EventEntity event;
+//
+//    @ManyToOne
+//    private TemplateEntity template;
 }

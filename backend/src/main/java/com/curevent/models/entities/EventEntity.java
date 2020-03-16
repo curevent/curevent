@@ -25,10 +25,6 @@ public class EventEntity {
     )
     private UUID id;
 
-//    @Column(name = "owner_id")
-//    @NotNull
-//    private UUID ownerId;
-
     @ManyToOne
     private UserEntity owner;
 
@@ -49,11 +45,11 @@ public class EventEntity {
 
   //  @Column(name = "geotag")
 
-    @Column(name = "privacy_id")
-    private Long privacyId;
+    @ManyToOne
+    private CategoryEntity privacy;
 
     @OneToMany
-    private Set<TagEntity> tags;
+    private Set<EventTagEntity> tags;
 
     @OneToMany
     private Set<CommentEntity> comments;

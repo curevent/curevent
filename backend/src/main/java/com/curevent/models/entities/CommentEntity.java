@@ -26,22 +26,13 @@ public class CommentEntity {
     )
     private UUID id;
 
-//    @Column(name = "event_id")
-//    @NotNull
-//    private UUID eventId;
-//
-//    @Column(name = "owner_id")
-//    @NotNull
-//    private UUID ownerId;
-
     @ManyToOne
     private EventEntity event;
+
     @ManyToOne
     private UserEntity owner;
 
     @Column(name = "description")
     @NotNull
     private String description;
-
-
 }

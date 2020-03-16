@@ -51,6 +51,6 @@ public class TemplateEntity {
     private Long privacyId;
 
     @OneToMany
-    private Set<TagEntity> tags;
+    private Set<TemplateTagEntity> tags;
 
 }
