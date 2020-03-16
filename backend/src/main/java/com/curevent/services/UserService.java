@@ -3,6 +3,7 @@ package com.curevent.services;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +25,13 @@ public class UserService {
     }
 
     public UserEntity getOneByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User by email " + email + " not found"));
     }
 
     public UserEntity getOneByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User by username " + username + " not found"));
     }
 
     public void add(UserEntity user) {
