@@ -1,15 +1,20 @@
 package com.curevent.controllers;
 
+import com.curevent.models.forms.LoginForm;
 import com.curevent.models.forms.RegisterForm;
 import com.curevent.models.transfers.AuthTransfer;
+import com.curevent.models.transfers.UserTransfer;
 import com.curevent.services.AuthService;
 import lombok.extern.slf4j.Slf4j;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @Slf4j
