@@ -37,9 +37,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="time" type="timestamp">
-                <constraints nullable="false"/>
+<!--                <constraints nullable="false"/>-->
             </column>
-            <column name="duration" type="interval"/>
+            <column name="duration" type="bigint"/>
             <column name="title" type="varchar(50)" >
                 <constraints nullable="false"/>
             </column>
@@ -60,8 +60,8 @@
                 <constraints nullable="false"/>
             </column>
             <column name="time" type="timestamp"/>
-            <column name="duration" type="interval"/>
-            <column name="repeat_time" type="interval" />
+            <column name="duration" type="bigint"/>
+            <column name="repeat_time" type="bigint" />
             <column name="title" type="varchar(50)" >
                 <constraints nullable="false"/>
             </column>
@@ -75,8 +75,11 @@
 
     <changeSet id="init-relationship-table" author="alsntt" runOnChange="true">
         <createTable tableName="relationships">
-            <column name="owner_id" type="uuid" >
+            <column name="id" type="uuid">
                 <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="owner_id" type="uuid" >
+                <constraints nullable="false"/>
             </column>
             <column name="friend_id" type="uuid" >
                 <constraints nullable="false"/>
@@ -100,8 +103,11 @@
 
     <changeSet id="init-event_tags-table" author="alsntt" runOnChange="true">
         <createTable tableName="event_tags">
-            <column name="id" type="uuid" >
+            <column name="id" type="uuid">
                 <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="tag_id" type="uuid" >
+                <constraints nullable="false"/>
             </column>
             <column name="event_id" type="uuid" >
                 <constraints nullable="false"/>
@@ -111,8 +117,11 @@
 
     <changeSet id="init-template_tags-table" author="alsntt" runOnChange="true">
         <createTable tableName="template_tags">
-            <column name="id" type="uuid" >
+            <column name="id" type="uuid">
                 <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="tag_id" type="uuid" >
+                <constraints nullable="false"/>
             </column>
             <column name="template_id" type="uuid" >
                 <constraints nullable="false"/>

@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -44,4 +45,19 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
+    @OneToMany
+    @JoinColumn(name="owner_id")
+    private List <RelationshipEntity> relationships;
+
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private List<EventEntity> events;
+
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private List<TemplateEntity> templates;
+
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private List<CommentEntity> comments;
 }
