@@ -37,9 +37,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="time" type="timestamp">
-                <constraints nullable="false"/>
+<!--                <constraints nullable="false"/>-->
             </column>
-            <column name="duration" type="interval"/>
+            <column name="duration" type="bigint"/>
             <column name="title" type="varchar(50)" >
                 <constraints nullable="false"/>
             </column>

@@ -27,7 +27,6 @@ public class EventTagEntity {
     @ManyToOne
     private TagEntity tag;
 
-    @ManyToOne
-    private EventEntity event;
-
+    @Column(name = "event_id")
+    private UUID eventId;
 }

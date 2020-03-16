@@ -31,7 +31,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryTransfer getUser(@PathVariable Long id) {
+    public CategoryTransfer getCategory(@PathVariable Long id) {
         CategoryEntity categoryEntity = categoryService.getOneById(id);
         if (categoryEntity == null) {
             throw new CategoryNotFoundException();
@@ -40,7 +40,7 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public void addUser(@RequestBody @Valid CategoryTransfer categoryTransfer) {
+    public void addCategory(@RequestBody @Valid CategoryTransfer categoryTransfer) {
         CategoryEntity categoryEntity = mapper.toEntity(categoryTransfer);
         categoryService.add(categoryEntity);
     }

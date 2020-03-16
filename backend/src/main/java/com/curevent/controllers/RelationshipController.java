@@ -32,13 +32,13 @@ public class RelationshipController {
     }
 
     @GetMapping("/{id}")
-    public List<RelationshipTransfer> getByOwnerId(@PathVariable UUID id) {
+    public List<RelationshipTransfer> getRelationshipByOwnerId(@PathVariable UUID id) {
         List<RelationshipEntity> relationshipEntities = relationshipService.getByOwnerId(id);
         return relationshipEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
     @PostMapping("/add")
-    public void addUser(@RequestBody @Valid RelationshipTransfer relationshipTransfer) {
+    public void addRelationship(@RequestBody @Valid RelationshipTransfer relationshipTransfer) {
         RelationshipEntity relationshipEntity = mapper.toEntity(relationshipTransfer);
         relationshipService.add(relationshipEntity);
     }

@@ -1,5 +1,6 @@
 package com.curevent.models.transfers;
 
+import com.curevent.models.entities.EventEntity;
 import lombok.*;
 
 import java.util.List;
@@ -24,4 +25,5 @@ public class UserTransfer {
     private String password;
 
     private List<RelationshipTransfer> relationships;
+    private List<EventTransfer> events;
 }

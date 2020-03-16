@@ -47,14 +47,16 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
-    @OneToMany()
+    @OneToMany
     @JoinColumn(name="owner_id")
     private List <RelationshipEntity> relationships;
 
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private List<EventEntity> events;
+
 //    @OneToMany
-//    private Set<EventEntity> events;
-//
-//    @OneToMany
+//    @JoinColumn(name = "owner_id")
 //    private Set<TemplateEntity> templates;
 //
 //    @OneToMany

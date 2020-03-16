@@ -1,5 +1,7 @@
-package com.curevent.models.entities;
+package com.curevent.models.transfers;
 
+import com.curevent.models.entities.EventTagEntity;
+import com.curevent.models.entities.TemplateTagEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,18 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "tags")
-public class TagEntity {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+public class TagTransfer {
     private UUID id;
-
-    @Column(name = "description")
-    @NotNull
     private String description;
 }
