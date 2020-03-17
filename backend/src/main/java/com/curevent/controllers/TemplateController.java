@@ -37,13 +37,13 @@ public class TemplateController {
         return mapper.toTransfer(template);
     }
 
-    @GetMapping("all/{id}")
+    @GetMapping("/all/{id}")
     public List<TemplateTransfer> getRelationshipByOwnerId(@PathVariable UUID id) {
         List<Template> templateEntities = templateService.getAllByOwnerId(id);
         return templateEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public TemplateTransfer addTemplate(@RequestBody @Valid TemplateTransfer templateTransfer) {
         Template template = mapper.toEntity(templateTransfer);
         templateService.add(template);
