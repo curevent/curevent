@@ -1,5 +1,6 @@
 package com.curevent.services;
 
+import com.curevent.models.entities.RoleEntity;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -30,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return User
                 .withUsername(username)
                 .password(userEntity.getPassword())
-                //.authorities(userEntity.getRoles())
+                .authorities(userEntity.getRole())
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)

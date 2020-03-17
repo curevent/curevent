@@ -32,6 +32,8 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
+    private final String USER_ROLE = "USER";
+
     public AuthTransfer register(RegisterForm registerForm) {
         // checking that the user exists in the database
         if (!userRepository.existsByUsername(registerForm.getUsername())) {
@@ -40,26 +42,24 @@ public class AuthService {
             String refreshToken = tokenProvider.createRefreshToken();
 
             // create instance of user model and fill it
-            UserEntity userModel = UserEntity.builder()
+            UserEntity userEntity = UserEntity.builder()
                     .id(UUID.randomUUID())
                     .username(registerForm.getUsername())
                     .email(registerForm.getEmail())
                     .password(passwordEncoder.encode(registerForm.getPassword()))
                     .refreshToken(refreshToken)
+                    .role(USER_ROLE)
                     .build();
 
             // save the user in database
-            userRepository.save(userModel);
-
-            RoleEntity role = new RoleEntity();
-            role.setName("USER");
+            userRepository.save(userEntity);
 
             Set<RoleEntity> roles = new HashSet<>();
-            roles.add(role);
+            roles.add(new RoleEntity(USER_ROLE));
 
             // create tokens transfer object and return it
             return AuthTransfer.builder()
-                    .accessToken(tokenProvider.createAccessToken(userModel.getUsername(), roles))
+                    .accessToken(tokenProvider.createAccessToken(userEntity.getUsername(), roles))
                     .refreshToken(refreshToken)
                     .tokenType(tokenProvider.getTokenType())
                     .expiresIn(tokenProvider.getExpire())
@@ -90,7 +90,7 @@ public class AuthService {
                     loginForm.getPassword()));
 
             Set<RoleEntity> roles = new HashSet<>();
-            roles.add(userModel.getRole());
+            roles.add(new RoleEntity(userModel.getRole()));
 
             // create tokens transfer object and return it
             return AuthTransfer.builder()
@@ -109,11 +109,9 @@ public class AuthService {
         String username = tokenProvider.getUsernameByToken(tokenProvider.extractToken(request));
 
         // find user by username from database
-        UserEntity userModel = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("The user by username [" + username + "] not found",
-                        HttpStatus.NOT_FOUND));
 
-        return userModel;
+        return userRepository.findByUsername(username).orElseThrow(() ->
+                new NotFoundException("The user by username [" + username + "] not found", HttpStatus.NOT_FOUND));
     }
 
     public AuthTransfer refresh(String username, String refreshToken) {
@@ -123,7 +121,7 @@ public class AuthService {
                         HttpStatus.NOT_FOUND));
 
         Set<RoleEntity> roles = new HashSet<>();
-        roles.add(userModel.getRole());
+        roles.add(new RoleEntity(userModel.getRole()));
 
         // check for equality of refresh tokens
         if (userModel.getRefreshToken().equals(refreshToken)) {
