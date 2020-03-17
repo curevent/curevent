@@ -1,11 +1,12 @@
 package com.curevent.controllers;
 
 import com.curevent.exceptions.TagNotFoundException;
-import com.curevent.models.entities.TagEntity;
+import com.curevent.models.entities.Tag;
 import com.curevent.models.transfers.TagTransfer;
 import com.curevent.services.TagService;
 import com.curevent.utils.mapping.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/tags")
+@Transactional
 public class TagController {
 
     private final TagService tagService;
@@ -26,17 +28,17 @@ public class TagController {
 
     @GetMapping("/{id}")
     public TagTransfer getTag(@PathVariable UUID id) {
-        TagEntity tagEntity = tagService.getOneById(id);
-        if (tagEntity == null) {
+        Tag tag = tagService.getOneById(id);
+        if (tag == null) {
             throw new TagNotFoundException();
         }
-        return mapper.toTransfer(tagEntity);
+        return mapper.toTransfer(tag);
     }
 
     @PostMapping("/add")
     public TagTransfer addTag(@RequestBody @Valid TagTransfer tagTransfer) {
-        TagEntity tagEntity = mapper.toEntity(tagTransfer);
-        tagService.add(tagEntity);
+        Tag tag = mapper.toEntity(tagTransfer);
+        tagService.add(tag);
         return tagTransfer;
     }
 }

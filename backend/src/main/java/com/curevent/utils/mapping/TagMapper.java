@@ -1,6 +1,6 @@
 package com.curevent.utils.mapping;
 
-import com.curevent.models.entities.TagEntity;
+import com.curevent.models.entities.Tag;
 import com.curevent.models.transfers.TagTransfer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,11 @@ public class TagMapper {
     @Autowired
     private ModelMapper mapper;
 
-    public TagEntity toEntity(TagTransfer transfer) {
-        return Objects.isNull(transfer) ? null : mapper.map(transfer, TagEntity.class);
+    public Tag toEntity(TagTransfer transfer) {
+        return Objects.isNull(transfer) ? null : mapper.map(transfer, Tag.class);
     }
 
-    public TagTransfer toTransfer(TagEntity entity) {
+    public TagTransfer toTransfer(Tag entity) {
         return Objects.isNull(entity) ? null : mapper.map(entity, TagTransfer.class);
     }
 }

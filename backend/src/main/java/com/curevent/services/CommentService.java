@@ -1,6 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.models.entities.CommentEntity;
+import com.curevent.models.entities.Comment;
 import com.curevent.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,19 +20,19 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public CommentEntity getOneById(UUID id) {
+    public Comment getOneById(UUID id) {
         return commentRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public List <CommentEntity> getAllByOwnerId(UUID ownerId) {
+    public List <Comment> getAllByOwnerId(UUID ownerId) {
         return commentRepository.findByOwnerId(ownerId);
     }
 
-    public List <CommentEntity> getAllByEventId(UUID eventId) {
+    public List <Comment> getAllByEventId(UUID eventId) {
         return commentRepository.findByEventId(eventId);
     }
 
-    public void add(CommentEntity commentEntity) {
-        commentRepository.save(commentEntity);
+    public void add(Comment comment) {
+        commentRepository.save(comment);
     }
 }

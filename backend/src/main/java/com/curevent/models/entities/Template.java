@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -15,8 +16,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "events")
-public class EventEntity {
+@Table(name = "templates")
+public class Template {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -30,31 +31,31 @@ public class EventEntity {
     private UUID ownerId;
 
     @Column(name = "time")
-  //  @NotNull
     private Timestamp time;
 
     @Column(name = "duration")
     private Long duration;
+
+    @Column(name = "repeat_time")
+    private Long repeat_time;
 
     @Column(name = "title")
     @NotNull
     private String title;
 
     @Column(name = "description")
-    @NotNull
     private String description;
 
   //  @Column(name = "geotag")
 
     @OneToOne
     @JoinColumn(name = "privacy_id")
-    private CategoryEntity privacy;
+    private Category privacy;
 
-    @OneToMany
-    @JoinColumn(name = "event_id")
-    private List<EventTagEntity> eventTags;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable (name="template_tags",
+            joinColumns=@JoinColumn (name="template_id"),
+            inverseJoinColumns=@JoinColumn(name="tag_id"))
+    private List<Tag> tags;
 
-    @OneToMany
-    @JoinColumn(name = "event_id")
-    private List<CommentEntity> comments;
 }

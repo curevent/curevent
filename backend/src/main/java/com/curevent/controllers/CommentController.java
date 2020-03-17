@@ -1,13 +1,12 @@
 package com.curevent.controllers;
 
 import com.curevent.exceptions.CommentNotFoundException;
-import com.curevent.models.entities.CommentEntity;
-import com.curevent.models.entities.EventEntity;
+import com.curevent.models.entities.Comment;
 import com.curevent.models.transfers.CommentTransfer;
-import com.curevent.models.transfers.EventTransfer;
 import com.curevent.services.CommentService;
 import com.curevent.utils.mapping.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comments")
+@Transactional
 public class CommentController {
 
     private final CommentService commentService;
@@ -30,23 +30,23 @@ public class CommentController {
 
     @GetMapping("/{id}")
     public CommentTransfer getComment(@PathVariable UUID id) {
-        CommentEntity commentEntity = commentService.getOneById(id);
-        if (commentEntity == null) {
+        Comment comment = commentService.getOneById(id);
+        if (comment == null) {
             throw new CommentNotFoundException();
         }
-        return mapper.toTransfer(commentEntity);
+        return mapper.toTransfer(comment);
     }
 
     @GetMapping("all/{id}")
     public List<CommentTransfer> getRelationshipByOwnerId(@PathVariable UUID id) {
-        List<CommentEntity> commentEntities = commentService.getAllByOwnerId(id);
+        List<Comment> commentEntities = commentService.getAllByOwnerId(id);
         return commentEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
     @PostMapping("/add")
     public CommentTransfer addComment(@RequestBody @Valid CommentTransfer commentTransfer) {
-        CommentEntity commentEntity = mapper.toEntity(commentTransfer);
-        commentService.add(commentEntity);
+        Comment comment = mapper.toEntity(commentTransfer);
+        commentService.add(comment);
         return commentTransfer;
     }
 }

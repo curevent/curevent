@@ -1,6 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.models.entities.RoleEntity;
+import com.curevent.models.entities.Role;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -33,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User by username " + username + " not found"));
 
         Set<RoleEntity> roles = new HashSet<>();
-        roles.add(new RoleEntity(USER_ROLE));
+        roles.add(new Role(USER_ROLE));
 
         return User
                 .withUsername(username)

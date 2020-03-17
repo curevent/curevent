@@ -1,6 +1,6 @@
 package com.curevent.utils.mapping;
 
-import com.curevent.models.entities.CommentEntity;
+import com.curevent.models.entities.Comment;
 import com.curevent.models.transfers.CommentTransfer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,11 @@ public class CommentMapper {
     @Autowired
     private ModelMapper mapper;
 
-    public CommentEntity toEntity(CommentTransfer transfer) {
-        return Objects.isNull(transfer) ? null : mapper.map(transfer, CommentEntity.class);
+    public Comment toEntity(CommentTransfer transfer) {
+        return Objects.isNull(transfer) ? null : mapper.map(transfer, Comment.class);
     }
 
-    public CommentTransfer toTransfer(CommentEntity entity) {
+    public CommentTransfer toTransfer(Comment entity) {
         return Objects.isNull(entity) ? null : mapper.map(entity, CommentTransfer.class);
     }
 }

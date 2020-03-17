@@ -1,13 +1,12 @@
 package com.curevent.controllers;
 
 import com.curevent.exceptions.EventNotFoundException;
-import com.curevent.models.entities.EventEntity;
-import com.curevent.models.entities.TemplateEntity;
+import com.curevent.models.entities.Event;
 import com.curevent.models.transfers.EventTransfer;
-import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.services.EventService;
 import com.curevent.utils.mapping.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/events")
+@Transactional
 public class EventController {
 
     private final EventService eventService;
@@ -30,23 +30,23 @@ public class EventController {
 
     @GetMapping("/{id}")
     public EventTransfer getEvent(@PathVariable UUID id) {
-        EventEntity eventEntity = eventService.getOneById(id);
-        if (eventEntity == null) {
+        Event event = eventService.getOneById(id);
+        if (event == null) {
             throw new EventNotFoundException();
         }
-        return mapper.toTransfer(eventEntity);
+        return mapper.toTransfer(event);
     }
 
     @GetMapping("all/{id}")
     public List<EventTransfer> getRelationshipByOwnerId(@PathVariable UUID id) {
-        List<EventEntity> eventEntities = eventService.getAllByOwnerId(id);
+        List<Event> eventEntities = eventService.getAllByOwnerId(id);
         return eventEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
     @PostMapping("/add")
     public EventTransfer addEvent(@RequestBody @Valid EventTransfer eventTransfer) {
-        EventEntity eventEntity = mapper.toEntity(eventTransfer);
-        eventService.add(eventEntity);
+        Event event = mapper.toEntity(eventTransfer);
+        eventService.add(event);
         return eventTransfer;
     }
 }

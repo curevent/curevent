@@ -1,6 +1,6 @@
 package com.curevent.utils.mapping;
 
-import com.curevent.models.entities.CategoryEntity;
+import com.curevent.models.entities.Category;
 import com.curevent.models.transfers.CategoryTransfer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,11 @@ public class CategoryMapper {
     @Autowired
     private ModelMapper mapper;
 
-    public CategoryEntity toEntity(CategoryTransfer transfer) {
-        return Objects.isNull(transfer) ? null : mapper.map(transfer, CategoryEntity.class);
+    public Category toEntity(CategoryTransfer transfer) {
+        return Objects.isNull(transfer) ? null : mapper.map(transfer, Category.class);
     }
 
-    public CategoryTransfer toTransfer(CategoryEntity entity) {
+    public CategoryTransfer toTransfer(Category entity) {
         return Objects.isNull(entity) ? null : mapper.map(entity, CategoryTransfer.class);
     }
 }
