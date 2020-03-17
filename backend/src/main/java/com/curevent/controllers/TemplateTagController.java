@@ -23,15 +23,16 @@ public class TemplateTagController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/{id}")
-    public List<TemplateTagTransfer> getTemplateTagsByEventId(@PathVariable UUID id) {
-        List<TemplateTagEntity> templateTagEntities = templateTagService.getByEventId(id);
+    @GetMapping("all/{id}")
+    public List<TemplateTagTransfer> getAllTemplateTagsByEventId(@PathVariable UUID id) {
+        List<TemplateTagEntity> templateTagEntities = templateTagService.getAllByEventId(id);
         return templateTagEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
     @PostMapping("/add")
-    public void getTemplateTag(@RequestBody @Valid TemplateTagTransfer templateTagTransfer) {
+    public TemplateTagTransfer getTemplateTag(@RequestBody @Valid TemplateTagTransfer templateTagTransfer) {
         TemplateTagEntity templateTagEntity = mapper.toEntity(templateTagTransfer);
         templateTagService.add(templateTagEntity);
+        return templateTagTransfer;
     }
 }

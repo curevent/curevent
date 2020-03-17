@@ -20,7 +20,7 @@ public class TemplateTagService {
         this.templateTagRepository = templateTagRepository;
     }
 
-    public List<TemplateTagEntity> getByEventId(UUID templateId) {
+    public List<TemplateTagEntity> getAllByEventId(UUID templateId) {
         return templateTagRepository.findByTemplateId(templateId);
     }
     public void add(TemplateTagEntity eventTagEntity) {
