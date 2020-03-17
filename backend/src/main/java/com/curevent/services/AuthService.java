@@ -2,7 +2,7 @@ package com.curevent.services;
 
 import com.curevent.exceptions.AuthenticationException;
 import com.curevent.exceptions.NotFoundException;
-import com.curevent.models.entities.RoleEntity;
+import com.curevent.models.entities.Role;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.models.forms.LoginForm;
 import com.curevent.models.forms.RegisterForm;
@@ -54,8 +54,8 @@ public class AuthService {
             // save the user in database
             userRepository.save(userEntity);
 
-            Set<RoleEntity> roles = new HashSet<>();
-            roles.add(new RoleEntity(USER_ROLE));
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(USER_ROLE));
 
             // create tokens transfer object and return it
             return AuthTransfer.builder()
@@ -89,8 +89,8 @@ public class AuthService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getUsername(),
                     loginForm.getPassword()));
 
-            Set<RoleEntity> roles = new HashSet<>();
-            roles.add(new RoleEntity(userModel.getRole()));
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(userModel.getRole()));
 
             // create tokens transfer object and return it
             return AuthTransfer.builder()
@@ -120,8 +120,8 @@ public class AuthService {
                 .orElseThrow(() -> new NotFoundException("The user by username [" + username + "] not found",
                         HttpStatus.NOT_FOUND));
 
-        Set<RoleEntity> roles = new HashSet<>();
-        roles.add(new RoleEntity(userModel.getRole()));
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(userModel.getRole()));
 
         // check for equality of refresh tokens
         if (userModel.getRefreshToken().equals(refreshToken)) {

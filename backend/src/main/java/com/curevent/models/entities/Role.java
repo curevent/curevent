@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleEntity implements GrantedAuthority {
+public class Role implements GrantedAuthority {
 
     private String name;
 

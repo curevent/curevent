@@ -8,6 +8,7 @@ import com.curevent.services.UserService;
 import com.curevent.utils.mapping.UserMapper;
 import com.curevent.utils.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
+@Transactional
 public class UserController {
 
     private final UserService userService;

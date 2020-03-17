@@ -51,17 +51,17 @@ public class UserEntity {
 
     @OneToMany
     @JoinColumn(name="owner_id")
-    private List <RelationshipEntity> relationships;
+    private List <Relationship> relationships;
 
     @OneToMany
     @JoinColumn(name = "owner_id")
-    private List<EventEntity> events;
+    private List<Event> events;
 
     @OneToMany
     @JoinColumn(name = "owner_id")
-    private List<TemplateEntity> templates;
+    private List<Template> templates;
 
     @OneToMany
     @JoinColumn(name = "owner_id")
-    private List<CommentEntity> comments;
+    private List<Comment> comments;
 }

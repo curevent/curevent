@@ -22,5 +22,5 @@ public class TemplateTransfer {
 
   //  @Column(name = "geotag")
     private CategoryTransfer privacy;
-    private List<TemplateTagTransfer> templateTags;
+    private List<TagTransfer> tags;
 }

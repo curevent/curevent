@@ -1,13 +1,12 @@
 package com.curevent.controllers;
 
 import com.curevent.exceptions.TemplateNotFoundException;
-import com.curevent.models.entities.RelationshipEntity;
-import com.curevent.models.entities.TemplateEntity;
-import com.curevent.models.transfers.RelationshipTransfer;
+import com.curevent.models.entities.Template;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.services.TemplateService;
 import com.curevent.utils.mapping.TemplateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/templates")
+@Transactional
 public class TemplateController {
 
     private final TemplateService templateService;
@@ -30,23 +30,23 @@ public class TemplateController {
 
     @GetMapping("/{id}")
     public TemplateTransfer getTemplate(@PathVariable UUID id) {
-        TemplateEntity templateEntity = templateService.getOneById(id);
-        if (templateEntity == null) {
+        Template template = templateService.getOneById(id);
+        if (template == null) {
             throw new TemplateNotFoundException();
         }
-        return mapper.toTransfer(templateEntity);
+        return mapper.toTransfer(template);
     }
 
     @GetMapping("all/{id}")
     public List<TemplateTransfer> getRelationshipByOwnerId(@PathVariable UUID id) {
-        List<TemplateEntity> templateEntities = templateService.getAllByOwnerId(id);
+        List<Template> templateEntities = templateService.getAllByOwnerId(id);
         return templateEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
     @PostMapping("/add")
     public TemplateTransfer addTemplate(@RequestBody @Valid TemplateTransfer templateTransfer) {
-        TemplateEntity templateEntity = mapper.toEntity(templateTransfer);
-        templateService.add(templateEntity);
+        Template template = mapper.toEntity(templateTransfer);
+        templateService.add(template);
         return templateTransfer;
     }
 }

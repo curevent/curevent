@@ -1,6 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.models.entities.TagEntity;
+import com.curevent.models.entities.Tag;
 import com.curevent.repositories.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,11 @@ public class TagService {
         this.tagRepository = tagRepository;
     }
 
-    public TagEntity getOneById(UUID id) {
+    public Tag getOneById(UUID id) {
         return tagRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public void add(TagEntity tagEntity) {
-        tagRepository.save(tagEntity);
+    public void add(Tag tag) {
+        tagRepository.save(tag);
     }
 }

@@ -17,7 +17,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "comments")
 
-public class CommentEntity {
+public class Comment {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
