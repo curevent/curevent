@@ -37,13 +37,13 @@ public class EventController {
         return mapper.toTransfer(event);
     }
 
-    @GetMapping("all/{id}")
+    @GetMapping("/all/{id}")
     public List<EventTransfer> getRelationshipByOwnerId(@PathVariable UUID id) {
         List<Event> eventEntities = eventService.getAllByOwnerId(id);
         return eventEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public EventTransfer addEvent(@RequestBody @Valid EventTransfer eventTransfer) {
         Event event = mapper.toEntity(eventTransfer);
         eventService.add(event);

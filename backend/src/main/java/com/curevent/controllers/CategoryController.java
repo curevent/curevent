@@ -34,7 +34,7 @@ public class CategoryController {
         return mapper.toTransfer(category);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public CategoryTransfer addCategory(@RequestBody @Valid CategoryTransfer categoryTransfer) {
         Category category = mapper.toEntity(categoryTransfer);
         categoryService.add(category);

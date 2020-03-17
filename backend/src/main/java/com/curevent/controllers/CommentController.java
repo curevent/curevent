@@ -37,13 +37,13 @@ public class CommentController {
         return mapper.toTransfer(comment);
     }
 
-    @GetMapping("all/{id}")
+    @GetMapping("/all/{id}")
     public List<CommentTransfer> getRelationshipByOwnerId(@PathVariable UUID id) {
         List<Comment> commentEntities = commentService.getAllByOwnerId(id);
         return commentEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public CommentTransfer addComment(@RequestBody @Valid CommentTransfer commentTransfer) {
         Comment comment = mapper.toEntity(commentTransfer);
         commentService.add(comment);

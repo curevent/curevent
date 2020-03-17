@@ -42,7 +42,7 @@ public class UserController {
         return mapper.toTransfer(userEntity);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public UserTransfer addUser(@RequestBody @Valid UserTransfer userTransfer, BindingResult result) {
         UserEntity userEntity = mapper.toEntity(userTransfer);
 
