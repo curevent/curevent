@@ -32,7 +32,7 @@ public class EventController {
     public EventTransfer getEvent(@PathVariable UUID id) {
         Event event = eventService.getOneById(id);
         if (event == null) {
-            throw new EventNotFoundException();
+            throw new EventNotFoundException(id);
         }
         return mapper.toTransfer(event);
     }

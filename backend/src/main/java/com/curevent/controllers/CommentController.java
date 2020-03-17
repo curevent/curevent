@@ -32,7 +32,7 @@ public class CommentController {
     public CommentTransfer getComment(@PathVariable UUID id) {
         Comment comment = commentService.getOneById(id);
         if (comment == null) {
-            throw new CommentNotFoundException();
+            throw new CommentNotFoundException(id);
         }
         return mapper.toTransfer(comment);
     }

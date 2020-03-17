@@ -32,7 +32,7 @@ public class TemplateController {
     public TemplateTransfer getTemplate(@PathVariable UUID id) {
         Template template = templateService.getOneById(id);
         if (template == null) {
-            throw new TemplateNotFoundException();
+            throw new TemplateNotFoundException(id);
         }
         return mapper.toTransfer(template);
     }

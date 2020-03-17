@@ -37,7 +37,7 @@ public class UserController {
     public UserTransfer getUser(@PathVariable UUID id) {
         UserEntity userEntity = userService.getOneById(id);
         if (userEntity == null) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException(id);
         }
         return mapper.toTransfer(userEntity);
     }

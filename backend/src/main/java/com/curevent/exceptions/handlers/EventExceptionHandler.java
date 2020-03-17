@@ -1,5 +1,6 @@
-package com.curevent.exceptions;
+package com.curevent.exceptions.handlers;
 
+import com.curevent.exceptions.EventNotFoundException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -10,9 +11,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class TemplateExceptionHandler extends ResponseEntityExceptionHandler {
+public class EventExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(TemplateNotFoundException.class)
+    @ExceptionHandler(EventNotFoundException.class)
     public ResponseEntity<ErrorResponse> userNotFoundHandle(Exception ex, WebRequest request) {
 
         ErrorResponse errors = new ErrorResponse();
