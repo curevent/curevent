@@ -24,10 +24,11 @@ public class CommentService {
         return commentRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public List <CommentEntity> getByOwnerId(UUID ownerId) {
+    public List <CommentEntity> getAllByOwnerId(UUID ownerId) {
         return commentRepository.findByOwnerId(ownerId);
     }
-    public List <CommentEntity> getByEventId(UUID eventId) {
+
+    public List <CommentEntity> getAllByEventId(UUID eventId) {
         return commentRepository.findByEventId(eventId);
     }
 

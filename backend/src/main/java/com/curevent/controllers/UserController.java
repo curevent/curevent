@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public void addUser(@RequestBody @Valid UserTransfer userTransfer, BindingResult result) {
+    public UserTransfer addUser(@RequestBody @Valid UserTransfer userTransfer, BindingResult result) {
         UserEntity userEntity = mapper.toEntity(userTransfer);
 
         userValidator.validate(userEntity, result);
@@ -50,5 +50,6 @@ public class UserController {
             throw new UserAlreadyExistsException(fieldError.getField());
         }
         userService.add(userEntity);
+        return userTransfer;
     }
 }

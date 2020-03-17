@@ -25,7 +25,7 @@ public class RelationshipService {
         return relationshipRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public List<RelationshipEntity> getByOwnerId(UUID ownerId) {
+    public List<RelationshipEntity> getAllByOwnerId(UUID ownerId) {
         return relationshipRepository.findByOwnerId(ownerId);
     }
 

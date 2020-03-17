@@ -23,9 +23,9 @@ public class EventTagController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/{id}")
-    public List<EventTagTransfer> getEventTagsByEventId(@PathVariable UUID id) {
-        List<EventTagEntity> eventTagEntities = eventTagService.getByEventId(id);
+    @GetMapping("all/{id}")
+    public List<EventTagTransfer> getAllEventTagsByEventId(@PathVariable UUID id) {
+        List<EventTagEntity> eventTagEntities = eventTagService.getAllByEventId(id);
         return eventTagEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
