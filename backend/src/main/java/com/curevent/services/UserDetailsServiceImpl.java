@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -18,6 +19,8 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    private final String USER_ROLE = "USER";
 
     @Autowired
     public UserDetailsServiceImpl(UserRepository userRepository) {
@@ -29,10 +32,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserEntity userEntity = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User by username " + username + " not found"));
 
+        Set<RoleEntity> roles = new HashSet<>();
+        roles.add(new RoleEntity(USER_ROLE));
+
         return User
                 .withUsername(username)
                 .password(userEntity.getPassword())
-                .authorities(userEntity.getRole())
+                .authorities(roles)
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)
