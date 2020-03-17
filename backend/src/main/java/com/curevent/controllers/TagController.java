@@ -30,7 +30,7 @@ public class TagController {
     public TagTransfer getTag(@PathVariable UUID id) {
         Tag tag = tagService.getOneById(id);
         if (tag == null) {
-            throw new TagNotFoundException();
+            throw new TagNotFoundException(id);
         }
         return mapper.toTransfer(tag);
     }

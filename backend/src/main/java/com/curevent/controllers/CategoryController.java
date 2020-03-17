@@ -29,7 +29,7 @@ public class CategoryController {
     public CategoryTransfer getCategory(@PathVariable Long id) {
         Category category = categoryService.getOneById(id);
         if (category == null) {
-            throw new CategoryNotFoundException();
+            throw new CategoryNotFoundException(id);
         }
         return mapper.toTransfer(category);
     }
