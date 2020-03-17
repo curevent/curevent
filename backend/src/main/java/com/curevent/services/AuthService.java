@@ -48,7 +48,6 @@ public class AuthService {
                     .email(registerForm.getEmail())
                     .password(passwordEncoder.encode(registerForm.getPassword()))
                     .refreshToken(refreshToken)
-                    .role(USER_ROLE)
                     .build();
 
             // save the user in database
@@ -90,7 +89,7 @@ public class AuthService {
                     loginForm.getPassword()));
 
             Set<RoleEntity> roles = new HashSet<>();
-            roles.add(new RoleEntity(userModel.getRole()));
+            roles.add(new RoleEntity(USER_ROLE));
 
             // create tokens transfer object and return it
             return AuthTransfer.builder()
@@ -121,7 +120,7 @@ public class AuthService {
                         HttpStatus.NOT_FOUND));
 
         Set<RoleEntity> roles = new HashSet<>();
-        roles.add(new RoleEntity(userModel.getRole()));
+        roles.add(new RoleEntity(USER_ROLE));
 
         // check for equality of refresh tokens
         if (userModel.getRefreshToken().equals(refreshToken)) {
