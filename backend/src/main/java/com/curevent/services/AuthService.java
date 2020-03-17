@@ -89,8 +89,8 @@ public class AuthService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getUsername(),
                     loginForm.getPassword()));
 
-            Set<Role> roles = new HashSet<>();
-            roles.add(new Role(userModel.getRole()));
+            Set<RoleEntity> roles = new HashSet<>();
+            roles.add(new Role(USER_ROLE));
 
             // create tokens transfer object and return it
             return AuthTransfer.builder()
@@ -120,8 +120,8 @@ public class AuthService {
                 .orElseThrow(() -> new NotFoundException("The user by username [" + username + "] not found",
                         HttpStatus.NOT_FOUND));
 
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(userModel.getRole()));
+        Set<RoleEntity> roles = new HashSet<>();
+        roles.add(new Role(USER_ROLE));
 
         // check for equality of refresh tokens
         if (userModel.getRefreshToken().equals(refreshToken)) {
