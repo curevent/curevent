@@ -1,6 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.models.entities.CategoryEntity;
+import com.curevent.models.entities.Category;
 import com.curevent.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,11 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public CategoryEntity getOneById(Long id) {
+    public Category getOneById(Long id) {
         return categoryRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public void add(CategoryEntity category) {
+    public void add(Category category) {
         categoryRepository.save(category);
     }
 }

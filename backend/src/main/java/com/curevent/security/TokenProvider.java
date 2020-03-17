@@ -1,7 +1,7 @@
 package com.curevent.security;
 
 import com.curevent.exceptions.AuthenticationException;
-import com.curevent.models.entities.RoleEntity;
+import com.curevent.models.entities.Role;
 import com.curevent.utils.generators.TokenGenerator;
 import io.jsonwebtoken.*;
 import lombok.Getter;
@@ -51,7 +51,7 @@ public class TokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createAccessToken(String username, Set<RoleEntity> roles) {
+    public String createAccessToken(String username, Set<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("auth", roles.stream()
                 .map(s -> new SimpleGrantedAuthority(s.getAuthority()))

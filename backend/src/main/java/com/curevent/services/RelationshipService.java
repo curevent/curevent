@@ -1,6 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.models.entities.RelationshipEntity;
+import com.curevent.models.entities.Relationship;
 import com.curevent.repositories.RelationshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +21,15 @@ public class RelationshipService {
     }
 
 
-    public RelationshipEntity getOneById(UUID id) {
+    public Relationship getOneById(UUID id) {
         return relationshipRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public List<RelationshipEntity> getAllByOwnerId(UUID ownerId) {
+    public List<Relationship> getAllByOwnerId(UUID ownerId) {
         return relationshipRepository.findByOwnerId(ownerId);
     }
 
-    public void add(RelationshipEntity relationship) {
+    public void add(Relationship relationship) {
         relationshipRepository.save(relationship);
     }
 }

@@ -21,6 +21,6 @@ public class EventTransfer {
 
   //  @Column(name = "geotag")
     private CategoryTransfer privacy;
-    private List<EventTagTransfer> eventTags;
+    private List<TagTransfer> tags;
     private List<CommentTransfer> comments;
 }
