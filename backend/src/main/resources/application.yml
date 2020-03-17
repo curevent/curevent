@@ -9,7 +9,7 @@ server:
 spring:
   # Database
   datasource:
-    url: jdbc:postgresql://localhost:5432/curevent
+    url: jdbc:postgresql://db/curevent
     username: postgres
     password: dev2020
     driver-class-name: org.postgresql.Driver

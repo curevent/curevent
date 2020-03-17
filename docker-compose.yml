@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on: 
+      - db 
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:3000"
+    restart: always
+    depends_on:
+      - backend
+
+  db:
+   restart: always
+   image: postgres:latest
+   environment:
+    - POSTGRES_DB=curevent
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=dev2020
+   ports:
+     - "5432:5432"
+   volumes:
+     - /srv/docker/postgresql:/var/lib/postgresql
+  
