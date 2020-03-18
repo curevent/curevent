@@ -48,6 +48,7 @@ public class AuthService {
                     .email(registerForm.getEmail())
                     .password(passwordEncoder.encode(registerForm.getPassword()))
                     .refreshToken(refreshToken)
+                    .role(USER_ROLE)
                     .build();
 
             // save the user in database
@@ -88,7 +89,7 @@ public class AuthService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getUsername(),
                     loginForm.getPassword()));
 
-            Set<Role> roles = new HashSet<>();
+            Set<RoleEntity> roles = new HashSet<>();
             roles.add(new Role(USER_ROLE));
 
             // create tokens transfer object and return it
@@ -119,7 +120,7 @@ public class AuthService {
                 .orElseThrow(() -> new NotFoundException("The user by username [" + username + "] not found",
                         HttpStatus.NOT_FOUND));
 
-        Set<Role> roles = new HashSet<>();
+        Set<RoleEntity> roles = new HashSet<>();
         roles.add(new Role(USER_ROLE));
 
         // check for equality of refresh tokens

@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -32,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserEntity userEntity = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User by username " + username + " not found"));
 
-        Set<Role> roles = new HashSet<>();
+        Set<RoleEntity> roles = new HashSet<>();
         roles.add(new Role(USER_ROLE));
 
         return User
