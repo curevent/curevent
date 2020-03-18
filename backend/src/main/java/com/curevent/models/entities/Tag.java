@@ -19,10 +19,6 @@ import java.util.UUID;
 public class Tag {
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     private UUID id;
 
     @Column(name = "description")

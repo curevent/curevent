@@ -20,10 +20,6 @@ import java.util.UUID;
 public class Comment {
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     private UUID id;
 
     @Column(name = "event_id")
