@@ -29,7 +29,7 @@ public class RelationshipService {
         return relationshipRepository.findByOwnerId(ownerId);
     }
 
-    public void add(Relationship relationship) {
-        relationshipRepository.save(relationship);
+    public Relationship add(Relationship relationship) {
+        return relationshipRepository.save(relationship);
     }
 }

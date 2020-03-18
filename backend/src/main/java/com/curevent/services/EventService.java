@@ -29,7 +29,7 @@ public class EventService {
         return eventRepository.findByOwnerId(ownerId);
     }
 
-    public void add(Event event) {
-        eventRepository.save(event);
+    public Event add(Event event) {
+        return eventRepository.save(event);
     }
 }

@@ -21,7 +21,7 @@ public class CategoryService {
         return categoryRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public void add(Category category) {
-        categoryRepository.save(category);
+    public Category add(Category category) {
+        return categoryRepository.save(category);
     }
 }

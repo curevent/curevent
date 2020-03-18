@@ -46,7 +46,6 @@ public class CommentController {
     @PostMapping("/")
     public CommentTransfer addComment(@RequestBody @Valid CommentTransfer commentTransfer) {
         Comment comment = mapper.toEntity(commentTransfer);
-        commentService.add(comment);
-        return commentTransfer;
+        return mapper.toTransfer(commentService.add(comment));
     }
 }

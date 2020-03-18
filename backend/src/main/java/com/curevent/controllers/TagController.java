@@ -38,7 +38,6 @@ public class TagController {
     @PostMapping("/")
     public TagTransfer addTag(@RequestBody @Valid TagTransfer tagTransfer) {
         Tag tag = mapper.toEntity(tagTransfer);
-        tagService.add(tag);
-        return tagTransfer;
+        return mapper.toTransfer(tagService.add(tag));
     }
 }

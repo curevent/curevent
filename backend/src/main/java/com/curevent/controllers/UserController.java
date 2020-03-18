@@ -14,7 +14,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -42,6 +44,18 @@ public class UserController {
         return mapper.toTransfer(userEntity);
     }
 
+    @GetMapping("/all")
+    public List <UserTransfer> getAllUsers() {
+        List <UserEntity> userEntities = userService.getAll();
+        return userEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}/friends")
+    public List <UserTransfer> getUserFriends(@PathVariable UUID id) {
+        List <UserEntity> userEntities = userService.getUserFriends(id);
+        return userEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
+    }
+
     @PostMapping("/")
     public UserTransfer addUser(@RequestBody @Valid UserTransfer userTransfer, BindingResult result) {
         UserEntity userEntity = mapper.toEntity(userTransfer);
@@ -51,7 +65,6 @@ public class UserController {
             FieldError fieldError = result.getFieldError();
             throw new UserAlreadyExistsException(fieldError.getField());
         }
-        userService.add(userEntity);
-        return userTransfer;
+        return mapper.toTransfer(userService.add(userEntity));
     }
 }

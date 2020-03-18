@@ -46,7 +46,6 @@ public class EventController {
     @PostMapping("/")
     public EventTransfer addEvent(@RequestBody @Valid EventTransfer eventTransfer) {
         Event event = mapper.toEntity(eventTransfer);
-        eventService.add(event);
-        return eventTransfer;
+        return mapper.toTransfer(eventService.add(event));
     }
 }

@@ -28,7 +28,7 @@ public class TemplateService {
         return templateRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public void add(Template template) {
-        templateRepository.save(template);
+    public Template add(Template template) {
+        return templateRepository.save(template);
     }
 }
