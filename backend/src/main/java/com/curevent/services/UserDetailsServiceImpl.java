@@ -20,8 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    private final String USER_ROLE = "USER";
-
     @Autowired
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -33,12 +31,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User by username " + username + " not found"));
 
         Set<Role> roles = new HashSet<>();
+        final String USER_ROLE = "USER";
         roles.add(new Role(USER_ROLE));
 
         return User
                 .withUsername(username)
                 .password(userEntity.getPassword())
-                .authorities(roles)
+                .authorities(USER_ROLE)
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)
