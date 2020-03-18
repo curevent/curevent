@@ -34,7 +34,6 @@ public class RelationshipController {
     @PostMapping("/")
     public RelationshipTransfer addRelationship(@RequestBody @Valid RelationshipTransfer relationshipTransfer) {
         Relationship relationship = mapper.toEntity(relationshipTransfer);
-        relationshipService.add(relationship);
-        return relationshipTransfer;
+        return mapper.toTransfer(relationshipService.add(relationship));
     }
 }

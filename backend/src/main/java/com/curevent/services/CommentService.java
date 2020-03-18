@@ -32,7 +32,7 @@ public class CommentService {
         return commentRepository.findByEventId(eventId);
     }
 
-    public void add(Comment comment) {
-        commentRepository.save(comment);
+    public Comment add(Comment comment) {
+        return commentRepository.save(comment);
     }
 }

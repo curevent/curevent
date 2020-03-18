@@ -38,8 +38,8 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User by username " + username + " not found"));
     }
 
-    public void add(UserEntity user) {
-        userRepository.save(user);
+    public UserEntity add(UserEntity user) {
+        return userRepository.save(user);
     }
 
     public List<UserEntity> getAll() {

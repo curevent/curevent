@@ -65,7 +65,6 @@ public class UserController {
             FieldError fieldError = result.getFieldError();
             throw new UserAlreadyExistsException(fieldError.getField());
         }
-        userService.add(userEntity);
-        return userTransfer;
+        return mapper.toTransfer(userService.add(userEntity));
     }
 }

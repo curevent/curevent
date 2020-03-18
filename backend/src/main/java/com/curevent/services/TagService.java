@@ -23,7 +23,7 @@ public class TagService {
         return tagRepository.findById(id).stream().findAny().orElse(null);
     }
 
-    public void add(Tag tag) {
-        tagRepository.save(tag);
+    public Tag add(Tag tag) {
+        return tagRepository.save(tag);
     }
 }

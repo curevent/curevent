@@ -46,7 +46,6 @@ public class TemplateController {
     @PostMapping("/")
     public TemplateTransfer addTemplate(@RequestBody @Valid TemplateTransfer templateTransfer) {
         Template template = mapper.toEntity(templateTransfer);
-        templateService.add(template);
-        return templateTransfer;
+        return mapper.toTransfer(templateService.add(template));
     }
 }
