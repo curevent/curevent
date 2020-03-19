@@ -19,7 +19,6 @@ public class EventTransfer {
     private String title;
     private String description;
   //  @Column(name = "geotag")
-    private UUID templateId;
 
     private CategoryTransfer privacy;
     private List<TagTransfer> tags;
