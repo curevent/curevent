@@ -20,10 +20,6 @@ import java.util.UUID;
 public class Event {
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     private UUID id;
 
     @Column(name = "owner_id")
@@ -46,6 +42,9 @@ public class Event {
     private String description;
 
   //  @Column(name = "geotag")
+
+    @Column(name = "template_id")
+    private UUID templateId;
 
     @OneToOne
     @JoinColumn(name = "privacy_id")

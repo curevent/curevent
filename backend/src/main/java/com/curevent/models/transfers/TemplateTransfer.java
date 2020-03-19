@@ -26,4 +26,5 @@ public class TemplateTransfer {
   //  @Column(name = "geotag")
     private CategoryTransfer privacy;
     private List<TagTransfer> tags;
+    private List<EventTransfer> events;
 }
