@@ -46,6 +46,7 @@
             <column name="description" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
+            <column name="template_id" type="uuid" />
             <column name="geotag" type="jsonb"/>
             <column name="privacy_id" type="bigint"/>
         </createTable>
@@ -59,9 +60,10 @@
             <column name="owner_id" type="uuid" >
                 <constraints nullable="false"/>
             </column>
-            <column name="time" type="timestamp"/>
             <column name="duration" type="bigint"/>
             <column name="repeat_time" type="bigint" />
+            <column name="repeat_amount" type="integer" />
+            <column name="group_id" type="uuid" />
             <column name="title" type="varchar(50)" >
                 <constraints nullable="false"/>
             </column>

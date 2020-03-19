@@ -26,14 +26,17 @@ public class Template {
     @NotNull
     private UUID ownerId;
 
-    @Column(name = "time")
-    private Timestamp time;
-
     @Column(name = "duration")
     private Long duration;
 
     @Column(name = "repeat_time")
     private Long repeat_time;
+
+    @Column(name = "repeat_amount")
+    private Integer repeat_amount;
+
+    @Column(name = "group_id")
+    private UUID group_id;
 
     @Column(name = "title")
     @NotNull
@@ -47,6 +50,10 @@ public class Template {
     @OneToOne
     @JoinColumn(name = "privacy_id")
     private Category privacy;
+
+    @OneToMany
+    @JoinColumn(name = "template_id")
+    private List<Event> events;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable (name="template_tags",
