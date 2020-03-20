@@ -33,9 +33,6 @@ public class TemplateService {
         this.eventService = eventService;
     }
 
-    public List<Template> getAllByOwnerId(UUID ownerId) {
-        return templateRepository.findByOwnerId(ownerId);
-    }
 
     public Template getOneById(UUID id) {
         return templateRepository.findById(id).stream().findAny()
@@ -64,18 +61,24 @@ public class TemplateService {
     public void delete(UUID id) {
         Template template = getOneById(id);
         if (template.getEvents() != null) {
-            deleteEvents(template);
+            deleteEvents(id);
         }
         templateRepository.delete(template);
     }
 
-    public void deleteEvents(Template template) {
+    public List<Event> getEvents(UUID id) {
+        Template template = getOneById(id);
+        return template.getEvents();
+    }
+
+    public void deleteEvents(UUID templateID) {
+        Template template = getOneById(templateID);
         template.getEvents().forEach((event)->eventService.delete(event.getId()));
     }
 
     public void updateEvents(Template template) {
         Timestamp firstAppearanceTime = template.getEvents().get(0).getTime();
-        deleteEvents(template);
+        deleteEvents(template.getId());
         createEvents(template.getId(), firstAppearanceTime);
     }
 

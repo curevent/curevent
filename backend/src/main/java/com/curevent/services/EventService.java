@@ -27,9 +27,6 @@ public class EventService {
                 .orElseThrow(()->new EventNotFoundException(id));
     }
 
-    public List<Event> getAllByOwnerId(UUID ownerId) {
-        return eventRepository.findByOwnerId(ownerId);
-    }
 
     public Event add(Event event) {
         return eventRepository.save(event);

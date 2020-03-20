@@ -3,8 +3,10 @@ package com.curevent.controllers;
 import com.curevent.exceptions.TemplateNotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.entities.Template;
+import com.curevent.models.entities.UserEntity;
 import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.TemplateTransfer;
+import com.curevent.models.transfers.UserTransfer;
 import com.curevent.services.TemplateService;
 import com.curevent.utils.mapping.EventMapper;
 import com.curevent.utils.mapping.TemplateMapper;
@@ -40,10 +42,10 @@ public class TemplateController {
         return templateMapper.toTransfer(template);
     }
 
-    @GetMapping("/all/{id}")
-    public List<TemplateTransfer> getRelationshipByOwnerId(@PathVariable UUID id) {
-        List<Template> templateEntities = templateService.getAllByOwnerId(id);
-        return templateEntities.stream().map(templateMapper::toTransfer).collect(Collectors.toList());
+    @GetMapping("/{id}/events")
+    public List <EventTransfer> getEvents(@PathVariable UUID id) {
+        List <Event> events = templateService.getEvents(id);
+        return events.stream().map(eventMapper::toTransfer).collect(Collectors.toList());
     }
 
     @PostMapping("/")
@@ -52,20 +54,25 @@ public class TemplateController {
         return templateMapper.toTransfer(templateService.add(template));
     }
 
+    @PostMapping("/{id}/events")
+    public List <EventTransfer> createEvents(@PathVariable UUID id, @RequestParam (value = "time") Long firstTimeAppearance) {
+        return templateService.createEvents(id, new Timestamp(firstTimeAppearance))
+                .stream().map(eventMapper::toTransfer).collect(Collectors.toList());
+    }
+
     @DeleteMapping("/{id}")
     public void deleteTemplate(@PathVariable UUID id) {
         templateService.delete(id);
+    }
+
+    @DeleteMapping("/{id}/events")
+    public void deleteEvents(@PathVariable UUID id) {
+        templateService.deleteEvents(id);
     }
 
     @PutMapping("/")
     public TemplateTransfer editTemplate(@RequestBody TemplateTransfer templateTransfer) {
         Template template = templateMapper.toEntity(templateTransfer);
         return templateMapper.toTransfer(templateService.update(template));
-    }
-
-    @PostMapping("/create")
-    public List <EventTransfer> createEvents(@RequestParam (value = "id") UUID id, @RequestParam (value = "time") Long firstTimeAppearance) {
-        return templateService.createEvents(id, new Timestamp(firstTimeAppearance))
-                .stream().map(eventMapper::toTransfer).collect(Collectors.toList());
     }
 }
