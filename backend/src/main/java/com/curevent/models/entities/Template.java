@@ -30,13 +30,10 @@ public class Template {
     private Long duration;
 
     @Column(name = "repeat_time")
-    private Long repeat_time;
+    private Long repeatTime;
 
     @Column(name = "repeat_amount")
-    private Integer repeat_amount;
-
-    @Column(name = "group_id")
-    private UUID group_id;
+    private Integer repeatAmount;
 
     @Column(name = "title")
     @NotNull

@@ -27,7 +27,7 @@ public class Event {
     private UUID ownerId;
 
     @Column(name = "time")
-  //  @NotNull
+    @NotNull
     private Timestamp time;
 
     @Column(name = "duration")

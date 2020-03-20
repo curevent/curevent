@@ -17,9 +17,8 @@ public class TemplateTransfer {
     private UUID ownerId;
     private Timestamp time;
     private Long duration;
-    private Long repeat_time;
-    private Integer repeat_amount;
-    private UUID group_id;
+    private Long repeatTime;
+    private Integer repeatAmount;
     private String title;
     private String description;
 

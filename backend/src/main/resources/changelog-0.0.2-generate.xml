@@ -63,7 +63,6 @@
             <column name="duration" type="bigint"/>
             <column name="repeat_time" type="bigint" />
             <column name="repeat_amount" type="integer" />
-            <column name="group_id" type="uuid" />
             <column name="title" type="varchar(50)" >
                 <constraints nullable="false"/>
             </column>
