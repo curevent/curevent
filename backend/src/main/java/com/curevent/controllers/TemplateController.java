@@ -9,6 +9,7 @@ import com.curevent.services.TemplateService;
 import com.curevent.utils.mapping.EventMapper;
 import com.curevent.utils.mapping.TemplateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,9 +37,6 @@ public class TemplateController {
     @GetMapping("/{id}")
     public TemplateTransfer getTemplate(@PathVariable UUID id) {
         Template template = templateService.getOneById(id);
-        if (template == null) {
-            throw new TemplateNotFoundException(id);
-        }
         return templateMapper.toTransfer(template);
     }
 
@@ -52,6 +50,17 @@ public class TemplateController {
     public TemplateTransfer addTemplate(@RequestBody TemplateTransfer templateTransfer) {
         Template template = templateMapper.toEntity(templateTransfer);
         return templateMapper.toTransfer(templateService.add(template));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTemplate(@PathVariable UUID id) {
+        templateService.delete(id);
+    }
+
+    @PutMapping("/")
+    public TemplateTransfer editTemplate(@RequestBody TemplateTransfer templateTransfer) {
+        Template template = templateMapper.toEntity(templateTransfer);
+        return templateMapper.toTransfer(templateService.update(template));
     }
 
     @PostMapping("/create")

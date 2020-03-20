@@ -15,7 +15,6 @@ import java.util.UUID;
 public class TemplateTransfer {
     private UUID id;
     private UUID ownerId;
-    private Timestamp time;
     private Long duration;
     private Long repeatTime;
     private Integer repeatAmount;

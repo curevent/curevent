@@ -25,12 +25,12 @@ import java.util.stream.Stream;
 public class TemplateService {
 
     private final TemplateRepository templateRepository;
-    private final EventRepository eventRepository;
+    private final EventService eventService;
 
     @Autowired
-    public TemplateService(TemplateRepository templateRepository, EventRepository eventRepository) {
+    public TemplateService(TemplateRepository templateRepository, EventService eventService) {
         this.templateRepository = templateRepository;
-        this.eventRepository = eventRepository;
+        this.eventService = eventService;
     }
 
     public List<Template> getAllByOwnerId(UUID ownerId) {
@@ -38,18 +38,49 @@ public class TemplateService {
     }
 
     public Template getOneById(UUID id) {
-        return templateRepository.findById(id).stream().findAny().orElse(null);
+        return templateRepository.findById(id).stream().findAny()
+                .orElseThrow(() ->  new TemplateNotFoundException(id));
     }
 
     public Template add(Template template) {
         return templateRepository.save(template);
     }
 
-    public List<Event> createEvents(UUID id, Timestamp firstAppearanceTime) {
-        Template template = templateRepository.findById(id).stream().findAny().orElse(null);
-        if (template == null) {
-            throw new TemplateNotFoundException(id);
+    public Template update(Template template) {
+        Template curTemplate = getOneById(template.getId());
+        curTemplate.setRepeatTime(template.getRepeatTime());
+        curTemplate.setDuration(template.getDuration());
+        curTemplate.setDescription(template.getDescription());
+        curTemplate.setTitle(template.getTitle());
+        curTemplate.setPrivacy(template.getPrivacy());
+        curTemplate.setTags(new ArrayList<>(template.getTags()));
+        templateRepository.save(curTemplate);
+        if (curTemplate.getEvents() != null) {
+            updateEvents(curTemplate);
         }
+        return templateRepository.getOne(curTemplate.getId());
+    }
+
+    public void delete(UUID id) {
+        Template template = getOneById(id);
+        if (template.getEvents() != null) {
+            deleteEvents(template);
+        }
+        templateRepository.delete(template);
+    }
+
+    public void deleteEvents(Template template) {
+        template.getEvents().forEach((event)->eventService.delete(event.getId()));
+    }
+
+    public void updateEvents(Template template) {
+        Timestamp firstAppearanceTime = template.getEvents().get(0).getTime();
+        deleteEvents(template);
+        createEvents(template.getId(), firstAppearanceTime);
+    }
+
+    public List<Event> createEvents(UUID id, Timestamp firstAppearanceTime) {
+        Template template = getOneById(id);
         if (template.getRepeatAmount() == null) {
             template.setRepeatAmount(1);
         }
@@ -65,9 +96,9 @@ public class TemplateService {
                 .templateId(template.getId())
                 .privacy(template.getPrivacy())
                 .tags(new ArrayList<>(template.getTags()))
-                .build(), n -> Event.builder()
+                .build(), event -> Event.builder()
                         .ownerId(template.getOwnerId())
-                        .time(new Timestamp(n.getTime().getTime() + template.getRepeatTime()*60000))
+                        .time(new Timestamp(event.getTime().getTime() + template.getRepeatTime()*60000))
                         .duration(template.getDuration())
                         .title(template.getTitle())
                         .description(template.getDescription())
@@ -76,7 +107,7 @@ public class TemplateService {
                         .tags(new ArrayList<>(template.getTags()))
                         .build())
             .limit(template.getRepeatAmount())
-            .map(eventRepository::save)
+            .peek(eventService::add)
             .collect(Collectors.toList());
     }
 }

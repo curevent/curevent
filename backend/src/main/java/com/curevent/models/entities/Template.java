@@ -52,7 +52,7 @@ public class Template {
     @JoinColumn(name = "template_id")
     private List<Event> events;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable (name="template_tags",
             joinColumns=@JoinColumn (name="template_id"),
             inverseJoinColumns=@JoinColumn(name="tag_id"))
