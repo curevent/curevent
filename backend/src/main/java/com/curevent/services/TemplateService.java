@@ -52,7 +52,7 @@ public class TemplateService {
         curTemplate.setPrivacy(template.getPrivacy());
         curTemplate.setTags(new ArrayList<>(template.getTags()));
         templateRepository.save(curTemplate);
-        if (curTemplate.getEvents() != null) {
+        if (!curTemplate.getEvents().isEmpty()) {
             updateEvents(curTemplate);
         }
         return templateRepository.getOne(curTemplate.getId());
@@ -60,7 +60,7 @@ public class TemplateService {
 
     public void delete(UUID id) {
         Template template = getOneById(id);
-        if (template.getEvents() != null) {
+        if (!template.getEvents().isEmpty()) {
             deleteEvents(id);
         }
         templateRepository.delete(template);
