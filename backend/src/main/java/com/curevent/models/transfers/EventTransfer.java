@@ -18,8 +18,8 @@ public class EventTransfer {
     private Long duration;
     private String title;
     private String description;
-
   //  @Column(name = "geotag")
+
     private CategoryTransfer privacy;
     private List<TagTransfer> tags;
     private List<CommentTransfer> comments;

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
+//@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -26,14 +26,14 @@ public class Template {
     @NotNull
     private UUID ownerId;
 
-    @Column(name = "time")
-    private Timestamp time;
-
     @Column(name = "duration")
     private Long duration;
 
     @Column(name = "repeat_time")
-    private Long repeat_time;
+    private Long repeatTime;
+
+    @Column(name = "repeat_amount")
+    private Integer repeatAmount;
 
     @Column(name = "title")
     @NotNull
@@ -48,7 +48,11 @@ public class Template {
     @JoinColumn(name = "privacy_id")
     private Category privacy;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany
+    @JoinColumn(name = "template_id")
+    private List<Event> events;
+
+    @ManyToMany
     @JoinTable (name="template_tags",
             joinColumns=@JoinColumn (name="template_id"),
             inverseJoinColumns=@JoinColumn(name="tag_id"))

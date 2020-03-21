@@ -25,7 +25,8 @@ public class UserService {
     }
 
     public UserEntity getOneById(UUID id) {
-        return userRepository.findById(id).stream().findAny().orElse(null);
+        return userRepository.findById(id).stream().findAny()
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public UserEntity getOneByEmail(String email) {
@@ -47,8 +48,7 @@ public class UserService {
     }
 
     public List <UserEntity> getUserFriends(UUID id) {
-        UserEntity user = userRepository.findById(id).stream().findAny()
-                .orElseThrow(()-> new UserNotFoundException(id));
+        UserEntity user = getOneById(id);
         return user
                 .getRelationships()
                 .stream()

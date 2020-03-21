@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
+//@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,10 +20,6 @@ import java.util.UUID;
 public class Event {
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     private UUID id;
 
     @Column(name = "owner_id")
@@ -31,7 +27,7 @@ public class Event {
     private UUID ownerId;
 
     @Column(name = "time")
-  //  @NotNull
+    @NotNull
     private Timestamp time;
 
     @Column(name = "duration")
@@ -46,6 +42,9 @@ public class Event {
     private String description;
 
   //  @Column(name = "geotag")
+
+    @Column(name = "template_id")
+    private UUID templateId;
 
     @OneToOne
     @JoinColumn(name = "privacy_id")
