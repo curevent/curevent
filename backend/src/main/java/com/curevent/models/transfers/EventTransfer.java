@@ -18,6 +18,7 @@ public class EventTransfer {
     private Long duration;
     private String title;
     private String description;
+    private UUID templateId;
   //  @Column(name = "geotag")
 
     private CategoryTransfer privacy;

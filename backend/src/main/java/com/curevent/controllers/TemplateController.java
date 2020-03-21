@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/templates")
-@Transactional
 public class TemplateController {
 
     private final TemplateService templateService;
@@ -36,24 +35,28 @@ public class TemplateController {
         this.eventMapper = eventMapper;
     }
 
+    @Transactional
     @GetMapping("/{id}")
     public TemplateTransfer getTemplate(@PathVariable UUID id) {
         Template template = templateService.getOneById(id);
         return templateMapper.toTransfer(template);
     }
 
+    @Transactional
     @GetMapping("/{id}/events")
     public List <EventTransfer> getEvents(@PathVariable UUID id) {
         List <Event> events = templateService.getEvents(id);
         return events.stream().map(eventMapper::toTransfer).collect(Collectors.toList());
     }
 
+    @Transactional
     @PostMapping("/")
     public TemplateTransfer addTemplate(@RequestBody TemplateTransfer templateTransfer) {
         Template template = templateMapper.toEntity(templateTransfer);
         return templateMapper.toTransfer(templateService.add(template));
     }
 
+    @Transactional
     @PostMapping("/{id}/events")
     public List <EventTransfer> createEvents(@PathVariable UUID id, @RequestParam (value = "time") Long firstTimeAppearance) {
         return templateService.createEvents(id, new Timestamp(firstTimeAppearance))
@@ -71,6 +74,7 @@ public class TemplateController {
         templateService.deleteEvents(id);
     }
 
+    @Transactional
     @PutMapping("/")
     public TemplateTransfer editTemplate(@RequestBody TemplateTransfer templateTransfer) {
         Template template = templateMapper.toEntity(templateTransfer);

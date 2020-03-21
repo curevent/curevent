@@ -1,7 +1,9 @@
 package com.curevent.controllers;
 
 import com.curevent.exceptions.TagNotFoundException;
+import com.curevent.models.entities.Comment;
 import com.curevent.models.entities.Tag;
+import com.curevent.models.transfers.CommentTransfer;
 import com.curevent.models.transfers.TagTransfer;
 import com.curevent.services.TagService;
 import com.curevent.utils.mapping.TagMapper;
@@ -14,7 +16,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/tags")
-@Transactional
 public class TagController {
 
     private final TagService tagService;
@@ -39,5 +40,16 @@ public class TagController {
     public TagTransfer addTag(@RequestBody @Valid TagTransfer tagTransfer) {
         Tag tag = mapper.toEntity(tagTransfer);
         return mapper.toTransfer(tagService.add(tag));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTag(@PathVariable UUID id) {
+        tagService.delete(id);
+    }
+
+    @PutMapping("/")
+    public TagTransfer editTag(@RequestBody TagTransfer tagTransfer) {
+        Tag tag = mapper.toEntity(tagTransfer);
+        return mapper.toTransfer(tagService.update(tag));
     }
 }

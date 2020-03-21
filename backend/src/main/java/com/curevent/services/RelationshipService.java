@@ -1,5 +1,8 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.CategoryNotFoundException;
+import com.curevent.exceptions.RelationshipNotFoundException;
+import com.curevent.models.entities.Category;
 import com.curevent.models.entities.Relationship;
 import com.curevent.repositories.RelationshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +25,23 @@ public class RelationshipService {
 
 
     public Relationship getOneById(UUID id) {
-        return relationshipRepository.findById(id).stream().findAny().orElse(null);
-    }
-
-    public List<Relationship> getAllByOwnerId(UUID ownerId) {
-        return relationshipRepository.findByOwnerId(ownerId);
+        return relationshipRepository.findById(id).stream().findAny()
+                .orElseThrow(()-> new RelationshipNotFoundException(id));
     }
 
     public Relationship add(Relationship relationship) {
+        return relationshipRepository.save(relationship);
+    }
+
+    public void delete(UUID id) {
+        Relationship relationship = getOneById(id);
+        relationshipRepository.delete(relationship);
+    }
+
+    public Relationship update(Relationship relationship) {
+        if (!relationshipRepository.existsById(relationship.getId())) {
+            throw new RelationshipNotFoundException(relationship.getId());
+        }
         return relationshipRepository.save(relationship);
     }
 }

@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/events")
-@Transactional
 public class EventController {
 
     private final EventService eventService;
@@ -30,13 +29,14 @@ public class EventController {
         this.mapper = mapper;
     }
 
+    @Transactional
     @GetMapping("/{id}")
     public EventTransfer getEvent(@PathVariable UUID id) {
         Event event = eventService.getOneById(id);
         return mapper.toTransfer(event);
     }
 
-
+    @Transactional
     @PostMapping("/")
     public EventTransfer addEvent(@RequestBody @Valid EventTransfer eventTransfer) {
         Event event = mapper.toEntity(eventTransfer);
@@ -45,11 +45,13 @@ public class EventController {
 
     @DeleteMapping("/{id}")
     public void deleteEvent(@PathVariable UUID id) {
+        eventService.deleteComments(id);
         eventService.delete(id);
     }
 
+    @Transactional
     @PutMapping("/")
-    public EventTransfer editTemplate(@RequestBody EventTransfer eventTransfer) {
+    public EventTransfer editEvent(@RequestBody EventTransfer eventTransfer) {
         Event event = mapper.toEntity(eventTransfer);
         return mapper.toTransfer(eventService.update(event));
     }
