@@ -62,6 +62,7 @@ public class TemplateController {
 
     @DeleteMapping("/{id}")
     public void deleteTemplate(@PathVariable UUID id) {
+        templateService.deleteEvents(id);
         templateService.delete(id);
     }
 
@@ -73,6 +74,7 @@ public class TemplateController {
     @PutMapping("/")
     public TemplateTransfer editTemplate(@RequestBody TemplateTransfer templateTransfer) {
         Template template = templateMapper.toEntity(templateTransfer);
+        templateService.updateEvents(template);
         return templateMapper.toTransfer(templateService.update(template));
     }
 }

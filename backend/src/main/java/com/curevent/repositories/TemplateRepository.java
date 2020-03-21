@@ -9,4 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface TemplateRepository extends JpaRepository<Template, UUID> {
+    boolean existsById(UUID id);
 }

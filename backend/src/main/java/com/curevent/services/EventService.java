@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +34,9 @@ public class EventService {
     }
 
     public Event update(Event event) {
-        getOneById(event.getId());
+        if (!eventRepository.existsById(event.getId())) {
+            throw new EventNotFoundException(event.getId());
+        }
         return eventRepository.save(event);
     }
 
