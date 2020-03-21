@@ -63,6 +63,7 @@ public class TemplateController {
                 .stream().map(eventMapper::toTransfer).collect(Collectors.toList());
     }
 
+    @Transactional
     @DeleteMapping("/{id}")
     public void deleteTemplate(@PathVariable UUID id) {
         templateService.deleteEvents(id);
