@@ -22,13 +22,4 @@ public class Category {
     @Column(name = "description")
     @NotNull
     private String description;
-
-//    @OneToMany(mappedBy = "category")
-//    private List<RelationshipEntity> relationships;
-
-//    @ManyToOne
-//    private EventEntity event;
-//
-//    @ManyToOne
-//    private TemplateEntity template;
 }

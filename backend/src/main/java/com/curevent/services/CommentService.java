@@ -1,5 +1,8 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.CategoryNotFoundException;
+import com.curevent.exceptions.CommentNotFoundException;
+import com.curevent.models.entities.Category;
 import com.curevent.models.entities.Comment;
 import com.curevent.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +24,23 @@ public class CommentService {
     }
 
     public Comment getOneById(UUID id) {
-        return commentRepository.findById(id).stream().findAny().orElse(null);
-    }
-
-    public List <Comment> getAllByOwnerId(UUID ownerId) {
-        return commentRepository.findByOwnerId(ownerId);
-    }
-
-    public List <Comment> getAllByEventId(UUID eventId) {
-        return commentRepository.findByEventId(eventId);
+        return commentRepository.findById(id).stream().findAny()
+                .orElseThrow(()-> new CommentNotFoundException(id));
     }
 
     public Comment add(Comment comment) {
+        return commentRepository.save(comment);
+    }
+
+    public void delete(UUID id) {
+        Comment comment = getOneById(id);
+        commentRepository.delete(comment);
+    }
+
+    public Comment update(Comment comment) {
+        if (!commentRepository.existsById(comment.getId())) {
+            throw new CommentNotFoundException(comment.getId());
+        }
         return commentRepository.save(comment);
     }
 }

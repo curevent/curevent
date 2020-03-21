@@ -2,7 +2,9 @@ package com.curevent.controllers;
 
 import com.curevent.exceptions.CategoryNotFoundException;
 import com.curevent.models.entities.Category;
+import com.curevent.models.entities.Event;
 import com.curevent.models.transfers.CategoryTransfer;
+import com.curevent.models.transfers.EventTransfer;
 import com.curevent.services.CategoryService;
 import com.curevent.utils.mapping.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/categories")
@@ -28,9 +31,6 @@ public class CategoryController {
     @GetMapping("/{id}")
     public CategoryTransfer getCategory(@PathVariable Long id) {
         Category category = categoryService.getOneById(id);
-        if (category == null) {
-            throw new CategoryNotFoundException(id);
-        }
         return mapper.toTransfer(category);
     }
 
@@ -38,5 +38,16 @@ public class CategoryController {
     public CategoryTransfer addCategory(@RequestBody @Valid CategoryTransfer categoryTransfer) {
         Category category = mapper.toEntity(categoryTransfer);
         return mapper.toTransfer(categoryService.add(category));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCategory(@PathVariable Long id) {
+        categoryService.delete(id);
+    }
+
+    @PutMapping("/")
+    public CategoryTransfer editCategory(@RequestBody CategoryTransfer categoryTransfer) {
+        Category category = mapper.toEntity(categoryTransfer);
+        return mapper.toTransfer(categoryService.update(category));
     }
 }
