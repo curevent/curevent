@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comments")
-@Transactional
 public class CommentController {
 
     private final CommentService commentService;

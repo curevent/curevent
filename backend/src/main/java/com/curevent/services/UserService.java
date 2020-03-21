@@ -1,7 +1,11 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.TagNotFoundException;
+import com.curevent.exceptions.UserAlreadyExistsException;
 import com.curevent.exceptions.UserNotFoundException;
 import com.curevent.models.entities.Relationship;
+import com.curevent.models.entities.Tag;
+import com.curevent.models.entities.Template;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -18,10 +23,18 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final TemplateService templateService;
+    private final EventService eventService;
+    private final CommentService commentService;
+    private final RelationshipService relationshipService;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, TemplateService templateService, EventService eventService, CommentService commentService, RelationshipService relationshipService) {
         this.userRepository = userRepository;
+        this.templateService = templateService;
+        this.eventService = eventService;
+        this.commentService = commentService;
+        this.relationshipService = relationshipService;
     }
 
     public UserEntity getOneById(UUID id) {
@@ -40,6 +53,9 @@ public class UserService {
     }
 
     public UserEntity add(UserEntity user) {
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new UserAlreadyExistsException("username " + user.getUsername());
+        }
         return userRepository.save(user);
     }
 
@@ -54,5 +70,46 @@ public class UserService {
                 .stream()
                 .map((relationship) -> userRepository.getOne(relationship.getFriendId()))
                 .collect(Collectors.toList());
+    }
+
+    public UserEntity update(UserEntity userEntity) {
+        UserEntity curUser = getOneById(userEntity.getId());
+        Optional<UserEntity> optionalUser = userRepository.findByUsername(userEntity.getUsername());
+        if (optionalUser.isPresent() && optionalUser.get().getId() != userEntity.getId()) {
+            throw new UserAlreadyExistsException("username " + userEntity.getUsername());
+        }
+        curUser.setUsername(userEntity.getUsername());
+        curUser.setEmail(userEntity.getEmail());
+        curUser.setName(userEntity.getName());
+        curUser.setSurname(userEntity.getSurname());
+        curUser.setCity(userEntity.getCity());
+        curUser.setCountry(userEntity.getCountry());
+        curUser.setStatus(userEntity.getStatus());
+        return userRepository.save(curUser);
+    }
+
+    public void delete(UUID id) {
+        UserEntity userEntity = getOneById(id);
+        userRepository.delete(userEntity);
+    }
+
+    public void deleteTemplates(UUID id) {
+        UserEntity user = getOneById(id);
+        user.getTemplates().forEach((template) -> templateService.delete(template.getId()));
+    }
+
+    public void deleteEvents(UUID id) {
+        UserEntity user = getOneById(id);
+        user.getEvents().forEach((event) -> eventService.delete(event.getId()));
+    }
+
+    public void deleteComments(UUID id) {
+        UserEntity user = getOneById(id);
+        user.getComments().forEach((comment) -> commentService.delete(comment.getId()));
+    }
+
+    public void deleteRelationships(UUID id) {
+        UserEntity user = getOneById(id);
+        user.getRelationships().forEach((relationship) -> relationshipService.delete(relationship.getId()));
     }
 }

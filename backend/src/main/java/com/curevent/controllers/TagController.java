@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/tags")
-@Transactional
 public class TagController {
 
     private final TagService tagService;
