@@ -4,14 +4,13 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data
-public class NotFoundException extends ResponceException {
-
+public class InvalidArgumentTypeException extends ResponceException {
     private final String message;
     private final HttpStatus httpStatus;
 
 
-    public NotFoundException(String message) {
+    public InvalidArgumentTypeException(String message) {
         this.message = message;
-        this.httpStatus = HttpStatus.NOT_FOUND;
+        this.httpStatus = HttpStatus.BAD_REQUEST;
     }
 }
