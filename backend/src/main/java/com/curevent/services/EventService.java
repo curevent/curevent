@@ -1,16 +1,12 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.EventNotFoundException;
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
-import com.curevent.models.entities.Template;
-import com.curevent.models.entities.UserEntity;
 import com.curevent.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,7 +25,7 @@ public class EventService {
 
     public Event getOneById(UUID id) {
         return eventRepository.findById(id).stream().findAny()
-                .orElseThrow(()->new EventNotFoundException(id));
+                .orElseThrow(()->new NotFoundException("No such Event"+id));
     }
 
 
@@ -39,7 +35,7 @@ public class EventService {
 
     public Event update(Event event) {
         if (!eventRepository.existsById(event.getId())) {
-            throw new EventNotFoundException(event.getId());
+            throw new NotFoundException("No such Event"+event.getId());
         }
         return eventRepository.save(event);
     }

@@ -1,14 +1,11 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.TagNotFoundException;
-import com.curevent.models.entities.Comment;
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Tag;
-import com.curevent.models.transfers.CommentTransfer;
 import com.curevent.models.transfers.TagTransfer;
 import com.curevent.services.TagService;
 import com.curevent.utils.mapping.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,7 +28,7 @@ public class TagController {
     public TagTransfer getTag(@PathVariable UUID id) {
         Tag tag = tagService.getOneById(id);
         if (tag == null) {
-            throw new TagNotFoundException(id);
+            throw new NotFoundException("No such Tag"+id);
         }
         return mapper.toTransfer(tag);
     }

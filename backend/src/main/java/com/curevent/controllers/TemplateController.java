@@ -1,17 +1,13 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.TemplateNotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.entities.Template;
-import com.curevent.models.entities.UserEntity;
 import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.TemplateTransfer;
-import com.curevent.models.transfers.UserTransfer;
 import com.curevent.services.TemplateService;
 import com.curevent.utils.mapping.EventMapper;
 import com.curevent.utils.mapping.TemplateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 

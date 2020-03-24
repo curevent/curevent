@@ -1,16 +1,13 @@
 package com.curevent.exceptions;
 
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 
-@Data
-public class NotFoundException extends ResponceException {
-
+public class ConflictException extends ResponceException {
     private final String message;
     private final HttpStatus httpStatus;
 
 
-    public NotFoundException(String message) {
+    public ConflictException(String message) {
         super();
         this.message = message;
         this.httpStatus = HttpStatus.NOT_FOUND;

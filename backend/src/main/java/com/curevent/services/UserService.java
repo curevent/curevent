@@ -1,11 +1,7 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.TagNotFoundException;
-import com.curevent.exceptions.UserAlreadyExistsException;
-import com.curevent.exceptions.UserNotFoundException;
-import com.curevent.models.entities.Relationship;
-import com.curevent.models.entities.Tag;
-import com.curevent.models.entities.Template;
+import com.curevent.exceptions.ConflictException;
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +35,7 @@ public class UserService {
 
     public UserEntity getOneById(UUID id) {
         return userRepository.findById(id).stream().findAny()
-                .orElseThrow(() -> new UserNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException("No such User " + id));
     }
 
     public UserEntity getOneByEmail(String email) {
@@ -54,7 +50,7 @@ public class UserService {
 
     public UserEntity add(UserEntity user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new UserAlreadyExistsException("username " + user.getUsername());
+            throw new ConflictException("User  " + user.getUsername() + " already exists");
         }
         return userRepository.save(user);
     }
@@ -76,7 +72,7 @@ public class UserService {
         UserEntity curUser = getOneById(userEntity.getId());
         Optional<UserEntity> optionalUser = userRepository.findByUsername(userEntity.getUsername());
         if (optionalUser.isPresent() && optionalUser.get().getId() != userEntity.getId()) {
-            throw new UserAlreadyExistsException("username " + userEntity.getUsername());
+            throw new ConflictException("User  " + userEntity.getUsername() + " already exists");
         }
         curUser.setUsername(userEntity.getUsername());
         curUser.setEmail(userEntity.getEmail());

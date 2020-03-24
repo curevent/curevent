@@ -1,10 +1,7 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.EventNotFoundException;
 import com.curevent.models.entities.Event;
-import com.curevent.models.entities.Template;
 import com.curevent.models.transfers.EventTransfer;
-import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.services.EventService;
 import com.curevent.utils.mapping.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/events")

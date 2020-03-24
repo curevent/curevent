@@ -72,8 +72,7 @@ public class AuthService {
         try {
             // find user from database
             UserEntity userModel = userRepository.findByUsername(loginForm.getUsername()).orElseThrow(() ->
-                    new NotFoundException("The user by username [" + loginForm.getUsername() + "] not found",
-                            HttpStatus.NOT_FOUND));
+                    new NotFoundException("The user by username [" + loginForm.getUsername() + "] not found"));
 
             // create a new refresh token
             String refreshToken = tokenProvider.createRefreshToken();
@@ -110,14 +109,13 @@ public class AuthService {
         // find user by username from database
 
         return userRepository.findByUsername(username).orElseThrow(() ->
-                new NotFoundException("The user by username [" + username + "] not found", HttpStatus.NOT_FOUND));
+                new NotFoundException("The user by username [" + username + "] not found"));
     }
 
     public AuthTransfer refresh(String username, String refreshToken) {
         // get instance of user model by username from database
         UserEntity userModel = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("The user by username [" + username + "] not found",
-                        HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException("The user by username [" + username + "] not found"));
 
         Set<Role> roles = new HashSet<>();
         roles.add(new Role(USER_ROLE));

@@ -1,15 +1,12 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.CategoryNotFoundException;
-import com.curevent.exceptions.CommentNotFoundException;
-import com.curevent.models.entities.Category;
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Comment;
 import com.curevent.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,7 +22,7 @@ public class CommentService {
 
     public Comment getOneById(UUID id) {
         return commentRepository.findById(id).stream().findAny()
-                .orElseThrow(()-> new CommentNotFoundException(id));
+                .orElseThrow(()-> new NotFoundException("No such Comment"+ id));
     }
 
     public Comment add(Comment comment) {
@@ -39,7 +36,7 @@ public class CommentService {
 
     public Comment update(Comment comment) {
         if (!commentRepository.existsById(comment.getId())) {
-            throw new CommentNotFoundException(comment.getId());
+            throw new NotFoundException("No such Comment" + comment.getId());
         }
         return commentRepository.save(comment);
     }
