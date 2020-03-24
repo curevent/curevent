@@ -45,7 +45,11 @@ public class Event {
     @NotNull
     private String description;
 
-  //  @Column(name = "geotag")
+    @Column(name = "longitude")
+    private Double longitude;
+
+    @Column(name = "latitude")
+    private Double latitude;
 
     @OneToOne
     @JoinColumn(name = "privacy_id")
