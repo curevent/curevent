@@ -58,8 +58,8 @@ public class TemplateController {
 
     @Transactional
     @PostMapping("/{id}/events")
-    public List <EventTransfer> createEvents(@PathVariable UUID id, @RequestParam (value = "time") Long firstTimeAppearance) {
-        return templateService.createEvents(id, new Timestamp(firstTimeAppearance))
+    public List <EventTransfer> createEvents(@PathVariable UUID id, @RequestParam (value = "time") Timestamp firstTimeAppearance) {
+        return templateService.createEvents(id, firstTimeAppearance)
                 .stream().map(eventMapper::toTransfer).collect(Collectors.toList());
     }
 

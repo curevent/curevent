@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @Transactional
-    @GetMapping("/all")
+    @GetMapping("/")
     public List <UserTransfer> getAllUsers() {
         List <UserEntity> userEntities = userService.getAll();
         return userEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());

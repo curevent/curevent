@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -86,7 +87,8 @@ public class TemplateService {
         if (template.getDescription() == null) {
             //кидаем исключение
         }
-        return Stream.iterate(firstAppearanceTime, time -> new Timestamp(time.getTime() + template.getRepeatTime() * 60000))
+        Long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
+        return Stream.iterate(firstAppearanceTime, time -> new Timestamp(time.getTime() + intervalInMills))
                 .limit(template.getRepeatAmount())
                 .map(time -> {
                     Event event = new Event();
