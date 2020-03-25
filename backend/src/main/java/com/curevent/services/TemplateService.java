@@ -87,7 +87,7 @@ public class TemplateService {
         if (template.getDescription() == null) {
             //кидаем исключение
         }
-        Long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
+        long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
         return Stream.iterate(firstAppearanceTime, time -> new Timestamp(time.getTime() + intervalInMills))
                 .limit(template.getRepeatAmount())
                 .map(time -> {
