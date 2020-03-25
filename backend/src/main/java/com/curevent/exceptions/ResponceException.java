@@ -5,16 +5,17 @@ import org.springframework.http.HttpStatus;
 
 @Data
 public class ResponceException extends RuntimeException {
-    private HttpStatus httpStatus;
     private String message;
+    private HttpStatus httpStatus;
 
-    public ResponceException(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
+    public ResponceException() {
+        this.message = "Unknown error";
+        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+
+    public ResponceException(String message){
+        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         this.message = message;
     }
 
-    public ResponceException(String message, HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
-        this.message = message;
-    }
 }
