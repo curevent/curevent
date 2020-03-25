@@ -1,15 +1,11 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.CategoryNotFoundException;
-import com.curevent.exceptions.EventNotFoundException;
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Category;
-import com.curevent.models.entities.Event;
 import com.curevent.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -24,7 +20,7 @@ public class CategoryService {
 
     public Category getOneById(Long id) {
         return categoryRepository.findById(id).stream().findAny()
-                .orElseThrow(() -> new CategoryNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException("No such Category" + id));
     }
 
     public Category add(Category category) {
@@ -38,7 +34,7 @@ public class CategoryService {
 
     public Category update(Category category) {
         if (!categoryRepository.existsById(category.getId())) {
-            throw new CategoryNotFoundException(category.getId());
+            throw new NotFoundException("No such Category" + category.getId());
         }
         return categoryRepository.save(category);
     }

@@ -1,6 +1,5 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.CategoryNotFoundException;
 import com.curevent.models.entities.Category;
 import com.curevent.models.entities.Event;
 import com.curevent.models.transfers.CategoryTransfer;

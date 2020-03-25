@@ -1,8 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.CategoryNotFoundException;
-import com.curevent.exceptions.RelationshipNotFoundException;
-import com.curevent.models.entities.Category;
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Relationship;
 import com.curevent.repositories.RelationshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,7 @@ public class RelationshipService {
 
     public Relationship getOneById(UUID id) {
         return relationshipRepository.findById(id).stream().findAny()
-                .orElseThrow(()-> new RelationshipNotFoundException(id));
+                .orElseThrow(()-> new NotFoundException("No such Relationship" + id));
     }
 
     public Relationship add(Relationship relationship) {
@@ -40,7 +38,7 @@ public class RelationshipService {
 
     public Relationship update(Relationship relationship) {
         if (!relationshipRepository.existsById(relationship.getId())) {
-            throw new RelationshipNotFoundException(relationship.getId());
+            throw new NotFoundException("No such Relationship" + relationship.getId());
         }
         return relationshipRepository.save(relationship);
     }

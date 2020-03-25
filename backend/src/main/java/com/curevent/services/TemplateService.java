@@ -1,7 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.EventNotFoundException;
-import com.curevent.exceptions.TemplateNotFoundException;
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.entities.Template;
 import com.curevent.repositories.TemplateRepository;
@@ -33,7 +32,7 @@ public class TemplateService {
 
     public Template getOneById(UUID id) {
         return templateRepository.findById(id).stream().findAny()
-                .orElseThrow(() -> new TemplateNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException("No such Template"+id));
     }
 
     public Template add(Template template) {
@@ -42,7 +41,7 @@ public class TemplateService {
 
     public Template update(Template template) {
         if (!templateRepository.existsById(template.getId())) {
-            throw new EventNotFoundException(template.getId());
+            throw new NotFoundException("No such Event"+template.getId());
         }
         return templateRepository.save(template);
     }
@@ -85,7 +84,7 @@ public class TemplateService {
             template.setRepeatAmount(1);
         }
         if (template.getDescription() == null) {
-            //кидаем исключение
+            throw new NotFoundException("No such Template"+template.getId());
         }
         Long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
         return Stream.iterate(firstAppearanceTime, time -> new Timestamp(time.getTime() + intervalInMills))

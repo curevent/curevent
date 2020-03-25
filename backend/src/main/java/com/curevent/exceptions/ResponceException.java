@@ -9,8 +9,8 @@ public class ResponceException extends RuntimeException {
     private HttpStatus httpStatus;
 
     public ResponceException() {
-        this.message = "Unknown error";
         this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        this.message = "Unknown error";
     }
 
     public ResponceException(String message){

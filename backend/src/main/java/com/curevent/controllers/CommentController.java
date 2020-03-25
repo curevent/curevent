@@ -1,20 +1,14 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.CommentNotFoundException;
-import com.curevent.models.entities.Category;
 import com.curevent.models.entities.Comment;
-import com.curevent.models.transfers.CategoryTransfer;
 import com.curevent.models.transfers.CommentTransfer;
 import com.curevent.services.CommentService;
 import com.curevent.utils.mapping.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comments")

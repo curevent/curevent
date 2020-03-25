@@ -1,7 +1,6 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.CommentNotFoundException;
-import com.curevent.exceptions.TagNotFoundException;
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Comment;
 import com.curevent.models.entities.Tag;
 import com.curevent.repositories.TagRepository;
@@ -24,7 +23,7 @@ public class TagService {
 
     public Tag getOneById(UUID id) {
         return tagRepository.findById(id).stream().findAny()
-                .orElseThrow(()-> new TagNotFoundException(id));
+                .orElseThrow(()-> new NotFoundException("No such Comment"+id));
     }
 
     public Tag add(Tag tag) {
@@ -38,7 +37,7 @@ public class TagService {
 
     public Tag update(Tag tag) {
         if (!tagRepository.existsById(tag.getId())) {
-            throw new TagNotFoundException(tag.getId());
+            throw new NotFoundException("No such Comment"+tag.getId());
         }
         return tagRepository.save(tag);
     }
