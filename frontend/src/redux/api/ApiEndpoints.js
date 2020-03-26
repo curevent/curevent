@@ -41,13 +41,13 @@ export const DELETE_EVENT_BY_ID = (id) => `${EVENT_ENDPOINT}/${id}`;
 
 // templates
 export const POST_TEMPLATE = `${TEMPLATE_ENDPOINT}/`;
-export const CREATE_TEMPLATE_EVENTS = (id) =>  `${TEMPLATE_ENDPOINT}/${id}/events`;
+export const POST_START_TIME_AND_CREATE_TEMPLATE_EVENTS = (id) =>  `${TEMPLATE_ENDPOINT}/${id}/events`;
 
 export const GET_TEMPLATE_BY_ID = (id) => `${TEMPLATE_ENDPOINT}/${id}`;
 
-export const PUT_TEMPLATE = `${TEMPLATE_ENDPOINT}/`;
+export const PUT_TEMPLATE_AND_TEMPLATE_EVENTS = `${TEMPLATE_ENDPOINT}/`;
 
-export const DELETE_TEMPLATE_BY_ID = (id) => `${TEMPLATE_ENDPOINT}/${id}`;
+export const DELETE_TEMPLATE_AND_TEMPLATE_EVENTS = (id) => `${TEMPLATE_ENDPOINT}/${id}`;
 export const DELETE_TEMPLATE_EVENTS = (id) => `${TEMPLATE_ENDPOINT}/${id}/events`;
 
 //tags
