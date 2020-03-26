@@ -78,7 +78,7 @@ public class TemplateService {
         base.setTags(new ArrayList<>(source.getTags()));
     }
 
-    public List<Event> createEvents(UUID id, Timestamp firstAppearanceTime) {
+    public List<Event> createEvents(UUID id, Timestamp startTime) {
         Template template = getOneById(id);
         if (template.getRepeatAmount() == null) {
             template.setRepeatAmount(1);
@@ -87,7 +87,7 @@ public class TemplateService {
             throw new NotFoundException("No such Template"+template.getId());
         }
         long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
-        return Stream.iterate(firstAppearanceTime, time -> new Timestamp(time.getTime() + intervalInMills))
+        return Stream.iterate(startTime, time -> new Timestamp(time.getTime() + intervalInMills))
                 .limit(template.getRepeatAmount())
                 .map(time -> {
                     Event event = new Event();

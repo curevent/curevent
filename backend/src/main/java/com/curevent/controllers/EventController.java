@@ -8,24 +8,19 @@ import com.curevent.utils.mapping.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/events")
 public class EventController {
 
     private final EventService eventService;
-    private final TimelineService timelineService;
     private final EventMapper mapper;
 
     @Autowired
-    public EventController(EventService eventService, TimelineService timelineService, EventMapper mapper) {
+    public EventController(EventService eventService, EventMapper mapper) {
         this.eventService = eventService;
-        this.timelineService = timelineService;
         this.mapper = mapper;
     }
 
@@ -37,22 +32,8 @@ public class EventController {
     }
 
     @Transactional
-    @GetMapping("/user/{id}")
-    public List<EventTransfer> getUserEventsInInterval(@PathVariable UUID id, @RequestParam(value = "interval") Long interval) {
-        List <Event> events = timelineService.getEventsInInterval(id, interval);
-        return events.stream().map(mapper::toTransfer).collect(Collectors.toList());
-    }
-
-    @Transactional
-    @GetMapping("/user/{id}/friends")
-    public List<EventTransfer> getUserFriendsEventsInInterval(@PathVariable UUID id, @RequestParam(value = "interval") Long interval) {
-        List <Event> events = timelineService.getFriendsEventsInInterval(id, interval);
-        return events.stream().map(mapper::toTransfer).collect(Collectors.toList());
-    }
-
-    @Transactional
     @PostMapping("/")
-    public EventTransfer addEvent(@RequestBody @Valid EventTransfer eventTransfer) {
+    public EventTransfer addEvent(@RequestBody EventTransfer eventTransfer) {
         Event event = mapper.toEntity(eventTransfer);
         return mapper.toTransfer(eventService.add(event));
     }

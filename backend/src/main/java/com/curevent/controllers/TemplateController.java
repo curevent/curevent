@@ -39,13 +39,6 @@ public class TemplateController {
     }
 
     @Transactional
-    @GetMapping("/{id}/events")
-    public List <EventTransfer> getEvents(@PathVariable UUID id) {
-        List <Event> events = templateService.getEvents(id);
-        return events.stream().map(eventMapper::toTransfer).collect(Collectors.toList());
-    }
-
-    @Transactional
     @PostMapping("/")
     public TemplateTransfer addTemplate(@RequestBody TemplateTransfer templateTransfer) {
         Template template = templateMapper.toEntity(templateTransfer);
@@ -54,8 +47,8 @@ public class TemplateController {
 
     @Transactional
     @PostMapping("/{id}/events")
-    public List <EventTransfer> createEvents(@PathVariable UUID id, @RequestParam (value = "time") Timestamp firstTimeAppearance) {
-        return templateService.createEvents(id, firstTimeAppearance)
+    public List <EventTransfer> createEvents(@PathVariable UUID id, @RequestBody Timestamp startTime) {
+        return templateService.createEvents(id, startTime)
                 .stream().map(eventMapper::toTransfer).collect(Collectors.toList());
     }
 
