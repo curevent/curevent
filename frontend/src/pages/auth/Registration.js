@@ -1,12 +1,13 @@
 import React from 'react';
-import '../../css/authentication.css'
 
 export const Registration = () => {
     return (
-        <div className="authentication-container">
-            <input id="login" className="auth-input"/>
-            <input id="password" className="auth-input"/>
-            <button className="auth-button" type="submit">Login</button>
+        <div className="registration-container">
+            <h1 className="title">Registration</h1>
+            <input type="text" id="login" className="auth-input"/>
+            <input type="text" id="email" className="auth-input"/>
+            <input type="password" id="password" className="auth-input"/>
+            <button className="auth-button" type="submit">Register</button>
         </div>
     );
 };
