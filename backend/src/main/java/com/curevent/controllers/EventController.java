@@ -37,22 +37,24 @@ public class EventController {
     }
 
     @Transactional
-    @GetMapping("/user/{id}")
-    public List<EventTransfer> getUserEventsInInterval(@PathVariable UUID id, @RequestParam(value = "interval") Long interval) {
+    @GetMapping("/ininterval/{id}")
+    public List<EventTransfer> getUserEventsInInterval(@PathVariable UUID id,
+                                                       @RequestParam(value = "interval", defaultValue = "720") Long interval) {
         List <Event> events = timelineService.getEventsInInterval(id, interval);
         return events.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
     @Transactional
-    @GetMapping("/user/{id}/friends")
-    public List<EventTransfer> getUserFriendsEventsInInterval(@PathVariable UUID id, @RequestParam(value = "interval") Long interval) {
+    @GetMapping("/ininterval/{id}/")
+    public List<EventTransfer> getUserFriendsEventsInInterval(@PathVariable UUID id,
+                                                              @RequestParam(value = "interval",  defaultValue = "720") Long interval) {
         List <Event> events = timelineService.getFriendsEventsInInterval(id, interval);
         return events.stream().map(mapper::toTransfer).collect(Collectors.toList());
     }
 
     @Transactional
     @PostMapping("/")
-    public EventTransfer addEvent(@RequestBody @Valid EventTransfer eventTransfer) {
+    public EventTransfer addEvent(@RequestBody EventTransfer eventTransfer) {
         Event event = mapper.toEntity(eventTransfer);
         return mapper.toTransfer(eventService.add(event));
     }
