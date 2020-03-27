@@ -28,7 +28,7 @@ public class TimelineService {
         long intervalInMills = TimeUnit.MINUTES.toMillis(interval);
         Timestamp startTime = new Timestamp(System.currentTimeMillis() - intervalInMills);
         Timestamp endTime = new Timestamp(System.currentTimeMillis() + intervalInMills);
-        return eventRepository.findAllByOwnerIdAndTimeGreaterThanEqualAndTimeLessThanEqual(id, startTime, endTime);
+        return eventRepository.findByOwnerIdAndTimeBetween(id, startTime, endTime);
     }
 
     public List<Event> getFriendsEventsInInterval(UUID id, Long interval) {

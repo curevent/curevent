@@ -55,7 +55,6 @@ public class TemplateController {
     @Transactional
     @DeleteMapping("/{id}")
     public void deleteTemplate(@PathVariable UUID id) {
-        templateService.deleteEvents(id);
         templateService.delete(id);
     }
 

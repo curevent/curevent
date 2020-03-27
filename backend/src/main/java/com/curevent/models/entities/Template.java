@@ -2,6 +2,7 @@ package com.curevent.models.entities;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -47,7 +48,7 @@ public class Template {
     @JoinColumn(name = "privacy_id")
     private Category privacy;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "template_id")
     private List<Event> events;
 

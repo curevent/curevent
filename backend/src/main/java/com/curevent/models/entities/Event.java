@@ -2,6 +2,7 @@ package com.curevent.models.entities;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Immutable;
 import springfox.documentation.service.Tags;
 
 import javax.persistence.*;
@@ -49,13 +50,14 @@ public class Event {
     @JoinColumn(name = "privacy_id")
     private Category privacy;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable (name="event_tags",
             joinColumns=@JoinColumn (name="event_id"),
             inverseJoinColumns=@JoinColumn(name="tag_id"))
     private List<Tag> tags;
 
     @OneToMany
+    @Immutable
     @JoinColumn(name = "event_id")
     private List<Comment> comments;
 }
