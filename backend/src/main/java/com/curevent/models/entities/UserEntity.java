@@ -2,6 +2,7 @@ package com.curevent.models.entities;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -49,14 +50,17 @@ public class UserEntity {
     private List <Relationship> relationships;
 
     @OneToMany
+    @Immutable
     @JoinColumn(name = "owner_id")
     private List<Event> events;
 
     @OneToMany
+    @Immutable
     @JoinColumn(name = "owner_id")
     private List<Template> templates;
 
     @OneToMany
+    @Immutable
     @JoinColumn(name = "owner_id")
     private List<Comment> comments;
 }
