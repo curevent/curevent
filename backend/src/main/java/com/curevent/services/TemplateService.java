@@ -1,5 +1,6 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.InvalidArgumentTypeException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.entities.Template;
@@ -58,14 +59,18 @@ public class TemplateService {
 
     public void deleteEvents(UUID templateID) {
         Template template = getOneById(templateID);
-        template.getEvents().forEach((event) -> eventService.delete(event.getId()));
+        if(template.getEvents() != null) {
+            template.getEvents().forEach((event) -> eventService.delete(event.getId()));
+        }
     }
 
     public void updateEvents(Template template) {
-        template.getEvents().forEach(event -> {
-            fillEvent(event, template);
-            eventService.update(event);
-        });
+        if (template.getEvents() != null) {
+            template.getEvents().forEach(event -> {
+                fillEvent(event, template);
+                eventService.update(event);
+            });
+        }
     }
 
     private static void fillEvent(Event base, Template source) {
@@ -83,8 +88,8 @@ public class TemplateService {
         if (template.getRepeatAmount() == null) {
             template.setRepeatAmount(1);
         }
-        if (template.getDescription() == null) {
-            throw new NotFoundException("No such Template"+template.getId());
+        if (template.getRepeatTime() == null) {
+            template.setRepeatTime((long)0);
         }
         long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
         return Stream.iterate(startTime, time -> new Timestamp(time.getTime() + intervalInMills))

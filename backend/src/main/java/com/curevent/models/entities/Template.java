@@ -39,6 +39,7 @@ public class Template {
     private String title;
 
     @Column(name = "description")
+    @NotNull
     private String description;
 
   //  @Column(name = "geotag")
