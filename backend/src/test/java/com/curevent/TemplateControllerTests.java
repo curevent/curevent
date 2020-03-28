@@ -77,7 +77,7 @@ public class TemplateControllerTests {
         TemplateTransfer templateTransfer = createTemplate(REPEAT_TIME, REPEAT_AMOUNT);
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
 
-        List<EventTransfer> events = templateController.createEvents(template.getId(), time);
+        List<EventTransfer> events = templateController.createEvents(template.getId(), time).getEvents();
         assertEquals(REPEAT_AMOUNT, events.size());
         events.forEach(event -> assertEvent(event, template));
         assertTrue(events.stream().anyMatch(e -> e.getTime().equals(time)));
@@ -92,7 +92,7 @@ public class TemplateControllerTests {
         TemplateTransfer templateTransfer = createTemplate(REPEAT_TIME, null);
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
 
-        List<EventTransfer> events = templateController.createEvents(template.getId(), time);
+        List<EventTransfer> events = templateController.createEvents(template.getId(), time).getEvents();
         assertEquals(1, events.size());
         events.forEach(event -> assertEvent(event, template));
 
@@ -104,7 +104,7 @@ public class TemplateControllerTests {
         TemplateTransfer templateTransfer = createTemplate(null, REPEAT_AMOUNT);
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
 
-        List<EventTransfer> events = templateController.createEvents(template.getId(), time);
+        List<EventTransfer> events = templateController.createEvents(template.getId(), time).getEvents();
         assertEquals(REPEAT_AMOUNT, events.size());
         events.forEach(event -> assertEvent(event, template));
         assertTrue(events.stream().allMatch(e -> e.getTime().equals(time)));
@@ -116,8 +116,7 @@ public class TemplateControllerTests {
     void editTemplateWithEventsTest() {
         TemplateTransfer templateTransfer = createTemplate(REPEAT_TIME, REPEAT_AMOUNT);
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
-        templateController.createEvents(template.getId(), time);
-        template = templateController.getTemplate(template.getId());
+        template = templateController.createEvents(template.getId(), time);
 
         template.setDuration(NEW_DURATION);
         template.setTitle(NEW_TITLE);
@@ -134,9 +133,8 @@ public class TemplateControllerTests {
     void createAndDeleteOnlyEventsTest() {
         TemplateTransfer templateTransfer = createTemplate(REPEAT_TIME, REPEAT_AMOUNT);
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
-        templateController.createEvents(template.getId(), time);
+        template = templateController.createEvents(template.getId(), time);
 
-        template = templateController.getTemplate(template.getId());
         assertEquals(REPEAT_AMOUNT, template.getEvents().size());
         templateController.deleteEvents(template.getId());
         template = templateController.getTemplate(template.getId());
