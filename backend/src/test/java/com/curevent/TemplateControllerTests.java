@@ -37,8 +37,6 @@ public class TemplateControllerTests {
     @Autowired
     private UserController userController;
     @Autowired
-    private EventController eventController;
-    @Autowired
     private TemplateController templateController;
     @Autowired
     private AuthController authController;
