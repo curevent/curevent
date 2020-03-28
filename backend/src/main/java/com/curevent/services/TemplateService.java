@@ -83,7 +83,7 @@ public class TemplateService {
         base.setTags(new ArrayList<>(source.getTags()));
     }
 
-    public List<Event> createEvents(UUID id, Timestamp startTime) {
+    public Template createEvents(UUID id, Timestamp startTime) {
         Template template = getOneById(id);
         if (template.getRepeatAmount() == null) {
             template.setRepeatAmount(1);
@@ -92,7 +92,7 @@ public class TemplateService {
             template.setRepeatTime((long)0);
         }
         long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
-        return Stream.iterate(startTime, time -> new Timestamp(time.getTime() + intervalInMills))
+        template.getEvents().addAll(Stream.iterate(startTime, time -> new Timestamp(time.getTime() + intervalInMills))
                 .limit(template.getRepeatAmount())
                 .map(time -> {
                     Event event = new Event();
@@ -101,6 +101,7 @@ public class TemplateService {
                 })
                 .peek(event -> fillEvent(event, template))
                 .peek(eventService::add)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+        return templateRepository.save(template);
     }
 }
