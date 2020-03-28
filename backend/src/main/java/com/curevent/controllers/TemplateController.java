@@ -47,9 +47,8 @@ public class TemplateController {
 
     @Transactional
     @PostMapping("/{id}/events")
-    public List <EventTransfer> createEvents(@PathVariable UUID id, @RequestBody Timestamp startTime) {
-        return templateService.createEvents(id, startTime)
-                .stream().map(eventMapper::toTransfer).collect(Collectors.toList());
+    public TemplateTransfer createEvents(@PathVariable UUID id, @RequestBody Timestamp startTime) {
+        return templateMapper.toTransfer(templateService.createEvents(id, startTime));
     }
 
     @Transactional

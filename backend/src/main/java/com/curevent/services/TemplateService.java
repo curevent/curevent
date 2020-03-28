@@ -1,5 +1,6 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.InvalidArgumentTypeException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.entities.Template;
@@ -58,14 +59,18 @@ public class TemplateService {
 
     public void deleteEvents(UUID templateID) {
         Template template = getOneById(templateID);
-        template.getEvents().forEach((event) -> eventService.delete(event.getId()));
+        if(template.getEvents() != null) {
+            template.getEvents().forEach((event) -> eventService.delete(event.getId()));
+        }
     }
 
     public void updateEvents(Template template) {
-        template.getEvents().forEach(event -> {
-            fillEvent(event, template);
-            eventService.update(event);
-        });
+        if (template.getEvents() != null) {
+            template.getEvents().forEach(event -> {
+                fillEvent(event, template);
+                eventService.update(event);
+            });
+        }
     }
 
     private static void fillEvent(Event base, Template source) {
@@ -78,16 +83,16 @@ public class TemplateService {
         base.setTags(new ArrayList<>(source.getTags()));
     }
 
-    public List<Event> createEvents(UUID id, Timestamp startTime) {
+    public Template createEvents(UUID id, Timestamp startTime) {
         Template template = getOneById(id);
         if (template.getRepeatAmount() == null) {
             template.setRepeatAmount(1);
         }
-        if (template.getDescription() == null) {
-            throw new NotFoundException("No such Template"+template.getId());
+        if (template.getRepeatTime() == null) {
+            template.setRepeatTime((long)0);
         }
         long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
-        return Stream.iterate(startTime, time -> new Timestamp(time.getTime() + intervalInMills))
+        template.getEvents().addAll(Stream.iterate(startTime, time -> new Timestamp(time.getTime() + intervalInMills))
                 .limit(template.getRepeatAmount())
                 .map(time -> {
                     Event event = new Event();
@@ -96,6 +101,7 @@ public class TemplateService {
                 })
                 .peek(event -> fillEvent(event, template))
                 .peek(eventService::add)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+        return templateRepository.save(template);
     }
 }
