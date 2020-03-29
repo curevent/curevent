@@ -2,11 +2,18 @@ import React, {useState} from 'react';
 
 export const Authentication = () => {
 
-    const [login, setLogin] = useState('login');
-
-    const [password, setPassword] = useState('password');
+    const [auth, setAuth] = useState({login:"", password:""});
 
     const submitHandler = event => {
+        console.log(document.getElementById("login"));
+        console.log(document.getElementById("password"));
+    };
+
+    const changeInputHandler = event => {
+        event.persist();
+        setAuth(pervState => ( { ...pervState, ...{
+            [event.target.id]: event.target.value
+        }}))
     };
 
     return (
@@ -16,17 +23,17 @@ export const Authentication = () => {
                 type="text"
                 id="login"
                 className="auth-input"
-                value={login.valueOf()}
-                onChange={event => setLogin(event.target.value)}
-                onFocus={() => setLogin('')}
+                placeholder="login"
+                value={auth.login}
+                onChange={changeInputHandler}
             />
             <input
                 type="password"
                 id="password"
                 className="auth-input"
-                value={password.valueOf()}
-                onChange={event => setPassword(event.target.value)}
-                onFocus={() => setPassword('')}
+                placeholder="password"
+                value={auth.password}
+                onChange={changeInputHandler}
             />
             <button
                 className="auth-button"
