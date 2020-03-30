@@ -22,13 +22,11 @@ public class TemplateController {
 
     private final TemplateService templateService;
     private final TemplateMapper templateMapper;
-    private final EventMapper eventMapper;
 
     @Autowired
-    public TemplateController(TemplateService templateService, TemplateMapper templateMapper, EventMapper eventMapper) {
+    public TemplateController(TemplateService templateService, TemplateMapper templateMapper) {
         this.templateService = templateService;
         this.templateMapper = templateMapper;
-        this.eventMapper = eventMapper;
     }
 
     @Transactional
