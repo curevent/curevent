@@ -33,6 +33,7 @@ public class TemplateControllerTests {
     public static final String NEW_TITLE = "new_title";
     public static final long NEW_DURATION = 1000;
     public static final int REPEAT_AMOUNT = 3;
+    public static final String NEW_TAG = "new_tag";
 
     @Autowired
     private UserController userController;
@@ -118,12 +119,23 @@ public class TemplateControllerTests {
 
         template.setDuration(NEW_DURATION);
         template.setTitle(NEW_TITLE);
+
+        TagTransfer tagTransfer = new TagTransfer();
+        tagTransfer.setDescription(NEW_TAG);
+        TagTransfer newTag = tagController.addTag(tagTransfer);
+        template.getTags().add(newTag);
+
         template = templateController.editTemplate(template);
         template.getEvents().forEach((event) -> {
             assertEquals(NEW_TITLE, event.getTitle());
             assertEquals(NEW_DURATION, event.getDuration());
         });
 
+        assertEquals(2, template.getTags().size());
+        assertTrue(template.getEvents().stream()
+                .allMatch( event -> event.getTags().stream()
+                    .anyMatch(t -> t.getId().equals(tag.getId()) || t.getId().equals(newTag.getId())))
+                );
         templateController.deleteTemplate(template.getId());
     }
 
