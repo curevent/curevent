@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -16,6 +18,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "templates")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Template {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -53,6 +57,7 @@ public class Template {
     private List<Event> events;
 
     @ManyToMany
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(name = "template_tags",
             joinColumns = @JoinColumn(name = "template_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))

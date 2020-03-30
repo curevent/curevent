@@ -1,6 +1,7 @@
 package com.curevent.models.entities;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
@@ -16,6 +17,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class UserEntity {
 
     @Id
