@@ -1,9 +1,10 @@
 package com.curevent.models.entities;
 
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Immutable;
-import springfox.documentation.service.Tags;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -41,7 +42,7 @@ public class Event {
     @NotNull
     private String description;
 
-  //  @Column(name = "geotag")
+    //  @Column(name = "geotag")
 
     @Column(name = "template_id")
     private UUID templateId;
@@ -51,9 +52,9 @@ public class Event {
     private Category privacy;
 
     @ManyToMany
-    @JoinTable (name="event_tags",
-            joinColumns=@JoinColumn (name="event_id"),
-            inverseJoinColumns=@JoinColumn(name="tag_id"))
+    @JoinTable(name = "event_tags",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 
     @OneToMany

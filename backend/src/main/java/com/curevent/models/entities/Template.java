@@ -1,14 +1,13 @@
 package com.curevent.models.entities;
 
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Immutable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -43,7 +42,7 @@ public class Template {
     @NotNull
     private String description;
 
-  //  @Column(name = "geotag")
+    //  @Column(name = "geotag")
 
     @OneToOne
     @JoinColumn(name = "privacy_id")
@@ -54,9 +53,9 @@ public class Template {
     private List<Event> events;
 
     @ManyToMany
-    @JoinTable (name="template_tags",
-            joinColumns=@JoinColumn (name="template_id"),
-            inverseJoinColumns=@JoinColumn(name="tag_id"))
+    @JoinTable(name = "template_tags",
+            joinColumns = @JoinColumn(name = "template_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 
 }

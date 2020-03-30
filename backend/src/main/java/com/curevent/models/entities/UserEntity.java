@@ -1,7 +1,6 @@
 package com.curevent.models.entities;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
@@ -46,8 +45,8 @@ public class UserEntity {
     private String password;
 
     @OneToMany
-    @JoinColumn(name="owner_id")
-    private List <Relationship> relationships;
+    @JoinColumn(name = "owner_id")
+    private List<Relationship> relationships;
 
     @OneToMany
     @Immutable
