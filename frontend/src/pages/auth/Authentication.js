@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
+import {connect} from "react-redux";
 
-export const Authentication = () => {
+const Authentication = () => {
 
     const [auth, setAuth] = useState({login:"", password:""});
 
@@ -45,3 +46,11 @@ export const Authentication = () => {
         </div>
     );
 };
+
+const mapStateToProps = auth => ({
+    username: auth.login.valueOf,
+    password: auth.password.valueOf
+});
+
+const connectedAuthForm = connect(mapStateToProps)(Authentication);
+export {connectedAuthForm as Authentication};
