@@ -16,7 +16,7 @@ spring:
   # JPA properties
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: false
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -36,7 +36,7 @@ spring:
           region:
             factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
   liquibase:
-    change-log: classpath:/master.xml
+    enabled: false
   flyway:
     enabled: false
 
