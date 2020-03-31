@@ -48,7 +48,8 @@
                 <constraints nullable="false"/>
             </column>
             <column name="template_id" type="uuid" />
-            <column name="geotag" type="jsonb"/>
+            <column name="longitude" type="double precision" />
+            <column name="latitude" type="double precision" />
             <column name="privacy_id" type="bigint"/>
         </createTable>
     </changeSet>
@@ -70,7 +71,8 @@
             <column name="description" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
-            <column name="geotag" type="jsonb"/>
+            <column name="longitude" type="double precision" />
+            <column name="latitude" type="double precision" />
             <column name="privacy_id" type="bigint"/>
         </createTable>
     </changeSet>

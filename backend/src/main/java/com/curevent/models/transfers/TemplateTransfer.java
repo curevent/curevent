@@ -20,8 +20,8 @@ public class TemplateTransfer {
     private Integer repeatAmount;
     private String title;
     private String description;
-
-  //  @Column(name = "geotag")
+    private Double latitude;
+    private Double longitude;
     private CategoryTransfer privacy;
     private List<TagTransfer> tags;
     private List<EventTransfer> events;
