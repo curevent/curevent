@@ -20,6 +20,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="password" type="varchar(128)"/>
+            <column name="refresh_token" type="varchar(128)"/>
             <column name="name" type="varchar(50)" />
             <column name="surname" type="varchar(50)"/>
             <column name="country" type="varchar(50)"/>
@@ -47,7 +48,8 @@
                 <constraints nullable="false"/>
             </column>
             <column name="template_id" type="uuid" />
-            <column name="geotag" type="jsonb"/>
+            <column name="longitude" type="double precision" />
+            <column name="latitude" type="double precision" />
             <column name="privacy_id" type="bigint"/>
         </createTable>
     </changeSet>
@@ -69,7 +71,8 @@
             <column name="description" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
-            <column name="geotag" type="jsonb"/>
+            <column name="longitude" type="double precision" />
+            <column name="latitude" type="double precision" />
             <column name="privacy_id" type="bigint"/>
         </createTable>
     </changeSet>
