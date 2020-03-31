@@ -8,7 +8,7 @@ const initialState = {
     expires_in: 0
 };
 
-export function auth(state = initialState, action) {
+export function authReducer(state = initialState, action) {
     switch (action.type) {
         case AUTH_ACTION:
             return postAuth(action.authInfo);
