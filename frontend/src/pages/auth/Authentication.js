@@ -1,13 +1,19 @@
 import React, {useState} from 'react';
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
+import {postAuth} from "../../redux/actions/AuthActions";
 
 const Authentication = () => {
 
-    const [auth, setAuth] = useState({login:"", password:""});
+    const dispatch = useDispatch()
+
+    const [auth, setAuth] = useState({username:"", password:""});
 
     const submitHandler = event => {
-        console.log(document.getElementById("login"));
-        console.log(document.getElementById("password"));
+        const {username, password} = auth;
+        const authInfo = {username, password};
+        console.log(authInfo);
+        dispatch(postAuth(authInfo));
+        setAuth({username:"", password:""});
     };
 
     const changeInputHandler = event => {
@@ -22,10 +28,10 @@ const Authentication = () => {
             <h1 className="title">Authentication</h1>
             <input
                 type="text"
-                id="login"
+                id="username"
                 className="auth-input"
                 placeholder="login"
-                value={auth.login}
+                value={auth.username}
                 onChange={changeInputHandler}
             />
             <input
@@ -47,10 +53,4 @@ const Authentication = () => {
     );
 };
 
-const mapStateToProps = auth => ({
-    username: auth.login.valueOf,
-    password: auth.password.valueOf
-});
-
-const connectedAuthForm = connect(mapStateToProps)(Authentication);
-export {connectedAuthForm as Authentication};
+export default Authentication;
