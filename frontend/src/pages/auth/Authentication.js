@@ -1,12 +1,26 @@
 import React, {useState} from 'react';
+import {useDispatch} from "react-redux";
+import {postAuth} from "../../redux/actions/AuthActions";
 
-export const Authentication = () => {
+const Authentication = () => {
 
-    const [login, setLogin] = useState('login');
+    const dispatch = useDispatch()
 
-    const [password, setPassword] = useState('password');
+    const [auth, setAuth] = useState({username:"", password:""});
 
     const submitHandler = event => {
+        const {username, password} = auth;
+        const authInfo = {username, password};
+        console.log(authInfo);
+        dispatch(postAuth(authInfo));
+        setAuth({username:"", password:""});
+    };
+
+    const changeInputHandler = event => {
+        event.persist();
+        setAuth(pervState => ( { ...pervState, ...{
+            [event.target.id]: event.target.value
+        }}))
     };
 
     return (
@@ -14,19 +28,19 @@ export const Authentication = () => {
             <h1 className="title">Authentication</h1>
             <input
                 type="text"
-                id="login"
+                id="username"
                 className="auth-input"
-                value={login.valueOf()}
-                onChange={event => setLogin(event.target.value)}
-                onFocus={() => setLogin('')}
+                placeholder="login"
+                value={auth.username}
+                onChange={changeInputHandler}
             />
             <input
                 type="password"
                 id="password"
                 className="auth-input"
-                value={password.valueOf()}
-                onChange={event => setPassword(event.target.value)}
-                onFocus={() => setPassword('')}
+                placeholder="password"
+                value={auth.password}
+                onChange={changeInputHandler}
             />
             <button
                 className="auth-button"
@@ -38,3 +52,5 @@ export const Authentication = () => {
         </div>
     );
 };
+
+export default Authentication;
