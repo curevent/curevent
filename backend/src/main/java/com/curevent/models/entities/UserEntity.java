@@ -48,6 +48,7 @@ public class UserEntity {
     private String password;
 
     @OneToMany
+    @Immutable
     @JoinColumn(name = "owner_id")
     private List<Relationship> relationships;
 
