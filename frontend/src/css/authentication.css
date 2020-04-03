@@ -1,9 +1,10 @@
-.page-auth-container {
+.auth-container {
     display: flex;
-    justify-content: center;
-    height: 100vh;
-    background: url("./img/bg.auth.jpg");
-    background-size: cover;
+    flex-direction: column;
+    background: white;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 1px 1px 10px black;
 }
 
 .authentication-container {
@@ -13,13 +14,19 @@
     height: 260px;
     padding-top: 20px;
     margin: auto;
-    background: rgba(55, 55, 55, 0.8);
-    border-radius: 2px;
-    border: #747474 1px solid;
+}
+
+.registration-container {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 320px;
+    padding-top: 20px;
+    margin: auto;
 }
 
 .title {
-    color: white;
+    color: black;
     margin-left: 50px;
 }
 
@@ -30,7 +37,7 @@
     color: #737373;
     padding: 10px;
     font-size: 20px;
-    border: none;
+    border: #747474 solid 1px;
 }
 
 .auth-button {
@@ -39,7 +46,7 @@
     height: 35px;
     color: #373737;
     background-color: #ffffff;
-    border: none;
+    border: #747474 solid 1px;
     border-radius: 2px;
     margin: 10px 50px auto auto;
     transition: 200ms;
@@ -52,3 +59,14 @@
     margin: 10px 45px auto auto;
 }
 
+.swap-button {
+    font-size: 22px;
+    width: 90px;
+    height: 38px;
+    color: #373737;
+    background-color: #ffffff;
+    border: #747474 solid 1px;
+    border-radius: 2px;
+    margin: 10px 50px auto auto;
+    transition: 200ms;
+}
