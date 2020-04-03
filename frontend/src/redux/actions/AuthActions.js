@@ -12,7 +12,7 @@ export function postAuth(authInfo) {
 
 export function postRegister(registerInfo) {
     return async dispatch => {
-        axios.post(POST_REGISTER, {registerInfo}).then(response => {
+        axios.post(POST_REGISTER, registerInfo).then(response => {
             dispatch({type: REGISTER_ACTION, payload: response.data})
         });
     }
