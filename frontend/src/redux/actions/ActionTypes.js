@@ -1,6 +1,10 @@
 export const REGISTER_ACTION = "REGISTER";
 export const AUTH_ACTION = "AUTH";
 export const POST_TAG_ACTION = "POST_TAG";
-export const GET_TAG_ACTION = "GET_TAG_BY_ID";
+export const GET_TAG_ACTION = "GET_TAG";
 export const PUT_TAG_ACTION = "PUT_TAG";
 export const DELETE_TAG_ACTION = "DELETE_TAG";
+export const POST_CATEGORY_ACTION = "POST_CATEGORY";
+export const GET_CATEGORY_ACTION = "GET_CATEGORY";
+export const PUT_CATEGORY_ACTION = "PUT_CATEGORY";
+export const DELETE_CATEGORY_ACTION = "DELETE_CATEGORY";
