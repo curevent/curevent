@@ -11,7 +11,7 @@ export function authReducer(state = initialState, action) {
         case AUTH_ACTION:
             return {...state, tokens: action.payload};
         case REGISTER_ACTION:
-
+            return {...state, tokens: action.payload};
         default:
             return state;
     }
