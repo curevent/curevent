@@ -1,0 +1,7 @@
+.application-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: url("./img/bg.auth.jpg");
+    background-size: cover;
+}

@@ -38,6 +38,8 @@ public class AuthController {
     @PostMapping("/login")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public AuthTransfer login(@RequestBody LoginForm loginForm) {
+        log.info(loginForm.getUsername());
+        log.info(loginForm.getPassword());
         return authService.login(loginForm);
     }
 
