@@ -30,7 +30,7 @@ const Authentication = () => {
                 type="text"
                 id="username"
                 className="auth-input"
-                placeholder="login"
+                placeholder="Username"
                 value={auth.username}
                 onChange={changeInputHandler}
             />
@@ -38,7 +38,7 @@ const Authentication = () => {
                 type="password"
                 id="password"
                 className="auth-input"
-                placeholder="password"
+                placeholder="Password"
                 value={auth.password}
                 onChange={changeInputHandler}
             />
