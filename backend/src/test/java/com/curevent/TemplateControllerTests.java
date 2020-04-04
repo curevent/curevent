@@ -136,6 +136,8 @@ public class TemplateControllerTests {
                 .allMatch( event -> event.getTags().stream()
                     .anyMatch(t -> t.getId().equals(tag.getId()) || t.getId().equals(newTag.getId())))
                 );
+
+        tagController.deleteTag(newTag.getId());
         templateController.deleteTemplate(template.getId());
     }
 

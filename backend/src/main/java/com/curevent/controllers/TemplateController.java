@@ -39,13 +39,12 @@ public class TemplateController {
 
     @DeleteMapping("/{id}/events")
     public TemplateTransfer deleteEvents(@PathVariable UUID id) {
-        templateService.deleteEvents(id);
-        return templateService.getOneById(id);
+        return templateService.deleteEvents(id);
     }
 
     @PutMapping("/")
     public TemplateTransfer editTemplate(@RequestBody TemplateTransfer templateTransfer) {
-        templateService.updateEvents(templateTransfer);
-        return templateService.update(templateTransfer);
+        templateService.update(templateTransfer);
+        return templateService.updateEvents(templateTransfer);
     }
 }

@@ -1,13 +1,10 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.InvalidArgumentTypeException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.entities.Template;
-import com.curevent.models.entities.UserEntity;
 import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.TemplateTransfer;
-import com.curevent.models.transfers.UserTransfer;
 import com.curevent.repositories.TemplateRepository;
 import com.curevent.utils.mapping.EventMapper;
 import com.curevent.utils.mapping.TemplateMapper;
@@ -31,8 +28,6 @@ public class TemplateService {
 
     @Autowired
     private final TemplateRepository templateRepository;
-    @Autowired
-    private final EventService eventService;
     @Autowired
     private final TemplateMapper templateMapper;
     @Autowired
@@ -74,21 +69,21 @@ public class TemplateService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteEvents(UUID templateID) {
+    public TemplateTransfer deleteEvents(UUID templateID) {
         Template template = getEntityById(templateID);
-        if(template.getEvents() != null) {
-            template.getEvents().forEach((event) -> eventService.delete(event.getId()));
-        }
+        template.getEvents().clear();
+        return templateMapper.toTransfer(templateRepository.save(template));
     }
 
-    public void updateEvents(TemplateTransfer templateTransfer) {
+    public TemplateTransfer updateEvents(TemplateTransfer templateTransfer) {
         Template template = templateMapper.toEntity(templateTransfer);
         if (template.getEvents() != null) {
-            template.getEvents().forEach(event -> {
+            for (Event event : template.getEvents()) {
                 fillEvent(event, template);
-                eventService.update(eventMapper.toTransfer(event));
-            });
+            }
+            return templateMapper.toTransfer(templateRepository.save(template));
         }
+        return templateTransfer;
     }
 
     private static void fillEvent(Event base, Template source) {
@@ -118,7 +113,6 @@ public class TemplateService {
                     return event;
                 })
                 .peek(event -> fillEvent(event, template))
-                .peek(event -> eventService.add(eventMapper.toTransfer(event)))
                 .collect(Collectors.toList()));
         return templateMapper.toTransfer(templateRepository.save(template));
     }
