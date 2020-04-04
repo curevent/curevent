@@ -56,7 +56,7 @@ public class Template {
     @JoinColumn(name = "privacy_id")
     private Category privacy;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "template_id")
     private List<Event> events;
 

@@ -1,10 +1,14 @@
 package com.curevent.services;
 
-import com.curevent.exceptions.InvalidArgumentTypeException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.entities.Template;
+import com.curevent.models.transfers.EventTransfer;
+import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.repositories.TemplateRepository;
+import com.curevent.utils.mapping.EventMapper;
+import com.curevent.utils.mapping.TemplateMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,60 +21,69 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@AllArgsConstructor
 @Service
 @Transactional
 public class TemplateService {
 
-    private final TemplateRepository templateRepository;
-    private final EventService eventService;
-
     @Autowired
-    public TemplateService(TemplateRepository templateRepository, EventService eventService) {
-        this.templateRepository = templateRepository;
-        this.eventService = eventService;
-    }
+    private final TemplateRepository templateRepository;
+    @Autowired
+    private final TemplateMapper templateMapper;
+    @Autowired
+    private final EventMapper eventMapper;
 
-
-    public Template getOneById(UUID id) {
+    private Template getEntityById(UUID id) {
         return templateRepository.findById(id).stream().findAny()
+                .orElseThrow(() -> new NotFoundException("No such Template " + id));
+    }
+
+    public TemplateTransfer getOneById(UUID id) {
+        Template template = templateRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Template"+id));
+        return templateMapper.toTransfer(template);
     }
 
-    public Template add(Template template) {
-        return templateRepository.save(template);
+    public TemplateTransfer add(TemplateTransfer templateTransfer) {
+        Template template = templateMapper.toEntity(templateTransfer);
+        return templateMapper.toTransfer(templateRepository.save(template));
     }
 
-    public Template update(Template template) {
+    public TemplateTransfer update(TemplateTransfer templateTransfer) {
+        Template template = templateMapper.toEntity(templateTransfer);
         if (!templateRepository.existsById(template.getId())) {
-            throw new NotFoundException("No such Event"+template.getId());
+            throw new NotFoundException("No such Template"+template.getId());
         }
-        return templateRepository.save(template);
+        return templateMapper.toTransfer(templateRepository.save(template));
     }
 
     public void delete(UUID id) {
-        Template template = getOneById(id);
+        Template template = getEntityById(id);
         templateRepository.delete(template);
     }
 
-    public List<Event> getEvents(UUID id) {
-        Template template = getOneById(id);
-        return template.getEvents();
+    public List<EventTransfer> getEvents(UUID id) {
+        Template template = getEntityById(id);
+        return template.getEvents().stream()
+                .map(eventMapper::toTransfer)
+                .collect(Collectors.toList());
     }
 
-    public void deleteEvents(UUID templateID) {
-        Template template = getOneById(templateID);
-        if(template.getEvents() != null) {
-            template.getEvents().forEach((event) -> eventService.delete(event.getId()));
-        }
+    public TemplateTransfer deleteEvents(UUID templateID) {
+        Template template = getEntityById(templateID);
+        template.getEvents().clear();
+        return templateMapper.toTransfer(templateRepository.save(template));
     }
 
-    public void updateEvents(Template template) {
+    public TemplateTransfer updateEvents(TemplateTransfer templateTransfer) {
+        Template template = templateMapper.toEntity(templateTransfer);
         if (template.getEvents() != null) {
-            template.getEvents().forEach(event -> {
+            for (Event event : template.getEvents()) {
                 fillEvent(event, template);
-                eventService.update(event);
-            });
+            }
+            return templateMapper.toTransfer(templateRepository.save(template));
         }
+        return templateTransfer;
     }
 
     private static void fillEvent(Event base, Template source) {
@@ -83,8 +96,8 @@ public class TemplateService {
         base.setTags(new ArrayList<>(source.getTags()));
     }
 
-    public Template createEvents(UUID id, Timestamp startTime) {
-        Template template = getOneById(id);
+    public TemplateTransfer createEvents(UUID id, Timestamp startTime) {
+        Template template = getEntityById(id);
         if (template.getRepeatAmount() == null) {
             template.setRepeatAmount(1);
         }
@@ -100,8 +113,7 @@ public class TemplateService {
                     return event;
                 })
                 .peek(event -> fillEvent(event, template))
-                .peek(eventService::add)
                 .collect(Collectors.toList()));
-        return templateRepository.save(template);
+        return templateMapper.toTransfer(templateRepository.save(template));
     }
 }

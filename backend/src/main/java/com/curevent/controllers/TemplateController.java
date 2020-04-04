@@ -1,70 +1,50 @@
 package com.curevent.controllers;
 
-import com.curevent.models.entities.Event;
-import com.curevent.models.entities.Template;
-import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.services.TemplateService;
-import com.curevent.utils.mapping.EventMapper;
-import com.curevent.utils.mapping.TemplateMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/templates")
 public class TemplateController {
 
-    private final TemplateService templateService;
-    private final TemplateMapper templateMapper;
-
     @Autowired
-    public TemplateController(TemplateService templateService, TemplateMapper templateMapper) {
-        this.templateService = templateService;
-        this.templateMapper = templateMapper;
-    }
+    private final TemplateService templateService;
 
-    @Transactional
     @GetMapping("/{id}")
     public TemplateTransfer getTemplate(@PathVariable UUID id) {
-        Template template = templateService.getOneById(id);
-        return templateMapper.toTransfer(template);
+        return templateService.getOneById(id);
     }
 
-    @Transactional
     @PostMapping("/")
     public TemplateTransfer addTemplate(@RequestBody TemplateTransfer templateTransfer) {
-        Template template = templateMapper.toEntity(templateTransfer);
-        return templateMapper.toTransfer(templateService.add(template));
+        return templateService.add(templateTransfer);
     }
 
-    @Transactional
     @PostMapping("/{id}/events")
     public TemplateTransfer createEvents(@PathVariable UUID id, @RequestBody Timestamp startTime) {
-        return templateMapper.toTransfer(templateService.createEvents(id, startTime));
+        return templateService.createEvents(id, startTime);
     }
 
-    @Transactional
     @DeleteMapping("/{id}")
     public void deleteTemplate(@PathVariable UUID id) {
         templateService.delete(id);
     }
 
     @DeleteMapping("/{id}/events")
-    public void deleteEvents(@PathVariable UUID id) {
-        templateService.deleteEvents(id);
+    public TemplateTransfer deleteEvents(@PathVariable UUID id) {
+        return templateService.deleteEvents(id);
     }
 
-    @Transactional
     @PutMapping("/")
     public TemplateTransfer editTemplate(@RequestBody TemplateTransfer templateTransfer) {
-        Template template = templateMapper.toEntity(templateTransfer);
-        templateService.updateEvents(template);
-        return templateMapper.toTransfer(templateService.update(template));
+        templateService.update(templateTransfer);
+        return templateService.updateEvents(templateTransfer);
     }
 }

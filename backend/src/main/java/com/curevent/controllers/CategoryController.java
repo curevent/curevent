@@ -1,41 +1,30 @@
 package com.curevent.controllers;
 
-import com.curevent.models.entities.Category;
-import com.curevent.models.entities.Event;
 import com.curevent.models.transfers.CategoryTransfer;
-import com.curevent.models.transfers.EventTransfer;
+import com.curevent.models.transfers.TagTransfer;
 import com.curevent.services.CategoryService;
-import com.curevent.utils.mapping.CategoryMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.UUID;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-
-    private final CategoryService categoryService;
-    private final CategoryMapper mapper;
-
     @Autowired
-    public CategoryController(CategoryService categoryService, CategoryMapper mapper) {
-        this.categoryService = categoryService;
-        this.mapper = mapper;
-    }
+    private final CategoryService categoryService;
 
     @GetMapping("/{id}")
     public CategoryTransfer getCategory(@PathVariable Long id) {
-        Category category = categoryService.getOneById(id);
-        return mapper.toTransfer(category);
+        return categoryService.getOneById(id);
     }
 
     @PostMapping("/")
     public CategoryTransfer addCategory(@RequestBody @Valid CategoryTransfer categoryTransfer) {
-        Category category = mapper.toEntity(categoryTransfer);
-        return mapper.toTransfer(categoryService.add(category));
+        return categoryService.add(categoryTransfer);
     }
 
     @DeleteMapping("/{id}")
@@ -45,7 +34,6 @@ public class CategoryController {
 
     @PutMapping("/")
     public CategoryTransfer editCategory(@RequestBody CategoryTransfer categoryTransfer) {
-        Category category = mapper.toEntity(categoryTransfer);
-        return mapper.toTransfer(categoryService.update(category));
+        return categoryService.update(categoryTransfer);
     }
 }

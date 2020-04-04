@@ -23,59 +23,43 @@ public class UserController {
 
     private final UserService userService;
     private final TimelineService timelineService;
-    private final UserMapper userMapper;
-    private final EventMapper eventMapper;
 
     @Autowired
     public UserController(UserService userService, TimelineService timelineService, UserMapper userMapper, EventMapper eventMapper) {
         this.userService = userService;
         this.timelineService = timelineService;
-        this.userMapper = userMapper;
-        this.eventMapper = eventMapper;
     }
 
-    @Transactional
     @GetMapping("/{id}")
     public UserTransfer getUser(@PathVariable UUID id) {
-        UserEntity userEntity = userService.getOneById(id);
-        return userMapper.toTransfer(userEntity);
+        return userService.getOneById(id);
     }
 
-    @Transactional
     @GetMapping("/")
     public List <UserTransfer> getAllUsers() {
-        List <UserEntity> userEntities = userService.getAll();
-        return userEntities.stream().map(userMapper::toTransfer).collect(Collectors.toList());
+        return userService.getAll();
     }
 
-    @Transactional
     @GetMapping("/{id}/friends")
     public List <UserTransfer> getUserFriends(@PathVariable UUID id) {
-        List <UserEntity> userEntities = userService.getUserFriends(id);
-        return userEntities.stream().map(userMapper::toTransfer).collect(Collectors.toList());
+        return userService.getUserFriends(id);
     }
 
-    @Transactional
     @GetMapping("/{id}/events")
     public List<EventTransfer> getUserEventsInInterval(@PathVariable UUID id,
                                                        @RequestParam(value = "interval", defaultValue = "720") Long interval) {
-        List <Event> events = timelineService.getEventsInInterval(id, interval);
-        return events.stream().map(eventMapper::toTransfer).collect(Collectors.toList());
+        return timelineService.getEventsInInterval(id, interval);
     }
 
-    @Transactional
     @GetMapping("/{id}/friends/events")
     public List<EventTransfer> getUserFriendsEventsInInterval(@PathVariable UUID id,
                                                               @RequestParam(value = "interval",  defaultValue = "720") Long interval) {
-        List <Event> events = timelineService.getFriendsEventsInInterval(id, interval);
-        return events.stream().map(eventMapper::toTransfer).collect(Collectors.toList());
+        return timelineService.getFriendsEventsInInterval(id, interval);
     }
 
-    @Transactional
     @PostMapping("/")
-    public UserTransfer addUser(@RequestBody @Valid UserTransfer userTransfer) {
-        UserEntity userEntity = userMapper.toEntity(userTransfer);
-        return userMapper.toTransfer(userService.add(userEntity));
+    public UserTransfer addUser(@RequestBody UserTransfer userTransfer) {
+        return userService.add(userTransfer);
     }
 
 
@@ -89,24 +73,25 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}/events")
-    public void deleteEvents(@PathVariable UUID id) {
+    public UserTransfer deleteEvents(@PathVariable UUID id) {
         userService.deleteEvents(id);
+        return userService.getOneById(id);
     }
 
     @DeleteMapping("/{id}/templates")
-    public void deleteTemplates(@PathVariable UUID id) {
+    public UserTransfer deleteTemplates(@PathVariable UUID id) {
         userService.deleteTemplates(id);
+        return userService.getOneById(id);
     }
 
     @DeleteMapping("/{id}/friends")
-    public void deleteRelationships(@PathVariable UUID id) {
+    public UserTransfer deleteRelationships(@PathVariable UUID id) {
         userService.deleteRelationships(id);
+        return userService.getOneById(id);
     }
 
-    @Transactional
     @PutMapping("/")
     public UserTransfer editUser(@RequestBody UserTransfer userTransfer) {
-        UserEntity userEntity = userMapper.toEntity(userTransfer);
-        return userMapper.toTransfer(userService.update(userEntity));
+        return userService.update(userTransfer);
     }
 }

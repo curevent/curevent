@@ -1,38 +1,29 @@
 package com.curevent.controllers;
 
-import com.curevent.models.entities.Comment;
 import com.curevent.models.transfers.CommentTransfer;
 import com.curevent.services.CommentService;
-import com.curevent.utils.mapping.CommentMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.UUID;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
-
-    private final CommentService commentService;
-    private final CommentMapper mapper;
-
     @Autowired
-    public CommentController(CommentService commentService, CommentMapper mapper) {
-        this.commentService = commentService;
-        this.mapper = mapper;
-    }
+    private final CommentService commentService;
 
     @GetMapping("/{id}")
     public CommentTransfer getComment(@PathVariable UUID id) {
-        Comment comment = commentService.getOneById(id);
-        return mapper.toTransfer(comment);
+        return commentService.getOneById(id);
     }
 
     @PostMapping("/")
     public CommentTransfer addComment(@RequestBody @Valid CommentTransfer commentTransfer) {
-        Comment comment = mapper.toEntity(commentTransfer);
-        return mapper.toTransfer(commentService.add(comment));
+        return commentService.add(commentTransfer);
     }
 
     @DeleteMapping("/{id}")
@@ -42,7 +33,6 @@ public class CommentController {
 
     @PutMapping("/")
     public CommentTransfer editComment(@RequestBody CommentTransfer commentTransfer) {
-        Comment comment = mapper.toEntity(commentTransfer);
-        return mapper.toTransfer(commentService.update(comment));
+        return commentService.update(commentTransfer);
     }
 }
