@@ -7,11 +7,13 @@ const initialState = {
 export function tagReducer(state = initialState, action) {
     switch (action.type) {
         case GET_TAG_ACTION:
-            return state.tags.filter(tag => tag.id !== action.payload.id).push(action.payload);
+            return state.tags.map(tag => {
+                return tag.id !== action.payload.id ? tag : action.payload});
         case POST_TAG_ACTION:
             return {...state, tags: [...state.tags, action.payload]};
         case PUT_TAG_ACTION:
-            return state.tags.filter(tag => tag.id !== action.payload.id).push(action.payload);
+            return state.tags.map(tag => {
+                return tag.id !== action.payload.id ? tag : action.payload});
         case DELETE_TAG_ACTION:
             return state.tags.filter(tag => tag.id !== action.payload);
         default:

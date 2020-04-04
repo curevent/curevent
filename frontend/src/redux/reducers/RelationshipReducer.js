@@ -12,11 +12,13 @@ const initialState = {
 export function relationshipReducer(state = initialState, action) {
     switch (action.type) {
         case GET_RELATIONSHIP_ACTION:
-            return state.relationships.filter(relationship => relationship.id !== action.payload.id).push(action.payload);
+            return state.relationships.map(relationship => {
+                return relationship.id !== action.payload.id ? relationship : action.payload});
         case POST_RELATIONSHIP_ACTION:
             return {...state, relationships: [...state.relationships, action.payload]};
         case PUT_RELATIONSHIP_ACTION:
-            return state.relationships.filter(relationship => relationship.id !== action.payload.id).push(action.payload);
+            return state.relationships.map(relationship => {
+                return relationship.id !== action.payload.id ? relationship : action.payload});
         case DELETE_RELATIONSHIP_ACTION:
             return state.relationships.filter(relationship => relationship.id !== action.payload);
         default:

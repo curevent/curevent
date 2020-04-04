@@ -49,7 +49,9 @@ export function userReducer(state = initialState, action) {
                 userFriendsEvents: []
             };
         case PUT_USER_ACTION:
-            return state.users.filter(user => user.id !== action.payload.id).push(action.payload);
+            return state.users.map(user => {
+                return user.id !== action.payload.id ? user : action.payload
+            });
         case DELETE_USER_ACTION:
             return {
                 users: state.users.filter(user => user.id !== action.payload),

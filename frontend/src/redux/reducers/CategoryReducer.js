@@ -12,11 +12,13 @@ const initialState = {
 export function categoryReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CATEGORY_ACTION:
-            return state.categories.filter(category => category.id !== action.payload.id).push(action.payload);
+            return state.categories.map(category => {
+                return category.id !== action.payload.id ? category : action.payload});
         case POST_CATEGORY_ACTION:
             return {...state, categories: [...state.categories, action.payload]};
         case PUT_CATEGORY_ACTION:
-            return state.categories.filter(category => category.id !== action.payload.id).push(action.payload);
+            return state.categories.map(category => {
+                return category.id !== action.payload.id ? category : action.payload});
         case DELETE_CATEGORY_ACTION:
             return state.categories.filter(category => category.id !== action.payload);
         default:
