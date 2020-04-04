@@ -37,7 +37,7 @@ export function deleteRelationship(id, token) {
         axios.delete(DELETE_RELATIONSHIP_BY_ID(id), {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
-            dispatch({type: DELETE_RELATIONSHIP_ACTION, payload: response.data})
+            dispatch({type: DELETE_RELATIONSHIP_ACTION, payload: id})
         });
     }
 }

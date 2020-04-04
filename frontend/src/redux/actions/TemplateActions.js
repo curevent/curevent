@@ -58,7 +58,7 @@ export function deleteTemplateAndTemplateEvents(id, token) {
         axios.delete(DELETE_TEMPLATE_AND_TEMPLATE_EVENTS(id), {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
-            dispatch({type: DELETE_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION, payload: response.data})
+            dispatch({type: DELETE_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION, payload: id})
         });
     }
 }

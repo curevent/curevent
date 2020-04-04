@@ -92,7 +92,7 @@ export function deleteUser(id, token) {
         axios.delete(DELETE_USER_BY_ID(id), {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
-            dispatch({type: DELETE_USER_ACTION, payload: response.data})
+            dispatch({type: DELETE_USER_ACTION, payload: id})
         });
     }
 }
