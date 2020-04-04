@@ -92,7 +92,7 @@ export function deleteUser(id, token) {
         axios.delete(DELETE_USER_BY_ID(id), {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
-            dispatch({type: DELETE_USER_ACTION, payload: response.data})
+            dispatch({type: DELETE_USER_ACTION, payload: id})
         });
     }
 }
@@ -102,7 +102,7 @@ export function deleteUserEvents(id, token) {
         axios.delete(DELETE_USER_EVENTS(id), {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
-            dispatch({type: DELETE_USER_EVENTS_ACTION, payload: response.data})
+            dispatch({type: DELETE_USER_EVENTS_ACTION, payload: id})
         });
     }
 }
@@ -112,7 +112,7 @@ export function deleteUserTemplates(id, token) {
         axios.delete(DELETE_USER_TEMPLATES(id), {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
-            dispatch({type: DELETE_USER_TEMPLATES_ACTION, payload: response.data})
+            dispatch({type: DELETE_USER_TEMPLATES_ACTION, payload: id})
         });
     }
 }
@@ -122,7 +122,7 @@ export function deleteUserFriends(id, token) {
         axios.delete(DELETE_USER_FRIENDS(id), {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
-            dispatch({type: DELETE_USER_FRIENDS_ACTION, payload: response.data})
+            dispatch({type: DELETE_USER_FRIENDS_ACTION, payload: id})
         });
     }
 }

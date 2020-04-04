@@ -37,7 +37,7 @@ export function deleteComment(id, token) {
         axios.delete(DELETE_COMMENT_BY_ID(id), {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
-            dispatch({type: DELETE_COMMENT_ACTION, payload: response.data})
+            dispatch({type: DELETE_COMMENT_ACTION, payload: id})
         });
     }
 }
