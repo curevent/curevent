@@ -146,8 +146,7 @@ public class TemplateControllerTests {
         template = templateController.createEvents(template.getId(), time);
 
         assertEquals(REPEAT_AMOUNT, template.getEvents().size());
-        templateController.deleteEvents(template.getId());
-        template = templateController.getTemplate(template.getId());
+        template = templateController.deleteEvents(template.getId());
         assertEquals(0, template.getEvents().size());
 
         templateController.deleteTemplate(template.getId());

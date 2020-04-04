@@ -102,6 +102,23 @@ public class UserControllerTests {
     }
 
     @Test
+    public void deleteUserFriendsTest(){
+        UserTransfer user = createUser(USERNAME);
+        UserTransfer friend = createUser(NEW_USERNAME);
+        createRelationship(user, friend);
+
+        List<UserTransfer> friends = userController.getUserFriends(user.getId());
+        assertEquals(1, friends.size());
+        assertEquals(friend.getId(), friends.get(0).getId());
+
+        user = userController.deleteRelationships(user.getId());
+        assertEquals(0, user.getRelationships().size());
+
+        userController.deleteUser(user.getId());
+        userController.deleteUser(friend.getId());
+    }
+
+    @Test
     public void getUserEventsInIntervalTest(){
         UserTransfer user = createUser(USERNAME);
         Timestamp time = new Timestamp(System.currentTimeMillis());
