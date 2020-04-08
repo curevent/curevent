@@ -1,34 +1,25 @@
 package com.curevent.controllers;
 
-import com.curevent.models.entities.Event;
-import com.curevent.models.entities.UserEntity;
 import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.UserTransfer;
 import com.curevent.services.TimelineService;
 import com.curevent.services.UserService;
-import com.curevent.utils.mapping.EventMapper;
-import com.curevent.utils.mapping.UserMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
-    private final TimelineService timelineService;
-
     @Autowired
-    public UserController(UserService userService, TimelineService timelineService, UserMapper userMapper, EventMapper eventMapper) {
-        this.userService = userService;
-        this.timelineService = timelineService;
-    }
+    private final UserService userService;
+    @Autowired
+    private final TimelineService timelineService;
 
     @GetMapping("/{id}")
     public UserTransfer getUser(@PathVariable UUID id) {

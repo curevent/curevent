@@ -4,8 +4,8 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Relationship;
 import com.curevent.models.transfers.RelationshipTransfer;
 import com.curevent.repositories.RelationshipRepository;
-import com.curevent.utils.mapping.RelationshipMapper;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ public class RelationshipService {
     @Autowired
     private final RelationshipRepository relationshipRepository;
     @Autowired
-    private final RelationshipMapper mapper;
+    private final ModelMapper mapper;
 
     private Relationship getEntityById(UUID id) {
         return relationshipRepository.findById(id).stream().findAny()
@@ -30,12 +30,12 @@ public class RelationshipService {
     public RelationshipTransfer getOneById(UUID id) {
         Relationship relationship = relationshipRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Relationship"+id));
-        return mapper.toTransfer(relationship);
+        return mapper.map(relationship, RelationshipTransfer.class);
     }
 
     public RelationshipTransfer add(RelationshipTransfer relationshipTransfer) {
-        Relationship relationship = mapper.toEntity(relationshipTransfer);
-        return mapper.toTransfer(relationshipRepository.save(relationship));
+        Relationship relationship = mapper.map(relationshipTransfer, Relationship.class);
+        return mapper.map(relationshipRepository.save(relationship), RelationshipTransfer.class);
     }
 
     public void delete(UUID id) {
@@ -44,10 +44,10 @@ public class RelationshipService {
     }
 
     public RelationshipTransfer update(RelationshipTransfer relationshipTransfer) {
-        Relationship relationship = mapper.toEntity(relationshipTransfer);
+        Relationship relationship = mapper.map(relationshipTransfer, Relationship.class);
         if (!relationshipRepository.existsById(relationship.getId())) {
             throw new NotFoundException("No such Relationship" + relationship.getId());
         }
-        return mapper.toTransfer(relationshipRepository.save(relationship));
+        return mapper.map(relationshipRepository.save(relationship), RelationshipTransfer.class);
     }
 }

@@ -1,14 +1,12 @@
 package com.curevent.controllers;
 
 import com.curevent.models.transfers.CategoryTransfer;
-import com.curevent.models.transfers.TagTransfer;
 import com.curevent.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @AllArgsConstructor
 @RestController

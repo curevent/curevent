@@ -4,8 +4,8 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Comment;
 import com.curevent.models.transfers.CommentTransfer;
 import com.curevent.repositories.CommentRepository;
-import com.curevent.utils.mapping.CommentMapper;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class CommentService {
     @Autowired
     private final CommentRepository commentRepository;
     @Autowired
-    private final CommentMapper mapper;
+    private final ModelMapper mapper;
 
     private Comment getEntityById(UUID id) {
         return commentRepository.findById(id).stream().findAny()
@@ -29,12 +29,12 @@ public class CommentService {
     public CommentTransfer getOneById(UUID id) {
         Comment comment = commentRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Comment"+id));
-        return mapper.toTransfer(comment);
+        return mapper.map(comment, CommentTransfer.class);
     }
 
     public CommentTransfer add(CommentTransfer commentTransfer) {
-        Comment comment = mapper.toEntity(commentTransfer);
-        return mapper.toTransfer(commentRepository.save(comment));
+        Comment comment = mapper.map(commentTransfer, Comment.class);
+        return mapper.map(commentRepository.save(comment), CommentTransfer.class);
     }
 
     public void delete(UUID id) {
@@ -43,10 +43,10 @@ public class CommentService {
     }
 
     public CommentTransfer update(CommentTransfer commentTransfer) {
-        Comment comment = mapper.toEntity(commentTransfer);
+        Comment comment = mapper.map(commentTransfer, Comment.class);
         if (!commentRepository.existsById(comment.getId())) {
             throw new NotFoundException("No such Comment" + comment.getId());
         }
-        return mapper.toTransfer(commentRepository.save(comment));
+        return mapper.map(commentRepository.save(comment), CommentTransfer.class);
     }
 }
