@@ -4,8 +4,8 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.transfers.EventTransfer;
 import com.curevent.repositories.EventRepository;
-import com.curevent.utils.mapping.EventMapper;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class EventService {
     @Autowired
     private final EventRepository eventRepository;
     @Autowired
-    private final EventMapper mapper;
+    private final ModelMapper mapper;
 
     private Event getEntityById(UUID id) {
         return eventRepository.findById(id).stream().findAny()
@@ -29,12 +29,12 @@ public class EventService {
     public EventTransfer getOneById(UUID id) {
         Event event = eventRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Event"+id));
-        return mapper.toTransfer(event);
+        return mapper.map(event, EventTransfer.class);
     }
 
     public EventTransfer add(EventTransfer eventTransfer) {
-        Event event = mapper.toEntity(eventTransfer);
-        return mapper.toTransfer(eventRepository.save(event));
+        Event event = mapper.map(eventTransfer, Event.class);
+        return mapper.map(eventRepository.save(event), EventTransfer.class);
     }
 
     public void delete(UUID id) {
@@ -43,10 +43,10 @@ public class EventService {
     }
 
     public EventTransfer update(EventTransfer eventTransfer) {
-        Event event = mapper.toEntity(eventTransfer);
+        Event event = mapper.map(eventTransfer, Event.class);
         if (!eventRepository.existsById(event.getId())) {
             throw new NotFoundException("No such Event" + event.getId());
         }
-        return mapper.toTransfer(eventRepository.save(event));
+        return mapper.map(eventRepository.save(event), EventTransfer.class);
     }
 }

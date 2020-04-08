@@ -4,8 +4,8 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Category;
 import com.curevent.models.transfers.CategoryTransfer;
 import com.curevent.repositories.CategoryRepository;
-import com.curevent.utils.mapping.CategoryMapper;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +17,7 @@ public class CategoryService {
     @Autowired
     private final CategoryRepository categoryRepository;
     @Autowired
-    private final CategoryMapper mapper;
+    private final ModelMapper mapper;
 
     private Category getEntityById(Long id) {
         return categoryRepository.findById(id).stream().findAny()
@@ -27,12 +27,12 @@ public class CategoryService {
     public CategoryTransfer getOneById(Long id) {
         Category category = categoryRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Category"+id));
-        return mapper.toTransfer(category);
+        return mapper.map(category, CategoryTransfer.class);
     }
 
     public CategoryTransfer add(CategoryTransfer categoryTransfer) {
-        Category category = mapper.toEntity(categoryTransfer);
-        return mapper.toTransfer(categoryRepository.save(category));
+        Category category = mapper.map(categoryTransfer, Category.class);
+        return mapper.map(categoryRepository.save(category), CategoryTransfer.class);
     }
 
     public void delete(Long id) {
@@ -41,10 +41,10 @@ public class CategoryService {
     }
 
     public CategoryTransfer update(CategoryTransfer categoryTransfer) {
-        Category category = mapper.toEntity(categoryTransfer);
+        Category category = mapper.map(categoryTransfer, Category.class);
         if (!categoryRepository.existsById(category.getId())) {
             throw new NotFoundException("No such Category" + category.getId());
         }
-        return mapper.toTransfer(categoryRepository.save(category));
+        return mapper.map(categoryRepository.save(category), CategoryTransfer.class);
     }
 }

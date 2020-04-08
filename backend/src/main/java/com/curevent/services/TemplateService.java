@@ -6,9 +6,8 @@ import com.curevent.models.entities.Template;
 import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.repositories.TemplateRepository;
-import com.curevent.utils.mapping.EventMapper;
-import com.curevent.utils.mapping.TemplateMapper;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +25,12 @@ import java.util.stream.Stream;
 @Transactional
 public class TemplateService {
 
+    public static final int DEFAULT_REPEAT_AMOUNT = 1;
+    public static final long DEFAULT_REPEAT_TIME = 0L;
     @Autowired
     private final TemplateRepository templateRepository;
     @Autowired
-    private final TemplateMapper templateMapper;
-    @Autowired
-    private final EventMapper eventMapper;
+    private final ModelMapper mapper;
 
     private Template getEntityById(UUID id) {
         return templateRepository.findById(id).stream().findAny()
@@ -41,20 +40,31 @@ public class TemplateService {
     public TemplateTransfer getOneById(UUID id) {
         Template template = templateRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Template"+id));
-        return templateMapper.toTransfer(template);
+        return mapper.map(template, TemplateTransfer.class);
     }
 
     public TemplateTransfer add(TemplateTransfer templateTransfer) {
-        Template template = templateMapper.toEntity(templateTransfer);
-        return templateMapper.toTransfer(templateRepository.save(template));
+        Template template = mapper.map(templateTransfer, Template.class);
+        validateTemplate(template);
+        return mapper.map(templateRepository.save(template), TemplateTransfer.class);
+    }
+
+    private void validateTemplate(Template template) {
+        if (template.getRepeatAmount() == null) {
+            template.setRepeatAmount(DEFAULT_REPEAT_AMOUNT);
+        }
+        if (template.getRepeatTime() == null) {
+            template.setRepeatTime(DEFAULT_REPEAT_TIME);
+        }
     }
 
     public TemplateTransfer update(TemplateTransfer templateTransfer) {
-        Template template = templateMapper.toEntity(templateTransfer);
+        Template template = mapper.map(templateTransfer, Template.class);
         if (!templateRepository.existsById(template.getId())) {
             throw new NotFoundException("No such Template"+template.getId());
         }
-        return templateMapper.toTransfer(templateRepository.save(template));
+        validateTemplate(template);
+        return mapper.map(templateRepository.save(template), TemplateTransfer.class);
     }
 
     public void delete(UUID id) {
@@ -65,28 +75,28 @@ public class TemplateService {
     public List<EventTransfer> getEvents(UUID id) {
         Template template = getEntityById(id);
         return template.getEvents().stream()
-                .map(eventMapper::toTransfer)
+                .map(event -> mapper.map(event, EventTransfer.class))
                 .collect(Collectors.toList());
     }
 
     public TemplateTransfer deleteEvents(UUID templateID) {
         Template template = getEntityById(templateID);
         template.getEvents().clear();
-        return templateMapper.toTransfer(templateRepository.save(template));
+        return mapper.map(templateRepository.save(template), TemplateTransfer.class);
     }
 
     public TemplateTransfer updateEvents(TemplateTransfer templateTransfer) {
-        Template template = templateMapper.toEntity(templateTransfer);
+        Template template = mapper.map(templateTransfer, Template.class);
         if (template.getEvents() != null) {
             for (Event event : template.getEvents()) {
                 fillEvent(event, template);
             }
-            return templateMapper.toTransfer(templateRepository.save(template));
+            return mapper.map(templateRepository.save(template), TemplateTransfer.class);
         }
         return templateTransfer;
     }
 
-    private static void fillEvent(Event base, Template source) {
+    private void fillEvent(Event base, Template source) {
         base.setOwnerId(source.getOwnerId());
         base.setDuration(source.getDuration());
         base.setTemplateId(source.getId());
@@ -98,12 +108,6 @@ public class TemplateService {
 
     public TemplateTransfer createEvents(UUID id, Timestamp startTime) {
         Template template = getEntityById(id);
-        if (template.getRepeatAmount() == null) {
-            template.setRepeatAmount(1);
-        }
-        if (template.getRepeatTime() == null) {
-            template.setRepeatTime((long)0);
-        }
         long intervalInMills = TimeUnit.MINUTES.toMillis(template.getRepeatTime());
         template.getEvents().addAll(Stream.iterate(startTime, time -> new Timestamp(time.getTime() + intervalInMills))
                 .limit(template.getRepeatAmount())
@@ -114,6 +118,6 @@ public class TemplateService {
                 })
                 .peek(event -> fillEvent(event, template))
                 .collect(Collectors.toList()));
-        return templateMapper.toTransfer(templateRepository.save(template));
+        return mapper.map(templateRepository.save(template), TemplateTransfer.class);
     }
 }
