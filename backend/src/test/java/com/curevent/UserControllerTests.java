@@ -4,12 +4,14 @@ import com.curevent.controllers.*;
 import com.curevent.exceptions.ConflictException;
 import com.curevent.models.forms.RegisterForm;
 import com.curevent.models.transfers.*;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +40,8 @@ public class UserControllerTests {
     private UserController userController;
     @Autowired
     private TemplateController templateController;
+    @Autowired
+    private EventController eventController;
     @Autowired
     private AuthController authController;
     @Autowired
@@ -91,7 +95,7 @@ public class UserControllerTests {
     public void getUserFriendsTest(){
         UserTransfer user = createUser(USERNAME);
         UserTransfer friend = createUser(NEW_USERNAME);
-        createRelationship(user, friend);
+        createRelationship(user, friend, privacy);
 
         List<UserTransfer> friends = userController.getUserFriends(user.getId());
         assertEquals(1, friends.size());
@@ -105,7 +109,7 @@ public class UserControllerTests {
     public void deleteUserFriendsTest(){
         UserTransfer user = createUser(USERNAME);
         UserTransfer friend = createUser(NEW_USERNAME);
-        createRelationship(user, friend);
+        createRelationship(user, friend, privacy);
 
         List<UserTransfer> friends = userController.getUserFriends(user.getId());
         assertEquals(1, friends.size());
@@ -133,12 +137,48 @@ public class UserControllerTests {
     public void getUserFriendsEventsInIntervalTest(){
         UserTransfer user = createUser(USERNAME);
         UserTransfer friend = createUser(NEW_USERNAME);
-        createRelationship(user, friend);
+        createRelationship(user, friend, privacy);
+        createRelationship(friend, user, privacy);
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
         createEvents(friend, time);
         List <EventTransfer> events = userController.getUserFriendsEventsInInterval(user.getId(), INTERVAL);
         assertEvents(events, time);
+
+        userController.deleteUser(user.getId());
+        userController.deleteUser(friend.getId());
+    }
+
+    @Test
+    public void getUserFriendsEventsAccessDeniedTest(){
+        UserTransfer user = createUser(USERNAME);
+        UserTransfer friend = createUser(NEW_USERNAME);
+        createRelationship(user, friend, privacy);
+
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        createEvents(friend, time);
+        List <EventTransfer> events = userController.getUserFriendsEventsInInterval(user.getId(), INTERVAL);
+        assertEquals(0, events.size());
+
+        userController.deleteUser(user.getId());
+        userController.deleteUser(friend.getId());
+    }
+
+    @Test
+    public void getUserFriendsEventsUserInBlackListTest(){
+        UserTransfer user = createUser(USERNAME);
+        UserTransfer friend = createUser(NEW_USERNAME);
+        createRelationship(user, friend, privacy);
+        createRelationship(friend, user, privacy);
+
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        TemplateTransfer template = createEvents(friend, time);
+        EventTransfer newEvent = template.getEvents().get(0);
+        newEvent.setBlackList(List.of(user));
+        eventController.editEvent(newEvent);
+
+        List <EventTransfer> events = userController.getUserFriendsEventsInInterval(user.getId(), INTERVAL);
+        assertEquals(REPEAT_AMOUNT - 1 , events.size());
 
         userController.deleteUser(user.getId());
         userController.deleteUser(friend.getId());
@@ -153,7 +193,7 @@ public class UserControllerTests {
                 .allMatch(event -> event.getTime().after(startTime) && event.getTime().before(endTime)));
     }
 
-    private void createEvents(UserTransfer user, Timestamp time) {
+    private TemplateTransfer createEvents(UserTransfer user, Timestamp time) {
         TemplateTransfer templateTransfer = new TemplateTransfer();
         templateTransfer.setOwnerId(user.getId());
         templateTransfer.setTitle(TITLE);
@@ -161,20 +201,18 @@ public class UserControllerTests {
         templateTransfer.setDuration(DURATION);
         templateTransfer.setRepeatTime(REPEAT_TIME);
         templateTransfer.setRepeatAmount(REPEAT_AMOUNT);
-        templateTransfer.setPrivacy(new ArrayList<>());
-        templateTransfer.getPrivacy().add(privacy);
-        templateTransfer.setTags(new ArrayList<>());
-        templateTransfer.getTags().add(tag);
+        templateTransfer.setPrivacy(List.of(privacy));
+        templateTransfer.setTags(List.of(tag));
 
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
-        templateController.createEvents(template.getId(), time);
+        return templateController.createEvents(template.getId(), time);
     }
 
-    private void createRelationship(UserTransfer user, UserTransfer friend) {
+    private void createRelationship(UserTransfer user, UserTransfer friend, CategoryTransfer category) {
         RelationshipTransfer relationship = new RelationshipTransfer();
         relationship.setOwnerId(user.getId());
         relationship.setFriendId(friend.getId());
-        relationship.setCategory(privacy);
+        relationship.setCategory(category);
         relationshipController.addRelationship(relationship);
     }
 

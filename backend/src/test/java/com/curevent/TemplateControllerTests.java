@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -162,10 +161,8 @@ public class TemplateControllerTests {
         templateTransfer.setDuration(DURATION);
         templateTransfer.setRepeatTime(repeatTime);
         templateTransfer.setRepeatAmount(repeatAmount);
-        templateTransfer.setPrivacy(new ArrayList<>());
-        templateTransfer.getPrivacy().add(privacy);
-        templateTransfer.setTags(new ArrayList<>());
-        templateTransfer.getTags().add(tag);
+        templateTransfer.setPrivacy(List.of(privacy));
+        templateTransfer.setTags(List.of(tag));
         return templateTransfer;
     }
 
