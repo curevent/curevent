@@ -155,9 +155,6 @@
 
     <changeSet id="init-blacklists-table" author="alsntt" runOnChange="true">
         <createTable tableName="black_lists">
-            <column name="id" type="uuid">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
             <column name="event_id" type="uuid" >
                 <constraints nullable="false"/>
             </column>

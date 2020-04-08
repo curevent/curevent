@@ -34,7 +34,7 @@ public class UserService {
     @Autowired
     private final ModelMapper mapper;
 
-    private UserEntity getEntityById(UUID id) {
+    UserEntity getEntityById(UUID id) {
         return userRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such User " + id));
     }
