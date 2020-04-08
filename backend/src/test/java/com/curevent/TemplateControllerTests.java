@@ -162,7 +162,8 @@ public class TemplateControllerTests {
         templateTransfer.setDuration(DURATION);
         templateTransfer.setRepeatTime(repeatTime);
         templateTransfer.setRepeatAmount(repeatAmount);
-        templateTransfer.setPrivacy(privacy);
+        templateTransfer.setPrivacy(new ArrayList<>());
+        templateTransfer.getPrivacy().add(privacy);
         templateTransfer.setTags(new ArrayList<>());
         templateTransfer.getTags().add(tag);
         return templateTransfer;
@@ -173,8 +174,10 @@ public class TemplateControllerTests {
         assertEquals(TITLE, event.getTitle());
         assertEquals(DESCRIPTION, event.getDescription());
         assertEquals(DURATION, event.getDuration());
-        assertEquals(privacy.getId(), event.getPrivacy().getId());
         assertEquals(template.getId(), event.getTemplateId());
+
+        assertEquals(1, event.getPrivacy().size());
+        assertTrue(event.getPrivacy().stream().allMatch(t -> t.getId().equals(privacy.getId())));
 
         assertEquals(1, event.getTags().size());
         assertTrue(event.getTags().stream().allMatch(t -> t.getId().equals(tag.getId())));

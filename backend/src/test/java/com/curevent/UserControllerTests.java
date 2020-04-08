@@ -161,7 +161,8 @@ public class UserControllerTests {
         templateTransfer.setDuration(DURATION);
         templateTransfer.setRepeatTime(REPEAT_TIME);
         templateTransfer.setRepeatAmount(REPEAT_AMOUNT);
-        templateTransfer.setPrivacy(privacy);
+        templateTransfer.setPrivacy(new ArrayList<>());
+        templateTransfer.getPrivacy().add(privacy);
         templateTransfer.setTags(new ArrayList<>());
         templateTransfer.getTags().add(tag);
 
