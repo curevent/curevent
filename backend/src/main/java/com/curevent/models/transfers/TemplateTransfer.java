@@ -1,9 +1,7 @@
 package com.curevent.models.transfers;
 
-import com.curevent.models.entities.Event;
 import lombok.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,7 +20,8 @@ public class TemplateTransfer {
     private String description;
     private Double latitude;
     private Double longitude;
-    private CategoryTransfer privacy;
+
+    private List<CategoryTransfer> privacy;
     private List<TagTransfer> tags;
     private List<EventTransfer> events;
 }

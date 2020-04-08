@@ -52,9 +52,11 @@ public class Template {
     @Column(name = "latitude")
     private Double latitude;
 
-    @OneToOne
-    @JoinColumn(name = "privacy_id")
-    private Category privacy;
+    @ManyToMany
+    @JoinTable(name = "template_privacy",
+            joinColumns = @JoinColumn(name = "template_id"),
+            inverseJoinColumns = @JoinColumn(name = "privacy_id"))
+    private List<Category> privacy;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "template_id")

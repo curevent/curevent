@@ -66,6 +66,7 @@ public class UserService {
                 .stream()
                 .map((relationship) -> userRepository.getOne(relationship.getFriendId()))
                 .map(user -> mapper.map(user, UserTransfer.class))
+                .distinct()
                 .collect(Collectors.toList());
     }
 

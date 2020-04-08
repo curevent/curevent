@@ -54,10 +54,11 @@ public class Event {
     @Column(name = "template_id")
     private UUID templateId;
 
-    @OneToOne
-    @JoinColumn(name = "privacy_id")
-    private Category privacy;
-
+    @ManyToMany
+    @JoinTable(name = "event_privacy",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "privacy_id"))
+    private List<Category> privacy;
 
     @ManyToMany
     @JoinTable(name = "event_tags",
@@ -70,4 +71,10 @@ public class Event {
     @Immutable
     @JoinColumn(name = "event_id")
     private List<Comment> comments;
+
+    @OneToMany
+    @JoinTable(name = "black_lists",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private List <UserEntity> blackList;
 }

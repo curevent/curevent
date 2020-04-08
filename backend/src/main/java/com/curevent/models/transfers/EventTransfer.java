@@ -21,7 +21,9 @@ public class EventTransfer {
     private UUID templateId;
     private Double latitude;
     private Double longitude;
-    private CategoryTransfer privacy;
+
+    private List<CategoryTransfer> privacy;
     private List<TagTransfer> tags;
     private List<CommentTransfer> comments;
+    private List <UserTransfer> blackList;
 }

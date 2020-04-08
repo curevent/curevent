@@ -102,7 +102,7 @@ public class TemplateService {
         base.setTemplateId(source.getId());
         base.setDescription(source.getDescription());
         base.setTitle(source.getTitle());
-        base.setPrivacy(source.getPrivacy());
+        base.setPrivacy(new ArrayList<>(source.getPrivacy()));
         base.setTags(new ArrayList<>(source.getTags()));
     }
 
