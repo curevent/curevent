@@ -1,7 +1,9 @@
 package com.curevent;
 
 import com.curevent.controllers.*;
+import com.curevent.exceptions.InvalidArgumentException;
 import com.curevent.models.forms.RegisterForm;
+import com.curevent.models.forms.RepetitionForm;
 import com.curevent.models.transfers.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,7 +12,10 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.DayOfWeek;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,11 +33,11 @@ public class TemplateControllerTests {
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
     public static final long DURATION = 100;
-    public static final long REPEAT_TIME = 60;
     public static final String NEW_TITLE = "new_title";
     public static final long NEW_DURATION = 1000;
-    public static final int REPEAT_AMOUNT = 3;
     public static final String NEW_TAG = "new_tag";
+    public static final int REPETITION_INTERVAL = 3;
+    public static final int EVENTS_AMOUNT = 2;
 
     @Autowired
     private UserController userController;
@@ -67,43 +72,101 @@ public class TemplateControllerTests {
         tagTransfer.setDescription(TAG);
         tag = tagController.addTag(tagTransfer);
 
-        time = Timestamp.valueOf("2020-03-27 17:00:00.000");
+        time = Timestamp.valueOf("2020-03-20 17:00:00.000");
     }
 
     @Test
-    void createEventsTest() {
-        TemplateTransfer templateTransfer = createTemplate(REPEAT_TIME, REPEAT_AMOUNT);
+    void createDailyEventsTest() {
+        TemplateTransfer templateTransfer = createTemplate();
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        Timestamp endTime = Timestamp.valueOf(time.toLocalDateTime().plusDays(REPETITION_INTERVAL + 1));
+        RepetitionForm repetition = createRepetition("day", REPETITION_INTERVAL, endTime);
 
-        List<EventTransfer> events = templateController.createEvents(template.getId(), time).getEvents();
-        assertEquals(REPEAT_AMOUNT, events.size());
+        List<EventTransfer> events = templateController.createEvents(template.getId(), repetition).getEvents();
+        assertEquals(EVENTS_AMOUNT, events.size());
         events.forEach(event -> assertEvent(event, template));
         assertTrue(events.stream().anyMatch(e -> e.getTime().equals(time)));
-        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-03-27 18:00:00.000"))));
-        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-03-27 19:00:00.000"))));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-03-23 17:00:00.000"))));
 
         templateController.deleteTemplate(template.getId());
     }
 
     @Test
-    void createEventsWithoutRepeatAmountTest() {
-        TemplateTransfer templateTransfer = createTemplate(REPEAT_TIME, null);
+    void createWeeklyEventsTest() {
+        TemplateTransfer templateTransfer = createTemplate();
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        Timestamp endTime = Timestamp.valueOf(time.toLocalDateTime().plusWeeks(REPETITION_INTERVAL + 1));
+        RepetitionForm repetition = createRepetition("week", REPETITION_INTERVAL, endTime);
 
-        List<EventTransfer> events = templateController.createEvents(template.getId(), time).getEvents();
-        assertEquals(1, events.size());
+        List<EventTransfer> events = templateController.createEvents(template.getId(), repetition).getEvents();
+        assertEquals(EVENTS_AMOUNT, events.size());
         events.forEach(event -> assertEvent(event, template));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(time)));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-04-10 17:00:00.000"))));
 
         templateController.deleteTemplate(template.getId());
     }
 
     @Test
-    void createEventsWithoutRepeatTimeTest() {
-        TemplateTransfer templateTransfer = createTemplate(null, REPEAT_AMOUNT);
+    void createComplexWeeklyEventsTest() {
+        TemplateTransfer templateTransfer = createTemplate();
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        Timestamp endTime = Timestamp.valueOf(time.toLocalDateTime().plusWeeks(2));
+        RepetitionForm repetition = createRepetition("week", 1, endTime);
+        repetition.setRepetitionDays(new HashMap<>());
+        repetition.getRepetitionDays().put(DayOfWeek.MONDAY, Time.valueOf(("17:00:00")));
+        repetition.getRepetitionDays().put(DayOfWeek.WEDNESDAY, Time.valueOf(("19:00:00")));
 
-        List<EventTransfer> events = templateController.createEvents(template.getId(), time).getEvents();
-        assertEquals(REPEAT_AMOUNT, events.size());
+        List<EventTransfer> events = templateController.createEvents(template.getId(), repetition).getEvents();
+        assertEquals(4, events.size());
+        events.forEach(event -> assertEvent(event, template));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-03-23 17:00:00.000"))));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-03-25 19:00:00.000"))));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-03-30 17:00:00.000"))));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-04-01 19:00:00.000"))));
+        templateController.deleteTemplate(template.getId());
+    }
+
+    @Test
+    void createMonthlyEventsTest() {
+        TemplateTransfer templateTransfer = createTemplate();
+        TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        Timestamp endTime = Timestamp.valueOf(time.toLocalDateTime().plusMonths(REPETITION_INTERVAL + 1));
+        RepetitionForm repetition = createRepetition("month", REPETITION_INTERVAL, endTime);
+
+        List<EventTransfer> events = templateController.createEvents(template.getId(), repetition).getEvents();
+        assertEquals(EVENTS_AMOUNT, events.size());
+        events.forEach(event -> assertEvent(event, template));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(time)));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-06-20 17:00:00.000"))));
+
+        templateController.deleteTemplate(template.getId());
+    }
+
+    @Test
+    void createAnnuallyEventsTest() {
+        TemplateTransfer templateTransfer = createTemplate();
+        TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        Timestamp endTime = Timestamp.valueOf(time.toLocalDateTime().plusYears(REPETITION_INTERVAL + 1));
+        RepetitionForm repetition = createRepetition("year", REPETITION_INTERVAL, endTime);
+
+        List<EventTransfer> events = templateController.createEvents(template.getId(), repetition).getEvents();
+        assertEquals(EVENTS_AMOUNT, events.size());
+        events.forEach(event -> assertEvent(event, template));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(time)));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2023-03-20 17:00:00.000"))));
+
+        templateController.deleteTemplate(template.getId());
+    }
+
+    @Test
+    void createOneEventTest() {
+        TemplateTransfer templateTransfer = createTemplate();
+        TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        RepetitionForm repetition = createRepetition(null, REPETITION_INTERVAL, null);
+
+        List<EventTransfer> events = templateController.createEvents(template.getId(), repetition).getEvents();
+        assertEquals(1, events.size());
         events.forEach(event -> assertEvent(event, template));
         assertTrue(events.stream().allMatch(e -> e.getTime().equals(time)));
 
@@ -111,10 +174,38 @@ public class TemplateControllerTests {
     }
 
     @Test
-    void editTemplateWithEventsTest() {
-        TemplateTransfer templateTransfer = createTemplate(REPEAT_TIME, REPEAT_AMOUNT);
+    void createEventsWithoutEndTimeTest() {
+        TemplateTransfer templateTransfer = createTemplate();
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
-        template = templateController.createEvents(template.getId(), time);
+        RepetitionForm repetition = createRepetition("day", REPETITION_INTERVAL, null);
+
+        assertThrows(InvalidArgumentException.class, () -> templateController.createEvents(template.getId(), repetition));
+
+        templateController.deleteTemplate(template.getId());
+    }
+
+    @Test
+    void createEventsWithoutRepetitionIntervalTest() {
+        TemplateTransfer templateTransfer = createTemplate();
+        TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        Timestamp endTime = Timestamp.valueOf(time.toLocalDateTime().plusDays(EVENTS_AMOUNT));
+        RepetitionForm repetition = createRepetition("day", null, endTime);
+
+        List<EventTransfer> events = templateController.createEvents(template.getId(), repetition).getEvents();
+        assertEquals(EVENTS_AMOUNT, events.size());
+        events.forEach(event -> assertEvent(event, template));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(time)));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-03-21 17:00:00.000"))));
+        templateController.deleteTemplate(template.getId());
+    }
+
+    @Test
+    void editTemplateWithEventsTest() {
+        TemplateTransfer templateTransfer = createTemplate();
+        TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        Timestamp endTime = Timestamp.valueOf("2020-03-24 17:00:00.000");
+        RepetitionForm repetition = createRepetition("day", REPETITION_INTERVAL, endTime);
+        template = templateController.createEvents(template.getId(), repetition);
 
         template.setDuration(NEW_DURATION);
         template.setTitle(NEW_TITLE);
@@ -130,7 +221,7 @@ public class TemplateControllerTests {
             assertEquals(NEW_DURATION, event.getDuration());
         });
 
-        assertEquals(2, template.getTags().size());
+        assertEquals(EVENTS_AMOUNT, template.getTags().size());
         assertTrue(template.getEvents().stream()
                 .allMatch( event -> event.getTags().stream()
                     .anyMatch(t -> t.getId().equals(tag.getId()) || t.getId().equals(newTag.getId())))
@@ -142,28 +233,37 @@ public class TemplateControllerTests {
 
     @Test
     void createAndDeleteOnlyEventsTest() {
-        TemplateTransfer templateTransfer = createTemplate(REPEAT_TIME, REPEAT_AMOUNT);
+        TemplateTransfer templateTransfer = createTemplate();
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
-        template = templateController.createEvents(template.getId(), time);
+        Timestamp endTime = Timestamp.valueOf("2020-03-24 17:00:00.000");
+        RepetitionForm repetition = createRepetition("day", REPETITION_INTERVAL, endTime);
+        template = templateController.createEvents(template.getId(), repetition);
 
-        assertEquals(REPEAT_AMOUNT, template.getEvents().size());
+        assertEquals(EVENTS_AMOUNT, template.getEvents().size());
         template = templateController.deleteEvents(template.getId());
         assertEquals(0, template.getEvents().size());
 
         templateController.deleteTemplate(template.getId());
     }
 
-    private TemplateTransfer createTemplate(Long repeatTime, Integer repeatAmount) {
+    private TemplateTransfer createTemplate() {
         TemplateTransfer templateTransfer = new TemplateTransfer();
         templateTransfer.setOwnerId(userID);
         templateTransfer.setTitle(TITLE);
         templateTransfer.setDescription(DESCRIPTION);
         templateTransfer.setDuration(DURATION);
-        templateTransfer.setRepeatTime(repeatTime);
-        templateTransfer.setRepeatAmount(repeatAmount);
         templateTransfer.setPrivacy(List.of(privacy));
         templateTransfer.setTags(List.of(tag));
         return templateTransfer;
+    }
+
+    private RepetitionForm createRepetition(String repetitionType, Integer repetitionInterval, Timestamp endTime) {
+        RepetitionForm repetition = new RepetitionForm();
+        repetition.setRepetitionType(repetitionType);
+        repetition.setRepetitionInterval(repetitionInterval);
+        repetition.setStartTime(time);
+        repetition.setEndTime(endTime);
+        return repetition;
     }
 
     private void assertEvent(EventTransfer event, TemplateTransfer template) {
