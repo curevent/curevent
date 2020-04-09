@@ -15,10 +15,10 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Repetition{
-    private String repetitionType;
-    private Integer repetitionInterval;
-    private Map<DayOfWeek, Time> repetitionDays;
+public class Repeat {
+    private String repeatType;
+    private Integer repeatInterval;
+    private Map<DayOfWeek, Time> repeatDays;
 
     @NotNull
     private Timestamp startTime;

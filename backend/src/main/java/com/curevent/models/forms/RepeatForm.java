@@ -14,12 +14,12 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RepetitionForm {
+public class RepeatForm {
     //day, week, month, year
-    private String repetitionType;
+    private String repeatType;
     //через сколько дней/недель/месяцев/лет
-    private Integer repetitionInterval;
-    private Map<DayOfWeek, Time> repetitionDays;
+    private Integer repeatInterval;
+    private Map<DayOfWeek, Time> repeatDays;
 
     private Timestamp startTime;
     private Timestamp endTime;

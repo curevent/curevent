@@ -2,9 +2,9 @@ package com.curevent.services;
 
 import com.curevent.exceptions.InvalidArgumentException;
 import com.curevent.models.entities.Event;
-import com.curevent.models.entities.Repetition;
+import com.curevent.models.entities.Repeat;
 import com.curevent.models.entities.Template;
-import com.curevent.models.forms.RepetitionForm;
+import com.curevent.models.forms.RepeatForm;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.repositories.TemplateRepository;
 import lombok.AllArgsConstructor;
@@ -26,6 +26,12 @@ import java.util.stream.Stream;
 @Service
 @Transactional
 public class EventFactoryService {
+    public static final String DAY = "day";
+    public static final String WEEK = "week";
+    public static final String MONTH = "month";
+    public static final String YEAR = "year";
+    public static final String NONE = "none";
+
     @Autowired
     private final TemplateService templateService;
     @Autowired
@@ -33,80 +39,82 @@ public class EventFactoryService {
     @Autowired
     private final ModelMapper mapper;
 
-    public TemplateTransfer parseRepetitionForm(UUID id, RepetitionForm repetitionForm) {
+    public TemplateTransfer parseRepetitionForm(UUID id, RepeatForm repeatForm) {
         Template template = templateService.getEntityById(id);
-        Repetition repetition = mapper.map(repetitionForm, Repetition.class);
-        validateRepetition(repetition);
-        switch (repetition.getRepetitionType()) {
-            case "day":
-                template = parseDailyRepetition(template, repetition);
+        Repeat repeat = mapper.map(repeatForm, Repeat.class);
+        validateRepeat(repeat);
+        switch (repeat.getRepeatType()) {
+            case DAY:
+                template = parseDailyRepeat(template, repeat);
                 break;
-            case "week":
-                template = parseWeeklyRepetition(template, repetition);
+            case WEEK:
+                template = parseWeeklyRepeat(template, repeat);
                 break;
-            case "month":
-                template = parseMonthlyRepetition(template, repetition);
+            case MONTH:
+                template = parseMonthlyRepeat(template, repeat);
                 break;
-            case "year":
-                template = parseAnnuallyRepetition(template, repetition);
+            case YEAR:
+                template = parseAnnuallyRepeat(template, repeat);
                 break;
-            case "no":
-                template = parseNoRepetition(template, repetition);
+            case NONE:
+                template = parseNoneRepeat(template, repeat);
                 break;
+            default:
+                throw new InvalidArgumentException("Invalid repeat type " + repeat.getRepeatType());
         }
         return mapper.map(template, TemplateTransfer.class);
     }
 
-    private void validateRepetition(Repetition repetition) {
-        if(repetition.getRepetitionType() == null) {
-            repetition.setRepetitionType("no");
+    private void validateRepeat(Repeat repeat) {
+        if(repeat.getRepeatType() == null) {
+            repeat.setRepeatType(NONE);
         }
-        if(repetition.getRepetitionInterval() == null) {
-            repetition.setRepetitionInterval(1);
+        if(repeat.getRepeatInterval() == null) {
+            repeat.setRepeatInterval(1);
         }
-        if (repetition.getEndTime() == null && !repetition.getRepetitionType().equals("no")) {
-            throw new InvalidArgumentException("EndTime with repetitionType must be not null");
+        if (repeat.getEndTime() == null && !repeat.getRepeatType().equals(NONE)) {
+            throw new InvalidArgumentException("End time with repeat type must be not null");
         }
-        repetition.setDayCount(0);
-        repetition.setWeekCount(0);
-        repetition.setMonthCount(0);
-        repetition.setYearCount(0);
+        repeat.setDayCount(0);
+        repeat.setWeekCount(0);
+        repeat.setMonthCount(0);
+        repeat.setYearCount(0);
     }
 
-    private Template parseDailyRepetition(Template template, Repetition repetition) {
-        repetition.setDayCount(repetition.getRepetitionInterval());
-        return createEvents(template, repetition);
+    private Template parseDailyRepeat(Template template, Repeat repeat) {
+        repeat.setDayCount(repeat.getRepeatInterval());
+        return createEvents(template, repeat);
     }
 
-    private Template parseWeeklyRepetition(Template template, Repetition repetition) {
-        repetition.setWeekCount(repetition.getRepetitionInterval());
-        if (repetition.getRepetitionDays() == null) {
-            return createEvents(template, repetition);
+    private Template parseWeeklyRepeat(Template template, Repeat repeat) {
+        repeat.setWeekCount(repeat.getRepeatInterval());
+        if (repeat.getRepeatDays() == null) {
+            return createEvents(template, repeat);
         }
 
-        LocalDate startDate = repetition.getStartTime().toLocalDateTime().toLocalDate();
-        repetition.getRepetitionDays().forEach( (dayOfWeek, time) -> {
+        LocalDate startDate = repeat.getStartTime().toLocalDateTime().toLocalDate();
+        repeat.getRepeatDays().forEach( (dayOfWeek, time) -> {
             LocalDate nextWeekDayDate = startDate.with(TemporalAdjusters.next(dayOfWeek));
             LocalTime weekDayTime = time.toLocalTime();
             LocalDateTime nextStartTime = nextWeekDayDate.atTime(weekDayTime);
-            repetition.setStartTime(Timestamp.valueOf(nextStartTime));
-            createEvents(template, repetition);
+            repeat.setStartTime(Timestamp.valueOf(nextStartTime));
+            createEvents(template, repeat);
         });
         return template;
     }
 
-    private Template parseMonthlyRepetition(Template template, Repetition repetition) {
-        repetition.setMonthCount(repetition.getRepetitionInterval());
-        return createEvents(template, repetition);
+    private Template parseMonthlyRepeat(Template template, Repeat repeat) {
+        repeat.setMonthCount(repeat.getRepeatInterval());
+        return createEvents(template, repeat);
     }
 
-    private Template parseAnnuallyRepetition(Template template, Repetition repetition) {
-        repetition.setYearCount(repetition.getRepetitionInterval());
-        return createEvents(template, repetition);
+    private Template parseAnnuallyRepeat(Template template, Repeat repeat) {
+        repeat.setYearCount(repeat.getRepeatInterval());
+        return createEvents(template, repeat);
     }
 
-    private Template parseNoRepetition(Template template, Repetition repetition) {
-        template.getEvents().add(createEvent(template, repetition.getStartTime()));
+    private Template parseNoneRepeat(Template template, Repeat repeat) {
+        template.getEvents().add(createEvent(template, repeat.getStartTime()));
         return templateRepository.save(template);
     }
 
@@ -117,21 +125,19 @@ public class EventFactoryService {
         return event;
     }
 
-    private Template createEvents(Template template, Repetition repetition) {
-        LocalDateTime startTime = repetition.getStartTime().toLocalDateTime();
-        LocalDateTime endTime = repetition.getEndTime().toLocalDateTime();
+    private Template createEvents(Template template, Repeat repeat) {
+        LocalDateTime startTime = repeat.getStartTime().toLocalDateTime();
+        LocalDateTime endTime = repeat.getEndTime().toLocalDateTime();
         template.getEvents().addAll(Stream.iterate(
                 startTime,
                 time -> time.isBefore(endTime),
-                time -> time.plusYears(repetition.getYearCount())
-                        .plusMonths(repetition.getMonthCount())
-                        .plusWeeks(repetition.getWeekCount())
-                        .plusDays(repetition.getDayCount()))
+                time -> time.plusYears(repeat.getYearCount())
+                        .plusMonths(repeat.getMonthCount())
+                        .plusWeeks(repeat.getWeekCount())
+                        .plusDays(repeat.getDayCount()))
                 .map(Timestamp::valueOf)
                 .map(time -> createEvent(template, time))
                 .collect(Collectors.toList()));
         return templateRepository.save(template);
     }
-
-
 }

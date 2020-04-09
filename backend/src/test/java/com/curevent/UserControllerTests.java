@@ -3,7 +3,7 @@ package com.curevent;
 import com.curevent.controllers.*;
 import com.curevent.exceptions.ConflictException;
 import com.curevent.models.forms.RegisterForm;
-import com.curevent.models.forms.RepetitionForm;
+import com.curevent.models.forms.RepeatForm;
 import com.curevent.models.transfers.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -35,8 +35,8 @@ public class UserControllerTests {
     public static final String NAME = "name";
     public static final String NEW_USERNAME = "test2";
     public static final long INTERVAL = 2880;
-    public static final String REPETITION_TYPE = "day";
-    public static final int REPETITION_INTERVAL = 1;
+    public static final String REPEAT_TYPE = "day";
+    public static final int REPEAT_INTERVAL = 1;
 
     @Autowired
     private UserController userController;
@@ -206,12 +206,12 @@ public class UserControllerTests {
 
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
 
-        RepetitionForm repetition = new RepetitionForm();
-        repetition.setRepetitionType(REPETITION_TYPE);
-        repetition.setRepetitionInterval(REPETITION_INTERVAL);
-        repetition.setStartTime(time);
-        repetition.setEndTime(Timestamp.valueOf(time.toLocalDateTime().plusDays(EVENT_AMOUNT)));
-        return templateController.createEvents(template.getId(), repetition);
+        RepeatForm repeat = new RepeatForm();
+        repeat.setRepeatType(REPEAT_TYPE);
+        repeat.setRepeatInterval(REPEAT_INTERVAL);
+        repeat.setStartTime(time);
+        repeat.setEndTime(Timestamp.valueOf(time.toLocalDateTime().plusDays(EVENT_AMOUNT)));
+        return templateController.createEvents(template.getId(), repeat);
     }
 
     private void createRelationship(UserTransfer user, UserTransfer friend, CategoryTransfer category) {

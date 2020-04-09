@@ -1,6 +1,6 @@
 package com.curevent.controllers;
 
-import com.curevent.models.forms.RepetitionForm;
+import com.curevent.models.forms.RepeatForm;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.services.EventFactoryService;
 import com.curevent.services.TemplateService;
@@ -31,8 +31,8 @@ public class TemplateController {
     }
 
     @PostMapping("/{id}/events")
-    public TemplateTransfer createEvents(@PathVariable UUID id, @RequestBody RepetitionForm repetitionForm) {
-        return eventFactoryService.parseRepetitionForm(id, repetitionForm);
+    public TemplateTransfer createEvents(@PathVariable UUID id, @RequestBody RepeatForm repeatForm) {
+        return eventFactoryService.parseRepetitionForm(id, repeatForm);
     }
 
     @DeleteMapping("/{id}")
