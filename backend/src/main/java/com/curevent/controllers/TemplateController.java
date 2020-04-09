@@ -1,5 +1,6 @@
 package com.curevent.controllers;
 
+import com.curevent.models.forms.RepetitionForm;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.services.EventFactoryService;
 import com.curevent.services.TemplateService;
@@ -7,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -31,8 +31,8 @@ public class TemplateController {
     }
 
     @PostMapping("/{id}/events")
-    public TemplateTransfer createEvents(@PathVariable UUID id, @RequestBody Timestamp startTime) {
-        return eventFactoryService.createEvents(id, startTime);
+    public TemplateTransfer createEvents(@PathVariable UUID id, @RequestBody RepetitionForm repetitionForm) {
+        return eventFactoryService.parseRepetitionForm(id, repetitionForm);
     }
 
     @DeleteMapping("/{id}")
@@ -42,12 +42,12 @@ public class TemplateController {
 
     @DeleteMapping("/{id}/events")
     public TemplateTransfer deleteEvents(@PathVariable UUID id) {
-        return eventFactoryService.deleteEvents(id);
+        return templateService.deleteEvents(id);
     }
 
     @PutMapping("/")
     public TemplateTransfer editTemplate(@RequestBody TemplateTransfer templateTransfer) {
         templateService.update(templateTransfer);
-        return eventFactoryService.updateEvents(templateTransfer);
+        return templateService.updateEvents(templateTransfer);
     }
 }
