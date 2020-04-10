@@ -14,8 +14,6 @@ public class TemplateTransfer {
     private UUID id;
     private UUID ownerId;
     private Long duration;
-    private Long repeatTime;
-    private Integer repeatAmount;
     private String title;
     private String description;
     private Double latitude;
@@ -24,4 +22,5 @@ public class TemplateTransfer {
     private List<CategoryTransfer> privacy;
     private List<TagTransfer> tags;
     private List<EventTransfer> events;
+
 }

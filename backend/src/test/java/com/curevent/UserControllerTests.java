@@ -3,6 +3,7 @@ package com.curevent;
 import com.curevent.controllers.*;
 import com.curevent.exceptions.ConflictException;
 import com.curevent.models.forms.RegisterForm;
+import com.curevent.models.forms.RepeatForm;
 import com.curevent.models.transfers.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,12 +30,13 @@ public class UserControllerTests {
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
     public static final long DURATION = 100;
-    public static final long REPEAT_TIME = 60;
-    public static final int REPEAT_AMOUNT = 3;
+    public static final int EVENT_AMOUNT = 2;
     public static final String CITY = "city";
     public static final String NAME = "name";
     public static final String NEW_USERNAME = "test2";
-    public static final long INTERVAL = 1440;
+    public static final long INTERVAL = 2880;
+    public static final String REPEAT_TYPE = "day";
+    public static final int REPEAT_INTERVAL = 1;
 
     @Autowired
     private UserController userController;
@@ -178,7 +180,7 @@ public class UserControllerTests {
         eventController.editEvent(newEvent);
 
         List <EventTransfer> events = userController.getUserFriendsEventsInInterval(user.getId(), INTERVAL);
-        assertEquals(REPEAT_AMOUNT - 1 , events.size());
+        assertEquals(EVENT_AMOUNT - 1 , events.size());
 
         userController.deleteUser(user.getId());
         userController.deleteUser(friend.getId());
@@ -188,7 +190,7 @@ public class UserControllerTests {
         Timestamp startTime = new Timestamp(time.getTime() - TimeUnit.MINUTES.toMillis(INTERVAL));
         Timestamp endTime = new Timestamp(time.getTime() + TimeUnit.MINUTES.toMillis(INTERVAL));
 
-        assertEquals(REPEAT_AMOUNT, events.size());
+        assertEquals(EVENT_AMOUNT, events.size());
         assertTrue(events.stream()
                 .allMatch(event -> event.getTime().after(startTime) && event.getTime().before(endTime)));
     }
@@ -199,13 +201,17 @@ public class UserControllerTests {
         templateTransfer.setTitle(TITLE);
         templateTransfer.setDescription(DESCRIPTION);
         templateTransfer.setDuration(DURATION);
-        templateTransfer.setRepeatTime(REPEAT_TIME);
-        templateTransfer.setRepeatAmount(REPEAT_AMOUNT);
         templateTransfer.setPrivacy(List.of(privacy));
         templateTransfer.setTags(List.of(tag));
 
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
-        return templateController.createEvents(template.getId(), time);
+
+        RepeatForm repeat = new RepeatForm();
+        repeat.setRepeatType(REPEAT_TYPE);
+        repeat.setRepeatInterval(REPEAT_INTERVAL);
+        repeat.setStartTime(time);
+        repeat.setEndTime(Timestamp.valueOf(time.toLocalDateTime().plusDays(EVENT_AMOUNT)));
+        return templateController.createEvents(template.getId(), repeat);
     }
 
     private void createRelationship(UserTransfer user, UserTransfer friend, CategoryTransfer category) {

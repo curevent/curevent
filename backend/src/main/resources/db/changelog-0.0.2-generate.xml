@@ -53,7 +53,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="init-templated-table" author="alsntt" runOnChange="true">
+    <changeSet id="init-templates-table" author="alsntt" runOnChange="true">
         <createTable tableName="templates">
             <column name="id" type="uuid" >
                 <constraints nullable="false" primaryKey="true"/>
@@ -62,8 +62,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="duration" type="bigint"/>
-            <column name="repeat_time" type="bigint" />
-            <column name="repeat_amount" type="integer" />
             <column name="title" type="varchar(50)" >
                 <constraints nullable="false"/>
             </column>
