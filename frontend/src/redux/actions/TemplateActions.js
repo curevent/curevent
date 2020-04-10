@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
     DELETE_TEMPLATE_AND_TEMPLATE_EVENTS, DELETE_TEMPLATE_EVENTS,
-    GET_TEMPLATE_BY_ID, POST_START_TIME_AND_CREATE_TEMPLATE_EVENTS,
+    GET_TEMPLATE_BY_ID, POST_REPEAT_FORM_AND_CREATE_TEMPLATE_EVENTS,
     POST_TEMPLATE,
     PUT_TEMPLATE_AND_TEMPLATE_EVENTS
 } from "../api/ApiEndpoints";
@@ -23,9 +23,9 @@ export function postTemplate(template, token) {
     }
 }
 
-export function createTemplateEvents(startTime, id, token) {
+export function createTemplateEvents(repeatForm, id, token) {
     return dispatch => {
-        axios.post(POST_START_TIME_AND_CREATE_TEMPLATE_EVENTS(id), startTime, {
+        axios.post(POST_REPEAT_FORM_AND_CREATE_TEMPLATE_EVENTS(id), repeatForm, {
             headers: {'Authorization':`Bearer ${token}`}
         }).then(response => {
             dispatch({type: CREATE_TEMPLATE_EVENTS_ACTION, payload: response.data})
