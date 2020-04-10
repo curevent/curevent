@@ -39,7 +39,7 @@ public class EventFactoryService {
     @Autowired
     private final ModelMapper mapper;
 
-    public TemplateTransfer parseRepetitionForm(UUID id, RepeatForm repeatForm) {
+    public TemplateTransfer parseRepeatForm(UUID id, RepeatForm repeatForm) {
         Template template = templateService.getEntityById(id);
         Repeat repeat = mapper.map(repeatForm, Repeat.class);
         validateRepeat(repeat);

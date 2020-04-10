@@ -32,7 +32,7 @@ public class TemplateController {
 
     @PostMapping("/{id}/events")
     public TemplateTransfer createEvents(@PathVariable UUID id, @RequestBody RepeatForm repeatForm) {
-        return eventFactoryService.parseRepetitionForm(id, repeatForm);
+        return eventFactoryService.parseRepeatForm(id, repeatForm);
     }
 
     @DeleteMapping("/{id}")
