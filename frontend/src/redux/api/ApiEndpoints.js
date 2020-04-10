@@ -41,7 +41,7 @@ export const DELETE_EVENT_BY_ID = (id) => `${EVENT_ENDPOINT}/${id}`;
 
 // templates
 export const POST_TEMPLATE = `${TEMPLATE_ENDPOINT}/`;
-export const POST_START_TIME_AND_CREATE_TEMPLATE_EVENTS = (id) =>  `${TEMPLATE_ENDPOINT}/${id}/events`;
+export const POST_REPEAT_FORM_AND_CREATE_TEMPLATE_EVENTS = (id) =>  `${TEMPLATE_ENDPOINT}/${id}/events`;
 
 export const GET_TEMPLATE_BY_ID = (id) => `${TEMPLATE_ENDPOINT}/${id}`;
 
