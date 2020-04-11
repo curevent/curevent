@@ -2,6 +2,6 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: url("./img/bg.auth.jpg");
+    background: white;
     background-size: cover;
 }
