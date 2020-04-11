@@ -1,5 +1,6 @@
 export const REGISTER_ACTION = "REGISTER";
 export const AUTH_ACTION = "AUTH";
+export const WHO_AM_I_ACTION = "WHO_AM_I";
 
 export const POST_TAG_ACTION = "POST_TAG";
 export const GET_TAG_ACTION = "GET_TAG";

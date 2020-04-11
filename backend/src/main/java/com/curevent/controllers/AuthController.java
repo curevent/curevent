@@ -3,13 +3,12 @@ package com.curevent.controllers;
 import com.curevent.models.forms.LoginForm;
 import com.curevent.models.forms.RegisterForm;
 import com.curevent.models.transfers.AuthTransfer;
-import com.curevent.models.transfers.UserTransfer;
+import com.curevent.models.transfers.AuthenticatedUser;
 import com.curevent.services.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
@@ -43,14 +42,12 @@ public class AuthController {
 
     @GetMapping(value = "/whoami")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public UserTransfer whoami(HttpServletRequest request) {
-        return mapper.map(authService.whoami(request), UserTransfer.class);
+    public AuthenticatedUser whoami(HttpServletRequest request) {
+        return mapper.map(authService.whoami(request), AuthenticatedUser.class);
     }
 
     @GetMapping(value = "/refresh")
     @ResponseStatus(code = HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public AuthTransfer refresh(@RequestParam(name = "refresh_token") String refreshToken,
                                 @AuthenticationPrincipal User user) {
         return authService.refresh(user.getUsername(), refreshToken);

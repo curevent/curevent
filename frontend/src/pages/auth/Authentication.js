@@ -1,24 +1,23 @@
 import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
-import {postAuth} from "../../redux/actions/AuthActions";
+import {useDispatch, useSelector} from "react-redux";
+import {getWhoAmI, postAuth} from "../../redux/actions/AuthActions";
 
 const Authentication = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const [auth, setAuth] = useState({username:"", password:""});
+    const [authForm, setAuthForm] = useState({username:"", password:""});
 
     const submitHandler = event => {
-        const {username, password} = auth;
+        const {username, password} = authForm;
         const authInfo = {username, password};
-        console.log(authInfo);
         dispatch(postAuth(authInfo));
-        setAuth({username:"", password:""});
+        setAuthForm({username:"", password:""});
     };
 
     const changeInputHandler = event => {
         event.persist();
-        setAuth(pervState => ( { ...pervState, ...{
+        setAuthForm(pervState => ( { ...pervState, ...{
             [event.target.id]: event.target.value
         }}))
     };
@@ -31,7 +30,7 @@ const Authentication = () => {
                 id="username"
                 className="auth-input"
                 placeholder="Username"
-                value={auth.username}
+                value={authForm.username}
                 onChange={changeInputHandler}
             />
             <input
@@ -39,7 +38,7 @@ const Authentication = () => {
                 id="password"
                 className="auth-input"
                 placeholder="Password"
-                value={auth.password}
+                value={authForm.password}
                 onChange={changeInputHandler}
             />
             <button
