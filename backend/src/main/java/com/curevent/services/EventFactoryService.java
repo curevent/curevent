@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,6 +32,8 @@ public class EventFactoryService {
     public static final String MONTH = "month";
     public static final String YEAR = "year";
     public static final String NONE = "none";
+    public static final int BASIC_COUNT = 0;
+    public static final int BASIC_REPEAT_INTERVAL = 1;
 
     @Autowired
     private final TemplateService templateService;
@@ -70,15 +73,18 @@ public class EventFactoryService {
             repeat.setRepeatType(NONE);
         }
         if(repeat.getRepeatInterval() == null) {
-            repeat.setRepeatInterval(1);
+            repeat.setRepeatInterval(BASIC_REPEAT_INTERVAL);
         }
         if (repeat.getEndTime() == null && !repeat.getRepeatType().equals(NONE)) {
             throw new InvalidArgumentException("End time with repeat type must be not null");
         }
-        repeat.setDayCount(0);
-        repeat.setWeekCount(0);
-        repeat.setMonthCount(0);
-        repeat.setYearCount(0);
+        if(repeat.getRepeatDays() == null) {
+            repeat.setRepeatDays(new HashMap<>());
+        }
+        repeat.setDayCount(BASIC_COUNT);
+        repeat.setWeekCount(BASIC_COUNT);
+        repeat.setMonthCount(BASIC_COUNT);
+        repeat.setYearCount(BASIC_COUNT);
     }
 
     private Template parseDailyRepeat(Template template, Repeat repeat) {
@@ -88,7 +94,7 @@ public class EventFactoryService {
 
     private Template parseWeeklyRepeat(Template template, Repeat repeat) {
         repeat.setWeekCount(repeat.getRepeatInterval());
-        if (repeat.getRepeatDays() == null) {
+        if (repeat.getRepeatDays().isEmpty()) {
             return createEvents(template, repeat);
         }
 
