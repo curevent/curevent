@@ -9,9 +9,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -38,19 +38,19 @@ public class UserControllerTests {
     public static final String REPEAT_TYPE = "day";
     public static final int REPEAT_INTERVAL = 1;
 
-    @Autowired
+    @Resource
     private UserController userController;
-    @Autowired
+    @Resource
     private TemplateController templateController;
-    @Autowired
+    @Resource
     private EventController eventController;
-    @Autowired
+    @Resource
     private AuthController authController;
-    @Autowired
+    @Resource
     private CategoryController categoryController;
-    @Autowired
+    @Resource
     private TagController tagController;
-    @Autowired
+    @Resource
     private RelationshipController relationshipController;
 
     private CategoryTransfer privacy;
