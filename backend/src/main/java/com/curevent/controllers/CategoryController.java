@@ -3,7 +3,6 @@ package com.curevent.controllers;
 import com.curevent.models.transfers.CategoryTransfer;
 import com.curevent.services.CategoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -12,7 +11,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-    @Autowired
     private final CategoryService categoryService;
 
     @GetMapping("/{id}")

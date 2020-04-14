@@ -4,22 +4,18 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Relationship;
 import com.curevent.models.transfers.RelationshipTransfer;
 import com.curevent.repositories.RelationshipRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class RelationshipService {
-
-    @Autowired
     private final RelationshipRepository relationshipRepository;
-    @Autowired
     private final ModelMapper mapper;
 
     private Relationship getEntityById(UUID id) {

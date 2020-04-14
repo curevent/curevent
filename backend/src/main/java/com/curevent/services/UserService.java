@@ -5,9 +5,8 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.models.transfers.UserTransfer;
 import com.curevent.repositories.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,22 +15,15 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class UserService {
-
-    @Autowired
     private final UserRepository userRepository;
-    @Autowired
     private final TemplateService templateService;
-    @Autowired
     private final EventService eventService;
-    @Autowired
     private final CommentService commentService;
-    @Autowired
     private final RelationshipService relationshipService;
-    @Autowired
     private final ModelMapper mapper;
 
     UserEntity getEntityById(UUID id) {

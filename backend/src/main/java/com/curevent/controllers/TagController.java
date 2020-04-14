@@ -3,7 +3,6 @@ package com.curevent.controllers;
 import com.curevent.models.transfers.TagTransfer;
 import com.curevent.services.TagService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,7 +12,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/tags")
 public class TagController {
-    @Autowired
     private final TagService tagService;
 
     @GetMapping("/{id}")

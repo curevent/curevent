@@ -4,19 +4,16 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Category;
 import com.curevent.models.transfers.CategoryTransfer;
 import com.curevent.repositories.CategoryRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class CategoryService {
-    @Autowired
     private final CategoryRepository categoryRepository;
-    @Autowired
     private final ModelMapper mapper;
 
     private Category getEntityById(Long id) {

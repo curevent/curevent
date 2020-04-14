@@ -7,9 +7,8 @@ import com.curevent.models.entities.Template;
 import com.curevent.models.forms.RepeatForm;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.repositories.TemplateRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,23 +22,20 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional
-public class EventFactoryService {
+public class EventFactory {
     public static final String DAY = "day";
     public static final String WEEK = "week";
     public static final String MONTH = "month";
     public static final String YEAR = "year";
     public static final String NONE = "none";
-    public static final int BASIC_COUNT = 0;
-    public static final int BASIC_REPEAT_INTERVAL = 1;
+    private static final int BASIC_COUNT = 0;
+    private static final int BASIC_REPEAT_INTERVAL = 1;
 
-    @Autowired
     private final TemplateService templateService;
-    @Autowired
     private final TemplateRepository templateRepository;
-    @Autowired
     private final ModelMapper mapper;
 
     public TemplateTransfer parseRepeatForm(UUID id, RepeatForm repeatForm) {

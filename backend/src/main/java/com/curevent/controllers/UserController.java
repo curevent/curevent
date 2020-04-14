@@ -5,7 +5,6 @@ import com.curevent.models.transfers.UserTransfer;
 import com.curevent.services.TimelineService;
 import com.curevent.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
-    @Autowired
     private final UserService userService;
-    @Autowired
     private final TimelineService timelineService;
 
     @GetMapping("/{id}")

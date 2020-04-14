@@ -3,7 +3,6 @@ package com.curevent.controllers;
 import com.curevent.models.transfers.CommentTransfer;
 import com.curevent.services.CommentService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,7 +12,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
-    @Autowired
     private final CommentService commentService;
 
     @GetMapping("/{id}")

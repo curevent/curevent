@@ -3,7 +3,6 @@ package com.curevent.controllers;
 import com.curevent.models.transfers.RelationshipTransfer;
 import com.curevent.services.RelationshipService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,8 +12,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/relationships")
 public class RelationshipController {
-
-    @Autowired
     private final RelationshipService relationshipService;
 
     @GetMapping("/{id}")

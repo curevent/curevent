@@ -5,22 +5,19 @@ import com.curevent.models.entities.Event;
 import com.curevent.models.entities.Template;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.repositories.TemplateRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class TemplateService {
-    @Autowired
     private final TemplateRepository templateRepository;
-    @Autowired
     private final ModelMapper mapper;
 
     Template getEntityById(UUID id) {

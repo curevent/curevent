@@ -4,21 +4,18 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
 import com.curevent.models.transfers.EventTransfer;
 import com.curevent.repositories.EventRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class EventService {
-    @Autowired
     private final EventRepository eventRepository;
-    @Autowired
     private final ModelMapper mapper;
 
     private Event getEntityById(UUID id) {

@@ -6,9 +6,8 @@ import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.UserTransfer;
 import com.curevent.repositories.EventRepository;
 import com.curevent.repositories.RelationshipRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,17 +17,13 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 @Service
 public class TimelineService {
-    @Autowired
     private final EventRepository eventRepository;
-    @Autowired
     private final RelationshipRepository relationshipRepository;
-    @Autowired
     private final UserService userService;
-    @Autowired
     private final ModelMapper mapper;
 
     private List<Event> getEventEntitiesInInterval(UUID id, Long interval) {
