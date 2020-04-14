@@ -100,7 +100,7 @@ public class EventFactoryService {
 
         LocalDate startDate = repeat.getStartTime().toLocalDateTime().toLocalDate();
         repeat.getRepeatDays().forEach( (dayOfWeek, time) -> {
-            LocalDate nextWeekDayDate = startDate.with(TemporalAdjusters.next(dayOfWeek));
+            LocalDate nextWeekDayDate = startDate.getDayOfWeek() == dayOfWeek ? startDate : startDate.with(TemporalAdjusters.next(dayOfWeek));
             LocalTime weekDayTime = time.toLocalTime();
             LocalDateTime nextStartTime = nextWeekDayDate.atTime(weekDayTime);
             repeat.setStartTime(Timestamp.valueOf(nextStartTime));
