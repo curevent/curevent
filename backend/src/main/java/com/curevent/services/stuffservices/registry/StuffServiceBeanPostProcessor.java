@@ -1,5 +1,6 @@
-package com.curevent.services.stuffservices;
+package com.curevent.services.stuffservices.registry;
 
+import com.curevent.services.stuffservices.StuffService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;

@@ -1,5 +1,8 @@
-package com.curevent.services.stuffservices;
+package com.curevent.services.stuffservices.registry;
 
+import com.curevent.services.stuffservices.StuffService;
+import com.curevent.services.stuffservices.StuffServiceFor;
+import com.curevent.services.stuffservices.Type;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

@@ -6,6 +6,7 @@ import com.curevent.models.entities.Template;
 import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.repositories.TemplateRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-@Transactional
 public class TemplateService {
     @Autowired
     private final TemplateRepository templateRepository;
