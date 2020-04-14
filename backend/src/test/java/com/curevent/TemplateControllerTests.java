@@ -128,6 +128,25 @@ public class TemplateControllerTests {
     }
 
     @Test
+    void createComplexWeeklyEventsStartAtStartDateTest() {
+        TemplateTransfer templateTransfer = createTemplate();
+        TemplateTransfer template = templateController.addTemplate(templateTransfer);
+        Timestamp endTime = Timestamp.valueOf("2020-04-20 17:00:00.000");
+        RepeatForm repeat = createRepeat("week", 1, endTime);
+        repeat.setStartTime(Timestamp.valueOf("2020-04-13 17:00:00.000"));
+        repeat.setRepeatDays(new HashMap<>());
+        repeat.getRepeatDays().put(DayOfWeek.MONDAY, Time.valueOf(("12:00:00")));
+
+        List<EventTransfer> events = templateController.createEvents(template.getId(), repeat).getEvents();
+        assertEquals(2, events.size());
+        events.forEach(event -> assertEvent(event, template));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-04-13 12:00:00.000"))));
+        assertTrue(events.stream().anyMatch(e -> e.getTime().equals(Timestamp.valueOf("2020-04-20 12:00:00.000"))));
+
+        templateController.deleteTemplate(template.getId());
+    }
+
+    @Test
     void createMonthlyEventsTest() {
         TemplateTransfer templateTransfer = createTemplate();
         TemplateTransfer template = templateController.addTemplate(templateTransfer);
