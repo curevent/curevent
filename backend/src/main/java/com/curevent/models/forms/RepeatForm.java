@@ -1,5 +1,6 @@
 package com.curevent.models.forms;
 
+import com.curevent.models.enums.RepeatType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class RepeatForm {
     //day, week, month, year
-    private String repeatType;
+    private RepeatType repeatType;
     //через сколько дней/недель/месяцев/лет
     private Integer repeatInterval;
     private Map<DayOfWeek, Time> repeatDays;

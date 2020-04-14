@@ -2,6 +2,7 @@ package com.curevent;
 
 import com.curevent.controllers.*;
 import com.curevent.exceptions.ConflictException;
+import com.curevent.models.enums.RepeatType;
 import com.curevent.models.forms.RegisterForm;
 import com.curevent.models.forms.RepeatForm;
 import com.curevent.models.transfers.*;
@@ -35,7 +36,7 @@ public class UserControllerTests {
     public static final String NAME = "name";
     public static final String NEW_USERNAME = "test2";
     public static final long INTERVAL = 2880;
-    public static final String REPEAT_TYPE = "day";
+    public static final RepeatType REPEAT_TYPE = RepeatType.DAILY;
     public static final int REPEAT_INTERVAL = 1;
 
     @Resource

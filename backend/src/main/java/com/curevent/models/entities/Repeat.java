@@ -1,5 +1,6 @@
 package com.curevent.models.entities;
 
+import com.curevent.models.enums.RepeatType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Repeat {
-    private String repeatType;
+    private RepeatType repeatType;
     private Integer repeatInterval;
     private Map<DayOfWeek, Time> repeatDays;
 

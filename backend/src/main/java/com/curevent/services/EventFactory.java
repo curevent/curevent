@@ -22,15 +22,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.curevent.models.enums.RepeatType.NONE;
+
 @RequiredArgsConstructor
 @Service
 @Transactional
 public class EventFactory {
-    public static final String DAY = "day";
-    public static final String WEEK = "week";
-    public static final String MONTH = "month";
-    public static final String YEAR = "year";
-    public static final String NONE = "none";
     private static final int BASIC_COUNT = 0;
     private static final int BASIC_REPEAT_INTERVAL = 1;
 
@@ -43,16 +40,16 @@ public class EventFactory {
         Repeat repeat = mapper.map(repeatForm, Repeat.class);
         validateRepeat(repeat);
         switch (repeat.getRepeatType()) {
-            case DAY:
+            case DAILY:
                 template = parseDailyRepeat(template, repeat);
                 break;
-            case WEEK:
+            case WEEKLY:
                 template = parseWeeklyRepeat(template, repeat);
                 break;
-            case MONTH:
+            case MONTHLY:
                 template = parseMonthlyRepeat(template, repeat);
                 break;
-            case YEAR:
+            case ANNUALLY:
                 template = parseAnnuallyRepeat(template, repeat);
                 break;
             case NONE:
