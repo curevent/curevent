@@ -5,7 +5,7 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.models.transfers.UserTransfer;
 import com.curevent.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 @Transactional
 public class UserService {

@@ -4,14 +4,14 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Tag;
 import com.curevent.models.transfers.TagTransfer;
 import com.curevent.repositories.TagRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 @Transactional
 public class TagService {

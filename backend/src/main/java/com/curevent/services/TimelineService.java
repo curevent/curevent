@@ -6,7 +6,7 @@ import com.curevent.models.transfers.EventTransfer;
 import com.curevent.models.transfers.UserTransfer;
 import com.curevent.repositories.EventRepository;
 import com.curevent.repositories.RelationshipRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +17,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Transactional
 @Service
 public class TimelineService {
