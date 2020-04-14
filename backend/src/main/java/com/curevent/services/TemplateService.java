@@ -66,7 +66,7 @@ public class TemplateService {
         return templateTransfer;
     }
 
-    void fillEvent(Event base, Template source) {
+    public void fillEvent(Event base, Template source) {
         base.setOwnerId(source.getOwnerId());
         base.setDuration(source.getDuration());
         base.setTemplateId(source.getId());
