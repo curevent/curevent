@@ -1,10 +1,12 @@
 package com.curevent.exceptions;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-@Data
-public class InvalidArgumentTypeException extends ResponceException {
+@Getter
+@Setter
+public class InvalidArgumentTypeException extends ResponseException {
     private final String message;
     private final HttpStatus httpStatus;
 

@@ -1,6 +1,6 @@
 package com.curevent.exceptions.handlers;
 
-import com.curevent.exceptions.ResponceException;
+import com.curevent.exceptions.ResponseException;
 import com.curevent.models.transfers.ErrorTransfer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +10,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice
 @Slf4j
-public class ResponceExceptionHandler extends ResponseEntityExceptionHandler {
+public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ResponceException.class)
-    public ResponseEntity<?> ResponceException(ResponceException e) {
+    @ExceptionHandler(ResponseException.class)
+    public ResponseEntity<?> ResponceException(ResponseException e) {
         return new ResponseEntity<>(new ErrorTransfer(e.getMessage(), e.getHttpStatus().value()), e.getHttpStatus());
     }
 }

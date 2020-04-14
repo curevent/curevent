@@ -1,8 +1,12 @@
 package com.curevent.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-public class ConflictException extends ResponceException {
+@Getter
+@Setter
+public class ConflictException extends ResponseException {
     private final String message;
     private final HttpStatus httpStatus;
 

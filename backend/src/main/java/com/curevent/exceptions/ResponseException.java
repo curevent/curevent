@@ -1,19 +1,21 @@
 package com.curevent.exceptions;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-@Data
-public class ResponceException extends RuntimeException {
+@Getter
+@Setter
+public class ResponseException extends RuntimeException {
     private String message;
     private HttpStatus httpStatus;
 
-    public ResponceException() {
+    public ResponseException() {
         this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         this.message = "Unknown error";
     }
 
-    public ResponceException(String message){
+    public ResponseException(String message){
         this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         this.message = message;
     }
