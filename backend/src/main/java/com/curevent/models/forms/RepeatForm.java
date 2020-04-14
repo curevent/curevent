@@ -16,7 +16,6 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RepeatForm {
-    //day, week, month, year
     private RepeatType repeatType;
     //через сколько дней/недель/месяцев/лет
     private Integer repeatInterval;
