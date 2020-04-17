@@ -30,7 +30,7 @@ class ProfilePage extends Component {
             <div className="profile-container">
                 {!this.props.isAuth && <Redirect to="/"/>}
                 {console.log(this.state.userInfo)}
-                {this.state.userInfo}
+                {this.state.userInfo.username}
             </div>
         );
     }
