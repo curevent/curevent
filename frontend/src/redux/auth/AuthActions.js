@@ -13,25 +13,41 @@ export const invalidateAuth = (ignore) => {
 };
 
 export function auth(tokens) {
-    return dispatch => {
-        dispatch({type: GET_AUTH_ACTION, payload: tokens});
+    if (!tokens) {
+        invalidateAuth(null);
+    } else {
+        return dispatch => {
+            dispatch({type: GET_AUTH_ACTION, payload: tokens});
+        }
     }
 }
 
 export function register(tokens) {
-    return dispatch => {
-        dispatch({type: GET_REGISTER_ACTION, payload: tokens});
+    if (!tokens) {
+        invalidateAuth(null);
+    } else {
+        return dispatch => {
+            dispatch({type: GET_REGISTER_ACTION, payload: tokens});
+        }
     }
 }
 
 export function currentUser(userInfo) {
-    return dispatch => {
-        dispatch({type: WHO_AM_I_ACTION, payload: userInfo});
+    if (!userInfo) {
+        invalidateAuth(null);
+    } else {
+        return dispatch => {
+            dispatch({type: WHO_AM_I_ACTION, payload: userInfo});
+        }
     }
 }
 
 export function refresh(tokens) {
-    return dispatch => {
-        dispatch({type: GET_REFRESH_ACTION, payload: tokens});
+    if (!tokens) {
+        invalidateAuth(null);
+    } else {
+        return dispatch => {
+            dispatch({type: GET_REFRESH_ACTION, payload: tokens});
+        }
     }
 }
