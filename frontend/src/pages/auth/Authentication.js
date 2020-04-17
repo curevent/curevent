@@ -1,18 +1,21 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getWhoAmI, postAuth} from "../../redux/actions/AuthActions";
+import {connect, useDispatch, useSelector} from "react-redux";
+import {postAuth} from "../../redux/auth/AuthService";
+import {auth} from "../../redux/auth/AuthActions";
+import {Redirect} from "react-router-dom";
 
-const Authentication = () => {
+const Authentication = ({isAuth}) => {
 
     const dispatch = useDispatch();
 
     const [authForm, setAuthForm] = useState({username:"", password:""});
 
-    const submitHandler = event => {
+    const submitHandler = async event => {
         const {username, password} = authForm;
         const authInfo = {username, password};
-        dispatch(postAuth(authInfo));
-        setAuthForm({username:"", password:""});
+        const tokens = await postAuth(authInfo);
+        dispatch(auth(tokens));
+        setAuthForm({username: "", password: ""});
     };
 
     const changeInputHandler = event => {
@@ -24,6 +27,7 @@ const Authentication = () => {
 
     return (
         <div className="authentication-container">
+            {isAuth && <Redirect to="/profile"/>}
             <h1 className="title">Authentication</h1>
             <input
                 type="text"
@@ -52,4 +56,10 @@ const Authentication = () => {
     );
 };
 
-export default Authentication;
+const mapStateToProps = state => {
+    return {
+        isAuth: state.auth.isAuth,
+    }
+};
+
+export default connect(mapStateToProps, null)(Authentication);
