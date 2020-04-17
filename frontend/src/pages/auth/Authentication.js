@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {postAuth} from "../../redux/auth/AuthService";
 import {auth} from "../../redux/auth/AuthActions";
-import {Redirect} from "react-router-dom";
 
-const Authentication = ({isAuth}) => {
+export const Authentication = () => {
 
     const dispatch = useDispatch();
 
@@ -27,7 +26,6 @@ const Authentication = ({isAuth}) => {
 
     return (
         <div className="authentication-container">
-            {isAuth && <Redirect to="/profile"/>}
             <h1 className="title">Authentication</h1>
             <input
                 type="text"
@@ -55,11 +53,3 @@ const Authentication = ({isAuth}) => {
         </div>
     );
 };
-
-const mapStateToProps = state => {
-    return {
-        isAuth: state.auth.isAuth,
-    }
-};
-
-export default connect(mapStateToProps, null)(Authentication);
