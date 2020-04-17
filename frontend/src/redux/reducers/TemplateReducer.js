@@ -5,7 +5,7 @@ import {
     GET_TEMPLATE_ACTION,
     POST_TEMPLATE_ACTION,
     PUT_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION
-} from "../actions/ActionTypes";
+} from "../constants/ActionTypes";
 
 const initialState = {
     templates:[]

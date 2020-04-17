@@ -3,7 +3,7 @@ import {
     GET_COMMENT_ACTION,
     POST_COMMENT_ACTION,
     PUT_COMMENT_ACTION
-} from "../actions/ActionTypes";
+} from "../constants/ActionTypes";
 
 const initialState = {
     comments:[]

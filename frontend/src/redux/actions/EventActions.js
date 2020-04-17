@@ -1,6 +1,6 @@
 import axios from "axios";
-import {POST_EVENT, GET_EVENT_BY_ID, PUT_EVENT, DELETE_EVENT_BY_ID } from "../api/ApiEndpoints";
-import {POST_EVENT_ACTION, GET_EVENT_ACTION, PUT_EVENT_ACTION, DELETE_EVENT_ACTION} from "./ActionTypes";
+import {POST_EVENT, GET_EVENT_BY_ID, PUT_EVENT, DELETE_EVENT_BY_ID } from "../constants/ApiEndpoints";
+import {POST_EVENT_ACTION, GET_EVENT_ACTION, PUT_EVENT_ACTION, DELETE_EVENT_ACTION} from "../constants/ActionTypes";
 
 export function postEvent(event, token) {
     return dispatch => {

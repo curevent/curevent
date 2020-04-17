@@ -7,7 +7,7 @@ import {
     GET_USERS,
     POST_USER,
     PUT_USER
-} from "../api/ApiEndpoints";
+} from "../constants/ApiEndpoints";
 import {
     DELETE_USER_ACTION, DELETE_USER_EVENTS_ACTION, DELETE_USER_FRIENDS_ACTION, DELETE_USER_TEMPLATES_ACTION,
     GET_USER_ACTION, GET_USER_EVENTS_IN_INTERVAL_ACTION,
@@ -15,7 +15,7 @@ import {
     GET_USERS_ACTION,
     POST_USER_ACTION,
     PUT_USER_ACTION
-} from "./ActionTypes";
+} from "../constants/ActionTypes";
 
 export function postUser(user, token) {
     return dispatch => {

@@ -3,7 +3,7 @@ import {
     GET_RELATIONSHIP_ACTION,
     POST_RELATIONSHIP_ACTION,
     PUT_RELATIONSHIP_ACTION,
-} from "../actions/ActionTypes";
+} from "../constants/ActionTypes";
 
 const initialState = {
     relationships:[]
