@@ -18,17 +18,19 @@ export async function postRegister(registerInfo) {
 
 export async function getWhoAmI() {
     const tokens = getTokens();
-    const access = `Authorization': Bearer ${tokens.access}`;
-    const response = await axios.get(GET_WHO_AM_I, {headers: {access}});
+    const access = `Bearer ${tokens.access}`;
+    const response = await axios.get(GET_WHO_AM_I, {headers: {Authorization: access}});
     return response.data;
 }
 
 export async function getRefresh() {
     const local_tokens = getTokens();
-    const url = GET_REFRESH(local_tokens.refresh);
-    const access = `Authorization': Bearer ${local_tokens.access}`;
-    const response = await axios.get(url, {headers: {access}});
-    const new_tokens = response.data;
-    saveTokens(new_tokens);
-    return new_tokens;
+    if (local_tokens.refresh !== undefined) {
+        const url = GET_REFRESH(local_tokens.refresh);
+        const access = `Bearer ${local_tokens.access}`;
+        const response = await axios.get(url, {headers: {Authorization: access}});
+        const new_tokens = response.data;
+        saveTokens(new_tokens);
+        return new_tokens;
+    }
 }
