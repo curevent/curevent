@@ -1,19 +1,21 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {postAuth, postRegister} from "../../redux/actions/AuthActions";
+import {postRegister} from "../../redux/auth/AuthService";
+import {register} from "../../redux/auth/AuthActions";
 
 export const Registration = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const [registration, setRegistration] = useState({email:"", username:"", password:""});
 
-    const submitHandler = event => {
+    const submitHandler = async event => {
         const {email, username, password} = registration;
         const registrationInfo = {email, username, password};
         console.log(registrationInfo);
-        dispatch(postRegister(registrationInfo));
-        setRegistration({email:"", username:"", password:""});
+        const tokens =  await postRegister(registrationInfo);
+        dispatch(register(tokens));
+        setRegistration({email: "", username: "", password: ""});
     };
 
     const changeInputHandler = event => {
