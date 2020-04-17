@@ -15,7 +15,7 @@ export const RELATIONSHIP_ENDPOINT = BASE_ENDPOINT + `/relationships`;
 export const POST_AUTH = `${BASE_ENDPOINT}/login`;
 export const POST_REGISTER = `${BASE_ENDPOINT}/register`;
 export const GET_WHO_AM_I = `${BASE_ENDPOINT}/whoami`;
-export const GET_REFRESH = `${BASE_ENDPOINT}/refresh`;
+export const GET_REFRESH = (refresh) => `${BASE_ENDPOINT}/refresh?refresh_token=${refresh}`;
 
 // users
 export const POST_USER = `${USER_ENDPOINT}/`;
