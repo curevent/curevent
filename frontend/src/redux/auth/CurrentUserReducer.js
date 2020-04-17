@@ -1,7 +1,11 @@
 import {INVALIDATE_USER_INFO_ACTION, WHO_AM_I_ACTION} from "../constants/ActionTypes";
 
 const initialState = {
-    userInfo: ""
+    userInfo: {
+        id: null,
+        username: null,
+        email: null,
+    }
 };
 
 export function currentUserReducer(state = initialState, action) {
@@ -11,7 +15,7 @@ export function currentUserReducer(state = initialState, action) {
             return {...state, ...{userInfo: action.payload}};
         case INVALIDATE_USER_INFO_ACTION:
             console.log(action);
-            return {...state, ...{userInfo: ""}};
+            return {...state, ...initialState};
         default:
             return state;
     }
