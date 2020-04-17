@@ -1,4 +1,4 @@
-import {DELETE_TAG_ACTION, GET_TAG_ACTION, POST_TAG_ACTION, PUT_TAG_ACTION} from "../actions/ActionTypes";
+import {DELETE_TAG_ACTION, GET_TAG_ACTION, POST_TAG_ACTION, PUT_TAG_ACTION} from "../constants/ActionTypes";
 
 const initialState = {
     tags:[]

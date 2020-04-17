@@ -9,7 +9,7 @@ import {
     GET_USER_FRIENDS_EVENTS_IN_INTERVAL_ACTION,
     POST_USER_ACTION,
     PUT_USER_ACTION
-} from "../actions/ActionTypes";
+} from "../constants/ActionTypes";
 
 const initialState = {
     users:[],

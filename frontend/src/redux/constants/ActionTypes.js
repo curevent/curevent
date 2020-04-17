@@ -1,6 +1,9 @@
-export const REGISTER_ACTION = "REGISTER";
-export const AUTH_ACTION = "AUTH";
+export const GET_AUTH_ACTION = "GET_AUTH";
+export const GET_REGISTER_ACTION = "GET_REGISTER";
+export const GET_REFRESH_ACTION = "GET_REFRESH";
 export const WHO_AM_I_ACTION = "WHO_AM_I";
+export const INVALIDATE_AUTH_ACTION = "INVALIDATE_AUTH";
+export const INVALIDATE_USER_INFO_ACTION = " INVALIDATE_USER_INFO";
 
 export const POST_TAG_ACTION = "POST_TAG";
 export const GET_TAG_ACTION = "GET_TAG";

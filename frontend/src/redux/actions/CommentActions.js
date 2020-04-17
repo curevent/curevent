@@ -1,6 +1,6 @@
 import axios from "axios";
-import {POST_COMMENT, GET_COMMENT_BY_ID, PUT_COMMENT, DELETE_COMMENT_BY_ID } from "../api/ApiEndpoints";
-import {POST_COMMENT_ACTION, GET_COMMENT_ACTION, PUT_COMMENT_ACTION, DELETE_COMMENT_ACTION} from "./ActionTypes";
+import {POST_COMMENT, GET_COMMENT_BY_ID, PUT_COMMENT, DELETE_COMMENT_BY_ID } from "../constants/ApiEndpoints";
+import {POST_COMMENT_ACTION, GET_COMMENT_ACTION, PUT_COMMENT_ACTION, DELETE_COMMENT_ACTION} from "../constants/ActionTypes";
 
 export function postComment(comment, token) {
     return dispatch => {

@@ -1,6 +1,6 @@
 import axios from "axios";
-import {POST_TAG, GET_TAG_BY_ID, PUT_TAG, DELETE_TAG_BY_ID } from "../api/ApiEndpoints";
-import {POST_TAG_ACTION, GET_TAG_ACTION, PUT_TAG_ACTION, DELETE_TAG_ACTION} from "./ActionTypes";
+import {POST_TAG, GET_TAG_BY_ID, PUT_TAG, DELETE_TAG_BY_ID } from "../constants/ApiEndpoints";
+import {POST_TAG_ACTION, GET_TAG_ACTION, PUT_TAG_ACTION, DELETE_TAG_ACTION} from "../constants/ActionTypes";
 
 export function postTag(tag, token) {
     return dispatch => {

@@ -1,4 +1,4 @@
-import {DELETE_EVENT_ACTION, GET_EVENT_ACTION, POST_EVENT_ACTION, PUT_EVENT_ACTION} from "../actions/ActionTypes";
+import {DELETE_EVENT_ACTION, GET_EVENT_ACTION, POST_EVENT_ACTION, PUT_EVENT_ACTION} from "../constants/ActionTypes";
 
 const initialState = {
     events:[]

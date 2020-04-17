@@ -1,6 +1,6 @@
 import axios from "axios";
-import {POST_RELATIONSHIP, GET_RELATIONSHIP_BY_ID, PUT_RELATIONSHIP, DELETE_RELATIONSHIP_BY_ID } from "../api/ApiEndpoints";
-import {POST_RELATIONSHIP_ACTION, GET_RELATIONSHIP_ACTION, PUT_RELATIONSHIP_ACTION, DELETE_RELATIONSHIP_ACTION} from "./ActionTypes";
+import {POST_RELATIONSHIP, GET_RELATIONSHIP_BY_ID, PUT_RELATIONSHIP, DELETE_RELATIONSHIP_BY_ID } from "../constants/ApiEndpoints";
+import {POST_RELATIONSHIP_ACTION, GET_RELATIONSHIP_ACTION, PUT_RELATIONSHIP_ACTION, DELETE_RELATIONSHIP_ACTION} from "../constants/ActionTypes";
 
 export function postRelationship(relationship, token) {
     return dispatch => {

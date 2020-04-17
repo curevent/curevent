@@ -3,7 +3,7 @@ import {
     GET_CATEGORY_ACTION,
     POST_CATEGORY_ACTION,
     PUT_CATEGORY_ACTION
-} from "../actions/ActionTypes";
+} from "../constants/ActionTypes";
 
 const initialState = {
     categories:[]

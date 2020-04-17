@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getWhoAmI, postAuth} from "../../redux/actions/AuthActions";
+import {useDispatch} from "react-redux";
+import {postAuth} from "../../redux/auth/AuthService";
+import {auth} from "../../redux/auth/AuthActions";
 
-const Authentication = () => {
+export const Authentication = () => {
 
     const dispatch = useDispatch();
 
     const [authForm, setAuthForm] = useState({username:"", password:""});
 
-    const submitHandler = event => {
+    const submitHandler = async event => {
         const {username, password} = authForm;
         const authInfo = {username, password};
-        dispatch(postAuth(authInfo));
-        setAuthForm({username:"", password:""});
+        const tokens = await postAuth(authInfo);
+        dispatch(auth(tokens));
+        setAuthForm({username: "", password: ""});
     };
 
     const changeInputHandler = event => {
@@ -51,5 +53,3 @@ const Authentication = () => {
         </div>
     );
 };
-
-export default Authentication;

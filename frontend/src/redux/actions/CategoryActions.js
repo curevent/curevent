@@ -1,6 +1,6 @@
 import axios from "axios";
-import {POST_CATEGORY, GET_CATEGORY_BY_ID, PUT_CATEGORY, DELETE_CATEGORY_BY_ID } from "../api/ApiEndpoints";
-import {POST_CATEGORY_ACTION, GET_CATEGORY_ACTION, PUT_CATEGORY_ACTION, DELETE_CATEGORY_ACTION} from "./ActionTypes";
+import {POST_CATEGORY, GET_CATEGORY_BY_ID, PUT_CATEGORY, DELETE_CATEGORY_BY_ID } from "../constants/ApiEndpoints";
+import {POST_CATEGORY_ACTION, GET_CATEGORY_ACTION, PUT_CATEGORY_ACTION, DELETE_CATEGORY_ACTION} from "../constants/ActionTypes";
 
 export function postCategory(category, token) {
     return dispatch => {

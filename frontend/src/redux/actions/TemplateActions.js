@@ -4,14 +4,14 @@ import {
     GET_TEMPLATE_BY_ID, POST_REPEAT_FORM_AND_CREATE_TEMPLATE_EVENTS,
     POST_TEMPLATE,
     PUT_TEMPLATE_AND_TEMPLATE_EVENTS
-} from "../api/ApiEndpoints";
+} from "../constants/ApiEndpoints";
 import {
     CREATE_TEMPLATE_EVENTS_ACTION,
     DELETE_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION, DELETE_TEMPLATE_EVENTS_ACTION,
     GET_TEMPLATE_ACTION,
     POST_TEMPLATE_ACTION,
     PUT_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION
-} from "./ActionTypes";
+} from "../constants/ActionTypes";
 
 export function postTemplate(template, token) {
     return dispatch => {
