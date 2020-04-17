@@ -5,7 +5,7 @@ import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {Authentication} from "./Authentication";
 
-export const AuthPage = ({isAuth}) => {
+const AuthPage = ({isAuth}) => {
 
     const [authComponent, setAuthComponent] = useState({name:"auth", swap_to:"Sign-up"});
 

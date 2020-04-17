@@ -5,6 +5,7 @@ export const saveTokens = (data) => {
 };
 
 export const invalidateLocalStorage = () => {
+    console.log("Clear localStorage");
     window.localStorage.clear();
 };
 
