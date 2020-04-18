@@ -43,7 +43,6 @@ public class UserEntity {
     private String city;
     private String status;
 
-    @NotNull
     @Column(name = "password")
     private String password;
 
