@@ -39,7 +39,7 @@ public class TemplateServiceTests {
     public static final long CATEGORY_ID = 1L;
     public static final Timestamp FIRST_EVENT_TIME = Timestamp.valueOf("2020-03-20 17:00:00.000");
     public static final Timestamp SECOND_EVENT_TIME = Timestamp.valueOf("2020-03-21 17:00:00.000");
-    public static final int EVENTS_COUNT = 0;
+    public static final int EVENTS_AMOUNT = 0;
 
     private Template template;
     private Category category;
@@ -90,7 +90,7 @@ public class TemplateServiceTests {
         when(templateRepository.save(Mockito.any(Template.class))).thenAnswer(i -> i.getArguments()[0]);
 
         TemplateTransfer template = templateService.deleteEvents(TEMPLATE_ID);
-        assertEquals(EVENTS_COUNT, template.getEvents().size());
+        assertEquals(EVENTS_AMOUNT, template.getEvents().size());
     }
 
     private Event createEvent(Timestamp time, UUID id) {
