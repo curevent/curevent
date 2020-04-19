@@ -1,5 +1,6 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.ConflictException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Category;
 import com.curevent.models.transfers.CategoryTransfer;
@@ -8,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -29,6 +32,12 @@ public class CategoryService {
 
     public CategoryTransfer add(CategoryTransfer categoryTransfer) {
         Category category = mapper.map(categoryTransfer, Category.class);
+        Optional<Category> equalsCategory= categoryRepository.findEqualsCategory(category.getOwnerId(),
+                category.getDescription());
+        if(equalsCategory.isPresent()) {
+            throw new ConflictException("Category with ownerId " + category.getOwnerId() +
+                    "and description " + category.getDescription() + " already exists");
+        }
         return mapper.map(categoryRepository.save(category), CategoryTransfer.class);
     }
 
@@ -41,6 +50,12 @@ public class CategoryService {
         Category category = mapper.map(categoryTransfer, Category.class);
         if (!categoryRepository.existsById(category.getId())) {
             throw new NotFoundException("No such Category" + category.getId());
+        }
+        Optional<Category> equalsCategory= categoryRepository.findEqualsCategory(category.getOwnerId(),
+                category.getDescription());
+        if(equalsCategory.isPresent() && !equalsCategory.get().getId().equals(category.getId())) {
+            throw new ConflictException("Category with ownerId " + category.getOwnerId() +
+                    "and description " + category.getDescription() + " already exists");
         }
         return mapper.map(categoryRepository.save(category), CategoryTransfer.class);
     }

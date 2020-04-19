@@ -66,7 +66,7 @@ public class EventFactoryTests {
 
     @BeforeAll
     public void setUp(){
-        Category category = new Category(CATEGORY_ID, CATEGORY);
+        Category category = new Category(CATEGORY_ID, CATEGORY, USER_ID);
 
         template = new Template();
         template.setId(TEMPLATE_ID);

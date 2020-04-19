@@ -52,7 +52,7 @@ public class UserServiceTests {
         user = createUser(USERNAME, EMAIL, USER_ID);
         newUser = createUser(NEW_USERNAME, NEW_EMAIL, NEW_USER_ID);
 
-        Category category = new Category(CATEGORY_ID, CATEGORY);
+        Category category = new Category(CATEGORY_ID, CATEGORY, USER_ID);
         Relationship relationship = new Relationship(RELATIONSHIP_ID, USER_ID, NEW_USER_ID, category);
         user.setRelationships(List.of(relationship));
     }
@@ -73,7 +73,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void set_user_already_exist_username_and_throw_exception_test() {
+    public void set_user_already_exist_username_and_get_exception_test() {
         when(userRepository.findById(NEW_USER_ID)).thenReturn(Optional.of(newUser));
         when(userRepository.findByUsername(USERNAME)).thenReturn(Optional.of(user));
 

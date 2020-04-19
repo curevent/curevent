@@ -65,7 +65,7 @@ public class TimelineServiceTests {
 
     @BeforeAll
     public void setUp() {
-        category = new Category(CATEGORY_ID, CATEGORY);
+        category = new Category(CATEGORY_ID, CATEGORY, USER_ID);
 
         events = new ArrayList<>();
         events.add(createEvent(FIRST_EVENT_TIME, FIRST_EVENT_ID, USER_ID));

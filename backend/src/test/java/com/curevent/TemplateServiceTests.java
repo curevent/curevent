@@ -52,7 +52,7 @@ public class TemplateServiceTests {
 
     @BeforeAll
     public void setUp(){
-        category = new Category(CATEGORY_ID, CATEGORY);
+        category = new Category(CATEGORY_ID, CATEGORY, USER_ID);
 
         template = new Template();
         template.setOwnerId(USER_ID);
