@@ -52,7 +52,7 @@ public class TemplateServiceTests {
 
     @BeforeAll
     public void setUp(){
-        category = new Category(CATEGORY_ID, CATEGORY);
+        category = new Category(CATEGORY_ID, CATEGORY, USER_ID);
 
         template = new Template();
         template.setOwnerId(USER_ID);
@@ -67,7 +67,7 @@ public class TemplateServiceTests {
     }
 
     @Test
-    public void edit_template_and_get_template_events_with_new_title_and_duration_test() {
+    public void update_template_return_template_events_with_new_title_and_duration_test() {
         when(templateRepository.findById(TEMPLATE_ID)).thenReturn(Optional.of(template));
         when(templateRepository.save(Mockito.any(Template.class))).thenAnswer(i -> i.getArguments()[0]);
 
@@ -85,7 +85,7 @@ public class TemplateServiceTests {
     }
 
     @Test
-    public void delete_only_template_events_test() {
+    public void delete_template_events_return_template_without_events_test() {
         when(templateRepository.findById(TEMPLATE_ID)).thenReturn(Optional.of(template));
         when(templateRepository.save(Mockito.any(Template.class))).thenAnswer(i -> i.getArguments()[0]);
 

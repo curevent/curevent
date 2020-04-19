@@ -66,7 +66,7 @@ public class EventFactoryTests {
 
     @BeforeAll
     public void setUp(){
-        Category category = new Category(CATEGORY_ID, CATEGORY);
+        Category category = new Category(CATEGORY_ID, CATEGORY, USER_ID);
 
         template = new Template();
         template.setId(TEMPLATE_ID);
@@ -86,7 +86,7 @@ public class EventFactoryTests {
     }
 
     @Test
-    void create_daily_events_and_get_two_events_test() {
+    void create_daily_events_return_two_events_test() {
         RepeatForm repeat = createRepeat(RepeatType.DAILY, REPEAT_INTERVAL);
         List<EventTransfer> events = eventFactory.parseRepeatForm(TEMPLATE_ID, repeat).getEvents();
         assertEvents(events, EVENTS_AMOUNT);
@@ -94,7 +94,7 @@ public class EventFactoryTests {
     }
 
     @Test
-    void create_monthly_events_and_get_two_events_test() {
+    void create_monthly_events_return_two_events_test() {
         RepeatForm repeat = createRepeat(RepeatType.MONTHLY, REPEAT_INTERVAL);
         List<EventTransfer> events = eventFactory.parseRepeatForm(TEMPLATE_ID, repeat).getEvents();
         assertEvents(events, EVENTS_AMOUNT);
@@ -102,7 +102,7 @@ public class EventFactoryTests {
     }
 
     @Test
-    void create_annually_events_and_get_two_events_test() {
+    void create_annually_events_return_two_events_test() {
         RepeatForm repeat = createRepeat(RepeatType.ANNUALLY, REPEAT_INTERVAL);
         List<EventTransfer> events = eventFactory.parseRepeatForm(TEMPLATE_ID, repeat).getEvents();
         assertEvents(events, EVENTS_AMOUNT);
@@ -110,7 +110,7 @@ public class EventFactoryTests {
     }
 
     @Test
-    void create_weekly_events_and_get_two_events_test() {
+    void create_weekly_events_return_two_events_test() {
         RepeatForm repeat = createRepeat(RepeatType.WEEKLY, REPEAT_INTERVAL);
         List<EventTransfer> events = eventFactory.parseRepeatForm(TEMPLATE_ID, repeat).getEvents();
         assertEvents(events, EVENTS_AMOUNT);
@@ -118,7 +118,7 @@ public class EventFactoryTests {
     }
 
     @Test
-    void create_weekly_events_with_complex_repeat_logic_and_get_monday_and_wednesday_events_test() {
+    void create_weekly_events_with_complex_repeat_logi_return_monday_and_wednesday_events_test() {
         RepeatForm repeat = createRepeat(RepeatType.WEEKLY, REPEAT_INTERVAL);
         repeat.setRepeatDays(new HashMap<>());
         repeat.getRepeatDays().put(DayOfWeek.MONDAY, MONDAY_TIME);
@@ -132,14 +132,14 @@ public class EventFactoryTests {
     }
 
     @Test
-    void create_only_one_event_test() {
+    void create_none_repeat_events_return_only_one_event_test() {
         RepeatForm repeat = createRepeat(RepeatType.NONE, null);
         List<EventTransfer> events = eventFactory.parseRepeatForm(TEMPLATE_ID, repeat).getEvents();
         assertEvents(events, ONE_EVENT_AMOUNT);
     }
 
     @Test
-    void create_daily_events_with_null_repeat_interval_and_get_four_events_test() {
+    void create_daily_events_with_null_repeat_interval_return_four_events_test() {
         RepeatForm repeat = createRepeat(RepeatType.DAILY, null);
         List<EventTransfer> events = eventFactory.parseRepeatForm(TEMPLATE_ID, repeat).getEvents();
         assertEvents(events, COMPLEX_LOGIC_EVENTS_AMOUNT);
@@ -149,7 +149,7 @@ public class EventFactoryTests {
     }
 
     @Test
-    void create_events_with_null_end_time_and_get_exception_test() {
+    void create_events_with_null_end_time_throw_exception_test() {
         RepeatForm repeat = createRepeat(RepeatType.WEEKLY, null);
         repeat.setEndTime(null);
         assertThrows(InvalidArgumentException.class, () -> eventFactory.parseRepeatForm(TEMPLATE_ID, repeat));

@@ -14,4 +14,5 @@ import java.util.UUID;
 public class TagTransfer {
     private UUID id;
     private String description;
+    private UUID ownerId;
 }

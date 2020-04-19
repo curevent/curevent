@@ -65,4 +65,14 @@ public class UserEntity {
     @Immutable
     @JoinColumn(name = "owner_id")
     private List<Comment> comments;
+
+    @OneToMany
+    @Immutable
+    @JoinColumn(name = "owner_id")
+    private List<Category> categories;
+
+    @OneToMany
+    @Immutable
+    @JoinColumn(name = "owner_id")
+    private List<Tag> tags;
 }

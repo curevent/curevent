@@ -26,4 +26,7 @@ public class Tag {
     @Column(name = "description")
     @NotNull
     private String description;
+
+    @Column(name = "owner_id")
+    private UUID ownerId;
 }

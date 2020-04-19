@@ -65,7 +65,7 @@ public class TimelineServiceTests {
 
     @BeforeAll
     public void setUp() {
-        category = new Category(CATEGORY_ID, CATEGORY);
+        category = new Category(CATEGORY_ID, CATEGORY, USER_ID);
 
         events = new ArrayList<>();
         events.add(createEvent(FIRST_EVENT_TIME, FIRST_EVENT_ID, USER_ID));
@@ -87,7 +87,7 @@ public class TimelineServiceTests {
     }
 
     @Test
-    public void get_two_user_events_in_interval_test(){
+    public void get_user_events_in_interval_return_two_events_test(){
         when(eventRepository.findByOwnerIdAndTimeBetween(Mockito.eq(USER_ID),
                 Mockito.any(Timestamp.class),
                 Mockito.any(Timestamp.class)))
@@ -99,7 +99,7 @@ public class TimelineServiceTests {
     }
 
     @Test
-    public void get_two_user_friends_events_in_interval_test(){
+    public void get_user_friends_events_in_interval_return_two_events_test(){
         when(eventRepository.findByOwnerIdAndTimeBetween(Mockito.eq(NEW_USER_ID),
                 Mockito.any(Timestamp.class),
                 Mockito.any(Timestamp.class)))
@@ -113,7 +113,7 @@ public class TimelineServiceTests {
     }
 
     @Test
-    public void get_empty_list_user_friends_events_because_access_denied_test(){
+    public void get_access_denied_user_friends_events_return_empty_list_test(){
         when(eventRepository.findByOwnerIdAndTimeBetween(Mockito.eq(NEW_USER_ID),
                 Mockito.any(Timestamp.class),
                 Mockito.any(Timestamp.class)))
@@ -126,7 +126,7 @@ public class TimelineServiceTests {
     }
 
     @Test
-    public void get_one_user_friends_event_because_user_in_black_list_test(){
+    public void get_user_in_black_list_test_friends_events_return_one_event_test(){
         friendsEvents.get(0).setBlackList(List.of(user));
         when(eventRepository.findByOwnerIdAndTimeBetween(Mockito.eq(NEW_USER_ID),
                 Mockito.any(Timestamp.class),
