@@ -62,7 +62,7 @@ public class RelationshipServiceTests {
     }
 
     @Test
-    public void create_equals_relationship_and_get_exception_test () {
+    public void create_equals_relationship_throw_exception_test () {
         when(relationshipRepository.findEqualsRelationship(USER_ID, NEW_USER_ID, CATEGORY_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(Mockito.any(Relationship.class))).thenAnswer(i -> i.getArguments()[0]);
 
@@ -71,7 +71,7 @@ public class RelationshipServiceTests {
     }
 
     @Test
-    public void send_update_equals_relationship_and_get_exception_test () {
+    public void update_equals_relationship_throw_exception_test () {
         when(relationshipRepository.existsById(NEW_RELATIONSHIP_ID)).thenReturn(true);
         when(relationshipRepository.findEqualsRelationship(USER_ID, NEW_USER_ID, CATEGORY_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(Mockito.any(Relationship.class))).thenAnswer(i -> i.getArguments()[0]);
@@ -81,7 +81,7 @@ public class RelationshipServiceTests {
     }
 
     @Test
-    public void update_relationship_and_get_relationship_with_new_friend_id_test () {
+    public void update_relationship_return_relationship_with_new_friend_id_test () {
         when(relationshipRepository.existsById(NEW_RELATIONSHIP_ID)).thenReturn(true);
         when(relationshipRepository.findEqualsRelationship(USER_ID, NEW_USER_ID, CATEGORY_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(Mockito.any(Relationship.class))).thenAnswer(i -> i.getArguments()[0]);
@@ -94,7 +94,7 @@ public class RelationshipServiceTests {
     }
 
     @Test
-    public void send_update_already_exists_relationship_and_get_relationship_back () {
+    public void update_already_exists_relationship_return_relationship_back () {
         when(relationshipRepository.existsById(RELATIONSHIP_ID)).thenReturn(true);
         when(relationshipRepository.findEqualsRelationship(USER_ID, NEW_USER_ID, CATEGORY_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(Mockito.any(Relationship.class))).thenAnswer(i -> i.getArguments()[0]);
