@@ -8,6 +8,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -25,4 +26,7 @@ public class Category {
     @Column(name = "description")
     @NotNull
     private String description;
+
+    @Column(name = "owner_id")
+    private UUID ownerId;
 }
