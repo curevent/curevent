@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {postAuth} from "../../redux/auth/AuthService";
-import {auth} from "../../redux/auth/AuthActions";
+import {postAuth} from "../../redux/services/AuthService";
+import {auth} from "../../redux/actions/AuthActions";
 
 export const Authentication = () => {
 
