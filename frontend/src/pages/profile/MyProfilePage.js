@@ -1,14 +1,16 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getWhoAmI} from "../../redux/auth/AuthService";
-import {currentUser, refresh} from "../../redux/auth/AuthActions";
+import {getWhoAmI} from "../../redux/services/AuthService";
+import {currentUser, refresh} from "../../redux/actions/AuthActions";
 import {Redirect} from "react-router-dom";
+import '../../css/profile.css';
 
-class ProfilePage extends Component {
+class MyProfilePage extends Component {
 
     state = {
         userInfo: {
-            id: null
+            id: null,
+            username: null
         }
     };
 
@@ -30,7 +32,15 @@ class ProfilePage extends Component {
             <div className="profile-container">
                 {!this.props.isAuth && <Redirect to="/"/>}
                 {console.log(this.state.userInfo)}
-                {this.state.userInfo.username}
+                <div className="user-info">
+                    <div className="user-image">
+                        {this.state.userInfo.username != null && this.state.userInfo.username.slice(0,1)}
+                    </div>
+                    <div className="username">
+                        {this.state.userInfo.username}
+                    </div>
+                </div>
+
             </div>
         );
     }
@@ -47,4 +57,4 @@ const mapDispatchToProps = {
     currentUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfilePage);
