@@ -19,10 +19,12 @@ const AuthPage = ({isAuth}) => {
 
     return (
         <div className="auth-container">
-            {isAuth && <Redirect to="/profile"/>}
-            <button className="swap-button" onClick={swapHandler}>{authComponent.swap_to}</button>
-            {authComponent.name==="auth" && <Authentication/>}
-            {authComponent.name==="reg" && <Registration/>}
+            <div className="auth-form">
+                {isAuth && <Redirect to="/profile"/>}
+                <button className="swap-button" onClick={swapHandler}>{authComponent.swap_to}</button>
+                {authComponent.name==="auth" && <Authentication/>}
+                {authComponent.name==="reg" && <Registration/>}
+            </div>
         </div>
     );
 };
