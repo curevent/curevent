@@ -1,0 +1,30 @@
+.profile-container {
+
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: 30px auto auto auto;
+}
+
+.user-image {
+    background: #def6ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-size: 24px;
+    box-shadow: 1px 1px 10px black;
+    margin: auto;
+}
+
+.username {
+    background: rgba(55, 55, 55, 0.1);
+    padding: 0 6px 0 6px;
+    margin: 10px auto auto auto;
+}

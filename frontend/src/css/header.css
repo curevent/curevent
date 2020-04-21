@@ -1,0 +1,33 @@
+.header-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 300px 10px 300px;
+    border-radius: 50%;
+    box-shadow: 0 -5px 5px -5px #333, 0 5px 5px -5px #333;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    background: white;
+}
+
+.header-logo {
+    width: 100px;
+    height: 100%;
+    font-family: 'Lobster', cursive;
+    flex-direction: column;
+    justify-content: center;
+    color: #000000;
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.logout-button {
+    background: white;
+    border: #373737 1px solid;
+    border-radius: 4px;
+    height: 30px;
+    margin: auto 20px auto auto;
+}

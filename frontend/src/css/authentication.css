@@ -1,7 +1,14 @@
 .auth-container {
     display: flex;
     flex-direction: column;
-    background: white;
+    flex-grow: 1;
+    background: #ffffff;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
     margin: auto;
     border-radius: 8px;
     box-shadow: 1px 1px 10px black;
@@ -27,6 +34,7 @@
 
 .title {
     color: black;
+    font-family: 'Lobster', cursive;
     margin-left: 50px;
 }
 
@@ -41,13 +49,13 @@
 }
 
 .auth-button {
-    font-size: 22px;
+    font-size: 18px;
     width: 130px;
-    height: 35px;
+    height: 30px;
     color: #373737;
     background-color: #ffffff;
     border: #747474 solid 1px;
-    border-radius: 2px;
+    border-radius: 8px;
     margin: 10px 50px auto auto;
     transition: 200ms;
 }
