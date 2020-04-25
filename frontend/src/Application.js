@@ -26,7 +26,7 @@ class Application extends Component {
         return (
             <BrowserRouter>
                 <div className="application-container">
-                    <Header/>
+                    {this.props.isAuth && <Header/>}
                     <Switch>
                         <Route path="/" exact component={AuthPage}/>
                         <Route path="/profile" component={MyProfilePage}/>
@@ -38,9 +38,14 @@ class Application extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        isAuth: state.auth.isAuth,
+    }
+};
 
 const mapDispatchToProps = {
     refresh,
 };
 
-export default connect(null, mapDispatchToProps)(Application);
+export default connect(mapStateToProps, mapDispatchToProps)(Application);
