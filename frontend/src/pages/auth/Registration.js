@@ -37,19 +37,19 @@ export const Registration = () => {
                 onChange={changeInputHandler}
             />
             <input
-                type="text"
-                id="email"
-                className="auth-input"
-                placeholder="Email"
-                value={registration.email}
-                onChange={changeInputHandler}
-            />
-            <input
                 type="password"
                 id="password"
                 className="auth-input"
                 placeholder="Password"
                 value={registration.password}
+                onChange={changeInputHandler}
+            />
+            <input
+                type="text"
+                id="email"
+                className="auth-input"
+                placeholder="Email"
+                value={registration.email}
                 onChange={changeInputHandler}
             />
             <button
