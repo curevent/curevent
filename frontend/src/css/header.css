@@ -1,9 +1,10 @@
 .header-container {
     display: flex;
     flex-direction: column;
-    margin: 10px 300px 10px 300px;
+    width: 50vw;
+    margin: 10px auto 10px auto;
     border-radius: 50%;
-    box-shadow: 0 -5px 5px -5px #333, 0 5px 5px -5px #333;
+    box-shadow: 0 5px 5px -5px #333;
 }
 
 .header-content {
@@ -24,10 +25,30 @@
     margin-left: 10px;
 }
 
-.logout-button {
+.header-button {
     background: white;
     border: #373737 1px solid;
     border-radius: 4px;
     height: 30px;
-    margin: auto 20px auto auto;
+}
+
+.header-auth-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 160px;
+}
+
+.nav-button {
+    color: #737373;
+    margin: auto 20px auto 20px;
+}
+
+.nav-menu {
+    display: flex;
+    margin: auto;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: center;
 }
