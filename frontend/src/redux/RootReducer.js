@@ -7,16 +7,20 @@ import {relationshipReducer} from "./reducers/RelationshipReducer";
 import {categoryReducer} from "./reducers/CategoryReducer";
 import {templateReducer} from "./reducers/TemplateReducer";
 import {eventReducer} from "./reducers/EventReducer";
+import {timelineReducer} from "./reducers/timeline/TimelineReducer";
+import {templatesRepoReducer} from "./reducers/TemplatesRepoReducer";
 
 export const rootReducer = combineReducers(
     {
-        auth: tokensReducer,
-        currentUser: currentUserReducer,
-        users: userReducer,
-        tags: tagReducer,
-        templates: templateReducer,
-        events: eventReducer,
-        categories: categoryReducer,
-        friends: relationshipReducer,
+            auth: tokensReducer,
+            currentUser: currentUserReducer,
+            users: userReducer,
+            tags: tagReducer,
+            templates: templateReducer,
+            events: eventReducer,
+            categories: categoryReducer,
+            friends: relationshipReducer,
+            timeline: timelineReducer,
+            repo: templatesRepoReducer
     }
 );
