@@ -23,26 +23,20 @@
     color: #4b4b4b;
     margin: 10px auto auto auto;
     font-family: 'Lobster', cursive;
+    user-select: none;
 }
 
 .field {
     display: flex;
     flex-direction: row;
     margin: 12px auto 0 auto;
-    font-size: 24px;
+    font-size: 20px;
     color: #5f5f5f;
 }
 
 .name {
     margin-top: 10px;
     color: #373737;
-}
-
-.content-container {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-    border-top: 1px solid #afafaf;
 }
 
 .left-panel {
@@ -53,7 +47,7 @@
     margin-bottom: 10px;
 }
 
-.right-panel {
+.main-info-panel {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -69,4 +63,22 @@
     padding: 10px;
     font-size: 16px;
     border: #747474 solid 1px;
+    outline: none;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    border-top: 1px solid #afafaf;
+}
+
+.daily-timeline-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.left-text {
+    margin: 12px auto 0 20px;
 }

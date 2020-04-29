@@ -1,6 +1,12 @@
-.application-container {
+.main-content-container {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+}
+
+.application-container {
+    display: flex;
+    flex-direction: row;
     height: 100vh;
     background-size: cover;
 }

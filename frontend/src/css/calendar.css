@@ -1,0 +1,27 @@
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    width: 202px;
+}
+
+.days {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: #cdcdcd 1px solid;
+    user-select: none;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40px;
+    height: 30px;
+    text-align: center;
+}
+
+.day:hover {
+    font-size: 20px;
+    color: #911f1a;
+}

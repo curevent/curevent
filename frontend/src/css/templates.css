@@ -1,0 +1,44 @@
+.minimized-panel {
+    display: flex;
+    flex-direction: row-reverse;
+    user-select: none;
+}
+
+.templates-board {
+    display: flex;
+    flex-direction: column;
+    background: #def6ff;
+}
+
+.expand-button {
+    background: url("../css/img/templates-icon.png") no-repeat center rgba(255,255,255, 0);
+    background-size: 30px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    user-select: none;
+}
+
+.expand-button:hover {
+    background: url("../css/img/templates-icon.png") no-repeat center rgba(255,255,255,0.5);
+    background-size: 32px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    user-select: none;
+}
+
+.repository-panel {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    flex-grow: 1;
+}
+
+.none-templates {
+    margin: 0 auto;
+}
+
+.template {
+
+}

@@ -46,6 +46,8 @@
     padding: 10px;
     font-size: 16px;
     border: #747474 solid 1px;
+    user-select: none;
+    outline: none;
 }
 
 .auth-button {
@@ -58,6 +60,8 @@
     border-radius: 8px;
     margin: 10px 40px auto auto;
     transition: 200ms;
+    user-select: none;
+    outline: none;
 }
 
 .auth-button:hover {
