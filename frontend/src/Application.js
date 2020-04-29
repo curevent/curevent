@@ -9,6 +9,7 @@ import {getTokens} from "./utils/localStorageUtils";
 import MyProfilePage from "./pages/profile/MyProfilePage";
 import ProfileByIdPage from "./pages/profile/ProfileByIdPage";
 import Header from "./components/Header";
+import TemplatesRepository from "./components/TemplatesRepository";
 
 class Application extends Component {
 
@@ -26,12 +27,15 @@ class Application extends Component {
         return (
             <BrowserRouter>
                 <div className="application-container">
-                    {this.props.isAuth && <Header/>}
-                    <Switch>
-                        <Route path="/" exact component={AuthPage}/>
-                        <Route path="/profile" component={MyProfilePage}/>
-                        <Route path="/user/:id" component={ProfileByIdPage}/>
-                    </Switch>
+                    <div className="main-content-container">
+                        {this.props.isAuth && <Header/>}
+                        <Switch>
+                            <Route path="/" exact component={AuthPage}/>
+                            <Route path="/profile" component={MyProfilePage}/>
+                            <Route path="/user/:id" component={ProfileByIdPage}/>
+                        </Switch>
+                    </div>
+                    {this.props.isAuth && <TemplatesRepository/>}
                 </div>
             </BrowserRouter>
         );
