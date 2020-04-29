@@ -6,21 +6,22 @@ import {
 } from "../constants/ActionTypes";
 
 const initialState = {
-    categories:[]
+    categoryInfo: {
+        id: null,
+        description: null
+    }
 };
 
 export function categoryReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CATEGORY_ACTION:
-            return state.categories.map(category => {
-                return category.id !== action.payload.id ? category : action.payload});
+            return {...state, ...{categoryInfo: action.payload}};
         case POST_CATEGORY_ACTION:
-            return {...state, categories: [...state.categories, action.payload]};
+            return {...state, ...{categoryInfo: action.payload}};
         case PUT_CATEGORY_ACTION:
-            return state.categories.map(category => {
-                return category.id !== action.payload.id ? category : action.payload});
+            return {...state, ...{categoryInfo: action.payload}};
         case DELETE_CATEGORY_ACTION:
-            return state.categories.filter(category => category.id !== action.payload);
+            return {...state, ...initialState};
         default:
             return state;
     }

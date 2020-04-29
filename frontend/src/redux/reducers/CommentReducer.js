@@ -6,21 +6,24 @@ import {
 } from "../constants/ActionTypes";
 
 const initialState = {
-    comments:[]
+    commentInfo: {
+        id: null,
+        eventId: null,
+        ownerId: null,
+        description: null
+    }
 };
 
 export function commentReducer(state = initialState, action) {
     switch (action.type) {
         case GET_COMMENT_ACTION:
-            return state.comments.map(comment => {
-                return comment.id !== action.payload.id ? comment : action.payload});
+            return {...state, ...{commentInfo: action.payload}};
         case POST_COMMENT_ACTION:
-            return {...state, comments: [...state.comments, action.payload]};
+            return {...state, ...{commentInfo: action.payload}};
         case PUT_COMMENT_ACTION:
-            return state.comments.map(comment => {
-                return comment.id !== action.payload.id ? comment : action.payload});
+            return {...state, ...{commentInfo: action.payload}};
         case DELETE_COMMENT_ACTION:
-            return state.comments.filter(comment => comment.id !== action.payload);
+            return {...state, ...initialState};
         default:
             return state;
     }
