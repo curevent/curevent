@@ -1,13 +1,14 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 
-const ProfileByIdPage = () => {
+const ProfileByIdPage = ({isAuth}) => {
 
     let { id } = useParams();
 
     return (
         <div className="profile-container">
+            {!isAuth && <Redirect to="/"/>}
             ID: {id}
         </div>
     );
@@ -15,6 +16,7 @@ const ProfileByIdPage = () => {
 
 const mapStateToProps = state => {
     return {
+        isAuth: state.auth.isAuth,
     }
 };
 
