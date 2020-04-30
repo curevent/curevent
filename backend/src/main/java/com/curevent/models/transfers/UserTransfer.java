@@ -21,6 +21,7 @@ public class UserTransfer {
     private String country;
     private String city;
     private String status;
+    private String image;
 
     private List<RelationshipTransfer> relationships;
     private List<EventTransfer> events;
