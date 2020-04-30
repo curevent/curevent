@@ -37,11 +37,23 @@ public class UserEntity {
     @Column(name = "refresh_token")
     private String refreshToken;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "surname")
     private String surname;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "status")
     private String status;
+
+    @Column(name = "image")
+    private String image;
 
     @Column(name = "password")
     private String password;
