@@ -1,16 +1,12 @@
 .header-container {
     display: flex;
     flex-direction: column;
-    width: 50vw;
-    margin: 10px auto 10px auto;
-    border-radius: 50%;
+    margin: 10px 0 10px 0;
 }
 
 .header-content {
     display: flex;
     flex-direction: row;
-    height: 40px;
-    background: white;
 }
 
 .header-logo {
@@ -28,25 +24,70 @@
     border: #373737 1px solid;
     border-radius: 4px;
     height: 30px;
-}
-
-.header-auth-panel {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 160px;
+    margin-right: 20px;
+    margin-top: 2px;
 }
 
 .nav-button {
     color: #737373;
-    margin: auto 20px auto 20px;
 }
 
 .nav-menu {
     display: flex;
     margin: auto;
-    flex-grow: 1;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 276px;
+    padding-top: 6px;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    margin-top: 2px;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+.search-input {
+    width: 260px;
+    height: 24px;
+    margin: auto 0;
+    color: #737373;
+    font-size: 16px;
+    border: #747474 solid 1px;
+    border-radius: 10px;
+    outline: none;
+    padding: 0 10px;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    background: url("../css/img/search.png");
+    background-size: cover;
+    margin: auto 0;
+}
+
+.create-template-button {
+    display: flex;
+    flex-direction: row;
+    background: none;
+    border: none;
+    margin-right: 20px;
+}
+
+.create-template-icon {
+    width: 24px;
+    height: 24px;
+    background: url("../css/img/create-template.png");
+    background-size: cover;
+    margin: auto 0;
+}
+
+.create-template-text {
+    font-size: 14px;
+    margin: auto 5px;
+    color: #00505f;
 }

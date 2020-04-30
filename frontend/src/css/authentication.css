@@ -2,58 +2,56 @@
     display: flex;
     flex-direction: column;
     background: #ffffff;
-    flex-grow: 1;
+    margin: 28vh auto auto auto;
 }
 
 .auth-form {
     display: flex;
     flex-direction: column;
     background: #ffffff;
-    margin: 25vh auto auto auto;
     border-radius: 8px;
-    box-shadow: 1px 1px 10px black;
 }
 
 .authentication-container {
     display: flex;
     flex-direction: column;
-    width: 340px;
-    height: 250px;
-    padding-top: 20px;
+    width: 320px;
+    height: 210px;
 }
 
 .registration-container {
     display: flex;
     flex-direction: column;
-    width: 340px;
-    height: 300px;
-    padding-top: 20px;
+    width: 320px;
+    height: 250px;
     margin: auto;
 }
 
 .title {
-    color: black;
+    color: #191919;
     font-family: 'Lobster', cursive;
     margin-left: 40px;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
 .auth-input {
-    width: 260px;
-    height: 30px;
-    margin: 10px auto 10px auto;
+    width: 220px;
+    height: 25px;
+    margin: 8px auto 8px auto;
     color: #737373;
-    padding: 10px;
     font-size: 16px;
     border: #747474 solid 1px;
     user-select: none;
     outline: none;
+    padding: 0 10px;
+    border-radius: 6px;
+    box-shadow: 1px 1px 2px #818181;
 }
 
 .auth-button {
-    font-size: 18px;
-    width: 130px;
-    height: 30px;
+    font-size: 16px;
+    width: 120px;
+    height: 25px;
     color: #373737;
     background-color: #ffffff;
     border: #747474 solid 1px;
@@ -89,5 +87,5 @@
     flex-direction: row;
     justify-content: space-evenly;
     width: 260px;
-    margin: 20px auto 0 auto;
+    margin: auto;
 }

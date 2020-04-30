@@ -40,5 +40,20 @@
 }
 
 .template {
+    margin: 10px auto;
+    width: 200px;
+}
 
+.template-title {
+    color: #4b4b4b;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.template-description {
+    background: white;
+    border-radius: 10px;
+    padding: 5px 10px;
+    box-shadow: 2px 2px 4px #292929;
+    word-wrap: break-word;
 }
