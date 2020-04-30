@@ -22,6 +22,13 @@ public class UserController {
         return userService.getOneById(id);
     }
 
+    @GetMapping("/search")
+    public List<UserTransfer> findUser(@RequestParam(value = "username", required = false) String username,
+                                          @RequestParam(value = "name", required = false) String name,
+                                          @RequestParam(value = "surname", required = false) String surname) {
+        return userService.findUser(username, name, surname);
+    }
+
     @GetMapping("/")
     public List <UserTransfer> getAllUsers() {
         return userService.getAll();

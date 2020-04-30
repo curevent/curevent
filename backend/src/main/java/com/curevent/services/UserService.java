@@ -10,9 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -101,5 +99,27 @@ public class UserService {
     public void deleteRelationships(UUID id) {
         UserEntity user = getEntityById(id);
         user.getRelationships().forEach((relationship) -> relationshipService.delete(relationship.getId()));
+    }
+
+    private List<UserTransfer> findByUsername(String username) {
+        Optional<UserEntity> userEntity = userRepository.findByUsername(username);
+        return userEntity.map(entity -> List.of(mapper.map(entity, UserTransfer.class))).orElse(Collections.emptyList());
+    }
+
+    private List<UserTransfer> findByNameAndSurname(String name, String surname) {
+        Optional<List<UserEntity>> userEntities = userRepository.findByNameAndSurname(name, surname);
+        return userEntities.map(entities -> entities.stream()
+                .map((userEntity) -> mapper.map(userEntity, UserTransfer.class))
+                .collect(Collectors.toList())).orElse(Collections.emptyList());
+    }
+
+    public List<UserTransfer> findUser(String username, String name, String surname) {
+        if (username != null) {
+            return findByUsername(username);
+        }
+        if (name != null && surname != null) {
+            return findByNameAndSurname(name, surname);
+        }
+        return Collections.emptyList();
     }
 }
