@@ -46,3 +46,17 @@ security:
     secret: "secret"
     expire: 3600000
     type: "bearer"
+
+# Calendarific connection properties
+calendarific:
+  api:
+    v2:
+      api_key: "6d31a7aeb4b9900e84c1856cb8043f638b361830"
+      country: "RU"
+# Properties fo RESTClient
+webClient:
+  timeout:5000
+# Properties for Calendarific Service Cache
+holidayCache:
+  days_to_delete:3
+
