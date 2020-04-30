@@ -25,6 +25,7 @@
             <column name="surname" type="varchar(50)"/>
             <column name="country" type="varchar(50)"/>
             <column name="city" type="varchar(50)"/>
+            <column name="image" type="varchar(128)"/>
             <column name="status" type="varchar(50)"/>
         </createTable>
     </changeSet>
