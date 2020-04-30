@@ -10,6 +10,7 @@ import MyProfilePage from "./pages/profile/MyProfilePage";
 import ProfileByIdPage from "./pages/profile/ProfileByIdPage";
 import Header from "./components/Header";
 import TemplatesRepository from "./components/TemplatesRepository";
+import SettingsPage from "./pages/settings/SettingsPage";
 
 class Application extends Component {
 
@@ -27,11 +28,13 @@ class Application extends Component {
         return (
             <BrowserRouter>
                 <div className="application-container">
-                    <div className="main-content-container">
+                    {this.props.isAuth && <div className="space"/>}
+                    <div className="main-space">
                         {this.props.isAuth && <Header/>}
                         <Switch>
                             <Route path="/" exact component={AuthPage}/>
                             <Route path="/profile" component={MyProfilePage}/>
+                            <Route path="/settings" component={SettingsPage}/>
                             <Route path="/user/:id" component={ProfileByIdPage}/>
                         </Switch>
                     </div>
