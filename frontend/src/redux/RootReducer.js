@@ -14,7 +14,7 @@ export const rootReducer = combineReducers(
     {
             auth: tokensReducer,
             currentUser: currentUserReducer,
-            users: userReducer,
+            user: userReducer,
             tags: tagReducer,
             templates: templateReducer,
             events: eventReducer,
