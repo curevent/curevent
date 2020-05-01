@@ -1,7 +1,9 @@
 package com.curevent.controllers;
 
 import com.curevent.models.transfers.EventTransfer;
+import com.curevent.models.transfers.TemplateTransfer;
 import com.curevent.models.transfers.UserTransfer;
+import com.curevent.services.FilterService;
 import com.curevent.services.TimelineService;
 import com.curevent.services.UserService;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
     private final TimelineService timelineService;
+    private final FilterService filterService;
 
     @GetMapping("/{id}")
     public UserTransfer getUser(@PathVariable UUID id) {
@@ -45,10 +48,30 @@ public class UserController {
         return timelineService.getEventsInInterval(id, interval);
     }
 
+    @GetMapping("/{id}/events/search")
+    public List<EventTransfer> filterEventsByTags(@PathVariable UUID id,
+                                                     @RequestParam(value = "tagsId") List<UUID> tagsId,
+                                                     @RequestParam(value = "interval",  required = false) Long interval) {
+        return filterService.filterEventsByTags(id, tagsId, interval);
+    }
+
     @GetMapping("/{id}/friends/events")
     public List<EventTransfer> getUserFriendsEventsInInterval(@PathVariable UUID id,
                                                               @RequestParam(value = "interval",  defaultValue = "720") Long interval) {
         return timelineService.getFriendsEventsInInterval(id, interval);
+    }
+
+    @GetMapping("/{id}/friends/events/search")
+    public List<EventTransfer> filterFriendsEventsByTags(@PathVariable UUID id,
+                                                  @RequestParam(value = "tagsId") List<UUID> tagsId,
+                                                  @RequestParam(value = "interval") Long interval) {
+        return filterService.filterFriendsEventsByTags(id, tagsId, interval);
+    }
+
+    @GetMapping("/{id}/templates/search")
+    public List<TemplateTransfer> filterTemplatesByTags(@PathVariable UUID id,
+                                                        @RequestParam(value = "tagsId") List<UUID> tagsId) {
+        return filterService.filterTemplatesByTags(id, tagsId);
     }
 
     @PostMapping("/")
