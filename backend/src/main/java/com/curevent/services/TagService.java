@@ -20,7 +20,7 @@ public class TagService {
     private final TagRepository tagRepository;
     private final ModelMapper mapper;
 
-    private Tag getEntityById(UUID id) {
+    Tag getEntityById(UUID id) {
         return tagRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Tag" + id));
     }
