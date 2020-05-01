@@ -23,8 +23,8 @@ export const POST_USER = `${USER_ENDPOINT}/`;
 export const GET_USERS = `${USER_ENDPOINT}/`;
 export const GET_USER_BY_ID = (id) => `${USER_ENDPOINT}/${id}`;
 export const GET_USER_FRIENDS = (id) => `${USER_ENDPOINT}/${id}/friends`;
-export const GET_USER_EVENTS_IN_INTERVAL = (id) => `${USER_ENDPOINT}/${id}/events`;
-export const GET_USER_FRIENDS_EVENTS_IN_INTERVAL = (id) => `${USER_ENDPOINT}/${id}/friends/events`;
+export const GET_USER_EVENTS_IN_INTERVAL = (id, interval) => `${USER_ENDPOINT}/${id}/events?interval=${interval}`;
+export const GET_USER_FRIENDS_EVENTS_IN_INTERVAL = (id, interval) => `${USER_ENDPOINT}/${id}/friends/events?interval=${interval}`;
 
 export const PUT_USER = `${USER_ENDPOINT}/`;
 
