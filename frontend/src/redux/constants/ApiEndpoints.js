@@ -33,6 +33,13 @@ export const DELETE_USER_FRIENDS = (id) => `${USER_ENDPOINT}/${id}/friends`;
 export const DELETE_USER_EVENTS = (id) => `${USER_ENDPOINT}/${id}/events`;
 export const DELETE_USER_TEMPLATES = (id) => `${USER_ENDPOINT}/${id}/templates`;
 
+export const FILTER_USER_TEMPLATES_BY_TAGS = (id, tagsId) => `${USER_ENDPOINT}/${id}/templates/search?tagsId=${tagsId}`;
+export const FILTER_USER_EVENTS_BY_TAGS = (id, tagsId) => `${USER_ENDPOINT}/${id}/events/search?tagsId=${tagsId}`;
+export const FILTER_USER_EVENTS_IN_INTERVAL_BY_TAGS = (id, tagsId, interval) => `${USER_ENDPOINT}/${id}/events/search?tagsId=${tagsId}&interval=${interval}`;
+export const FILTER_USER_FRIENDS_EVENTS_BY_TAGS = (id, tagsId, interval) => `${USER_ENDPOINT}/${id}/friends/events/search?tagsId=${tagsId}&interval=${interval}`;
+export const FIND_USER_BY_USERNAME = (username) => `${USER_ENDPOINT}/search?username=${username}`;
+export const FIND_USER_BY_NAME_AND_SURNAME = (name, surname) => `${USER_ENDPOINT}/search?name=${name}&surname=${surname}`;
+
 // events
 export const POST_EVENT = `${EVENT_ENDPOINT}/`;
 export const GET_EVENT_BY_ID = (id) => `${EVENT_ENDPOINT}/${id}`;
