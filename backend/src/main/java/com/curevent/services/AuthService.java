@@ -2,11 +2,13 @@ package com.curevent.services;
 
 import com.curevent.exceptions.AuthenticationException;
 import com.curevent.exceptions.NotFoundException;
+import com.curevent.models.entities.Relationship;
 import com.curevent.models.entities.Role;
 import com.curevent.models.entities.UserEntity;
 import com.curevent.models.forms.LoginForm;
 import com.curevent.models.forms.RegisterForm;
 import com.curevent.models.transfers.AuthTransfer;
+import com.curevent.repositories.RelationshipRepository;
 import com.curevent.repositories.UserRepository;
 import com.curevent.security.TokenProvider;
 import lombok.AllArgsConstructor;
@@ -29,6 +31,8 @@ public class AuthService {
 
     private final TokenProvider tokenProvider;
     private final UserRepository userRepository;
+    private final RelationshipRepository relationshipRepository;
+    private final CategoryService categoryService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
@@ -52,6 +56,12 @@ public class AuthService {
 
             // save the user in database
             userRepository.save(userEntity);
+            Relationship relationship = Relationship.builder()
+                    .ownerId(userEntity.getId())
+                    .friendId(userEntity.getId())
+                    .category(categoryService.getEntityById(CategoryService.DEFAULT_CATEGORY_PRIVATE_ID))
+                    .build();
+            relationshipRepository.save(relationship);
 
             Set<Role> roles = new HashSet<>();
             roles.add(new Role(USER_ROLE));

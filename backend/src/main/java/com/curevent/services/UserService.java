@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
     private final TemplateService templateService;
+    private final CategoryService categoryService;
     private final EventService eventService;
     private final CommentService commentService;
     private final RelationshipService relationshipService;
@@ -35,6 +36,7 @@ public class UserService {
     public UserTransfer getOneById(UUID id) {
         UserEntity user = userRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such User " + id));
+        user.getCategories().addAll(categoryService.getDefaultCategories());
         return mapper.map(user, UserTransfer.class);
     }
 

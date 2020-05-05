@@ -10,16 +10,20 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 @Transactional
 public class CategoryService {
+    public static final Long DEFAULT_CATEGORY_PRIVATE_ID = 0L;
+    public static final Long DEFAULT_CATEGORY_ALL_FRIENDS_ID = 1L;
+
     private final CategoryRepository categoryRepository;
     private final ModelMapper mapper;
 
-    private Category getEntityById(Long id) {
+    Category getEntityById(Long id) {
         return categoryRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Category" + id));
     }
@@ -58,5 +62,9 @@ public class CategoryService {
                     "and description " + category.getDescription() + " already exists");
         }
         return mapper.map(categoryRepository.save(category), CategoryTransfer.class);
+    }
+
+    public List<Category> getDefaultCategories() {
+        return List.of(getEntityById(DEFAULT_CATEGORY_PRIVATE_ID), (getEntityById(DEFAULT_CATEGORY_ALL_FRIENDS_ID)));
     }
 }
