@@ -9,7 +9,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet id="load-data-categories-table" author="alsntt" runOnChange="true">
-        <loadData encoding="UTF-8" file="src/main/resources/db/Categories.csv" tableName="categories" separator=";">
+        <loadData encoding="UTF-8" file="src/main/resources/db/data/Categories.csv" tableName="categories" separator=";">
         </loadData>
     </changeSet>
 </databaseChangeLog>
