@@ -33,7 +33,10 @@ class TemplatesList extends Component {
                         <div className="template-title">{template.title}</div>
                         <button className="close-button" onClick={event => deleteHandler(event, template.id)}/>
                     </div>
-                    <div className="template-description">{template.description}</div>
+                    <div className="template-characteristics">
+                        <div className="template-description">Description: {template.description}</div>
+                        <div className="template-duration">Duration: {template.duration} minutes</div>
+                    </div>
                 </div>
             );
         }
