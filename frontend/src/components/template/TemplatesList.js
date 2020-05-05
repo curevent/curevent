@@ -1,28 +1,32 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-
-import {deleteTemplateAndTemplateEvents} from "../../redux/actions/TemplateActions";
 import {getUser} from "../../redux/services/UserService";
 import {saveUser} from "../../redux/actions/UserActions";
+import {deleteTemplate} from "../../redux/services/TemplateService";
 
 class TemplatesList extends Component {
 
-    state = {templates:[]};
+    state = {};
 
     componentDidMount() {
         const id = this.props.userInfo.id;
-        getUser(id).then(user => this.props.saveUser(user));
-        this.setState({templates: this.props.templates});
+        getUser(id).then(user => {
+            this.props.saveUser(user);
+            this.setState(user);
+        });
     }
 
     render() {
 
         const deleteHandler = (event, id) => {
             event.preventDefault();
-            deleteTemplateAndTemplateEvents(id);
-            const userId = this.props.userInfo.id;
-            getUser(userId).then(user => this.props.saveUser(user));
-            this.setState([]);
+            deleteTemplate(id).then(ignore => {
+                const userId = this.props.userInfo.id;
+                getUser(userId).then(user => {
+                    this.props.saveUser(user);
+                    this.setState(user);
+                });
+            });
         };
 
         if (this.props.templates.length === 0) {
@@ -52,8 +56,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    saveUser,
-    deleteTemplateAndTemplateEvents
+    saveUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TemplatesList);

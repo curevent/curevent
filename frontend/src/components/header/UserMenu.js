@@ -5,6 +5,8 @@ import {connect, useDispatch} from "react-redux";
 import {UserImage} from "../fields/UserImage";
 import {CreateTemplate} from "./CreateTemplate";
 import {invalidateLocalStorage} from "../../utils/localStorageUtils";
+import {NavLink} from "react-router-dom";
+import {CreateEvent} from "./CreateEvent";
 
 class UserMenu extends Component {
 
@@ -49,16 +51,17 @@ class UserMenu extends Component {
 
         return (
             <div className="user-menu-container" onMouseEnter={toggleMenu} onMouseLeave={toggleMenu}>
-                <div className="expand-menu-button">
+                <NavLink className="expand-menu-button" to="/profile">
                     <div className="username">{this.state.userInfo.username}</div>
                     <div className="header-user-image">
                         <UserImage userInfo={this.state.userInfo}/>
                     </div>
-                </div>
+                </NavLink>
                 {this.state.isActive &&
                     <div className="user-menu">
                         <div className="menu-buttons">
                             <CreateTemplate/>
+                            <CreateEvent/>
                             <div className="border-top"/>
                             <button className="nav-button header-button" onClick={logoutHandler}>Sign-out</button>
                         </div>

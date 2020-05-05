@@ -1,7 +1,7 @@
 .header-container {
     display: flex;
     flex-direction: column;
-    margin: 10px 0 10px 0;
+    margin: 10px 0 40px 0;
 }
 
 .header-content {
@@ -33,6 +33,7 @@
     text-decoration: none;
     margin: auto 10px;
     color: #000000;
+    outline: none;
 }
 
 .nav-button:hover {
@@ -136,6 +137,8 @@
     font-size: 14px;
     font-family: 'Quicksand', sans-serif;
     margin: auto;
+    text-decoration: none;
+    color: black;
 }
 
 .username {

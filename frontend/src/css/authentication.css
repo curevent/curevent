@@ -76,6 +76,7 @@
     height: 30px;
     color: #373737;
     transition: 200ms;
+    outline: none;
 }
 
 .swap-button:disabled {
