@@ -36,8 +36,9 @@ public class UserService {
     public UserTransfer getOneById(UUID id) {
         UserEntity user = userRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such User " + id));
-        user.getCategories().addAll(categoryService.getDefaultCategories());
-        return mapper.map(user, UserTransfer.class);
+        UserTransfer userTransfer = mapper.map(user, UserTransfer.class);
+        userTransfer.getCategories().addAll(categoryService.getDefaultCategories());
+        return userTransfer;
     }
 
     public UserTransfer add(UserTransfer userTransfer) {

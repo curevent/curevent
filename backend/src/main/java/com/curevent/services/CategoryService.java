@@ -1,6 +1,7 @@
 package com.curevent.services;
 
 import com.curevent.exceptions.ConflictException;
+import com.curevent.exceptions.InvalidArgumentException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Category;
 import com.curevent.models.transfers.CategoryTransfer;
@@ -46,11 +47,17 @@ public class CategoryService {
     }
 
     public void delete(Long id) {
+        if (id.equals(DEFAULT_CATEGORY_PRIVATE_ID) || id.equals(DEFAULT_CATEGORY_ALL_FRIENDS_ID)) {
+            throw new InvalidArgumentException("Forbidden to delete default category " + id);
+        }
         Category category = getEntityById(id);
         categoryRepository.delete(category);
     }
 
     public CategoryTransfer update(CategoryTransfer categoryTransfer) {
+        if (categoryTransfer.getId().equals(DEFAULT_CATEGORY_PRIVATE_ID) || categoryTransfer.getId().equals(DEFAULT_CATEGORY_ALL_FRIENDS_ID)) {
+            throw new InvalidArgumentException("Forbidden to edit default category " + categoryTransfer.getId());
+        }
         Category category = mapper.map(categoryTransfer, Category.class);
         if (!categoryRepository.existsById(category.getId())) {
             throw new NotFoundException("No such Category" + category.getId());
@@ -64,7 +71,7 @@ public class CategoryService {
         return mapper.map(categoryRepository.save(category), CategoryTransfer.class);
     }
 
-    public List<Category> getDefaultCategories() {
-        return List.of(getEntityById(DEFAULT_CATEGORY_PRIVATE_ID), (getEntityById(DEFAULT_CATEGORY_ALL_FRIENDS_ID)));
+    public List<CategoryTransfer> getDefaultCategories() {
+        return List.of(getOneById(DEFAULT_CATEGORY_PRIVATE_ID), (getOneById(DEFAULT_CATEGORY_ALL_FRIENDS_ID)));
     }
 }
