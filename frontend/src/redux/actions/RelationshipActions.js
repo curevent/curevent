@@ -1,43 +1,25 @@
-import axios from "axios";
-import {POST_RELATIONSHIP, GET_RELATIONSHIP_BY_ID, PUT_RELATIONSHIP, DELETE_RELATIONSHIP_BY_ID } from "../constants/ApiEndpoints";
-import {POST_RELATIONSHIP_ACTION, GET_RELATIONSHIP_ACTION, PUT_RELATIONSHIP_ACTION, DELETE_RELATIONSHIP_ACTION} from "../constants/ActionTypes";
+import {GET_RELATIONSHIP_ACTION, POST_RELATIONSHIP_ACTION, PUT_RELATIONSHIP_ACTION} from "../constants/ActionTypes";
 
-export function postRelationship(relationship, token) {
+export function postRelationship(relationship) {
     return dispatch => {
-        axios.post(POST_RELATIONSHIP, relationship, {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: POST_RELATIONSHIP_ACTION, payload: response.data})
-        });
+        dispatch({type: POST_RELATIONSHIP_ACTION, payload: relationship});
     }
 }
 
-export function getRelationship(id, token) {
+export function getRelationship(id) {
     return dispatch => {
-        axios.get(GET_RELATIONSHIP_BY_ID(id), {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: GET_RELATIONSHIP_ACTION, payload: response.data})
-        });
+        dispatch({type: GET_RELATIONSHIP_ACTION, payload: id});
     }
 }
 
-export function putRelationship(relationship, token) {
+export function putRelationship(relationship) {
     return dispatch => {
-        axios.put(PUT_RELATIONSHIP, relationship, {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: PUT_RELATIONSHIP_ACTION, payload: response.data})
-        });
+        dispatch({type: PUT_RELATIONSHIP_ACTION, payload: relationship});
     }
 }
 
-export function deleteRelationship(id, token) {
+export function deleteRelationship(id) {
     return dispatch => {
-        axios.delete(DELETE_RELATIONSHIP_BY_ID(id), {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: DELETE_RELATIONSHIP_ACTION, payload: id})
-        });
+        dispatch({type: POST_RELATIONSHIP_ACTION, payload: id});
     }
 }

@@ -48,6 +48,17 @@ const CreateTemplateWindow = ({onClose, userInfo, postTemplate, getUser}) => {
                             onChange={changeStateHandler}
                         />
                     </div>
+                    <div className="field">
+                        <div className="template-layout">Duration:</div>
+                        <input
+                            id="duration"
+                            type="number"
+                            placeholder="Time your event in minutes"
+                            value={template.duration}
+                            className="template-input"
+                            onChange={changeStateHandler}
+                        />
+                    </div>
                     <div className="template-window-buttons">
                         <button className="auth-button" onClick={submitHandler}>Create</button>
                     </div>
