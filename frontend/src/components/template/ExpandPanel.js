@@ -1,4 +1,4 @@
-import {expand, minimize} from "../redux/actions/TemplateActions";
+import {expand, minimize} from "../../redux/actions/TemplateActions";
 import {connect} from "react-redux";
 import React, {Component} from "react";
 

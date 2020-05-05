@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from "react";
-import CreateTemplateWindow from "./CreateTemplateWindow";
+import CreateTemplateWindow from "../template/CreateTemplateWindow";
 import ReactDOM from 'react-dom'
 
 export class CreateTemplate extends Component {
@@ -15,14 +15,16 @@ export class CreateTemplate extends Component {
     render() {
         return (
             <Fragment>
-                <button className="create-template-button shadow-none" onClick={this.toggleModal}>
-                    <div className="create-template-icon"/>
-                    <div className="create-template-text">Create template</div>
+                <button
+                    className="nav-button header-button"
+                    onClick={this.toggleModal}
+                >
+                    Create template
                 </button>
                 {this.state.isActive &&
                 ReactDOM.createPortal(
                     <CreateTemplateWindow onClose={this.toggleModal}/>,
-                    document.getElementById("portal")
+                    document.getElementById("create-template")
                 )}
             </Fragment>
         );

@@ -9,17 +9,13 @@
 }
 
 .user-image {
-    background: #def6ff;
+    background: #acdaeb;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    width: 200px;
-    height: 200px;
-    font-size: 72px;
-    box-shadow: 1px 1px 10px black;
+    flex-grow: 1;
     color: #4b4b4b;
-    margin: 10px auto auto auto;
     font-family: 'Lobster', cursive;
     user-select: none;
     border-radius: 50%;
@@ -28,11 +24,12 @@
 .user-image-panel {
     display: flex;
     flex-direction: column;
+    font-size: 72px;
     width: 200px;
+    height: 200px;
     margin-top: 20px;
     margin-bottom: 16px;
 }
-
 
 .content-container {
     display: flex;

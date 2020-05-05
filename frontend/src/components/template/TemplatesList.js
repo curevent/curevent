@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getUser} from "../redux/actions/UserActions";
-import {getTokens} from "../utils/localStorageUtils";
-import {deleteTemplateAndTemplateEvents} from "../redux/actions/TemplateActions";
+import {getUser} from "../../redux/actions/UserActions";
+import {getTokens} from "../../utils/localStorageUtils";
+import {deleteTemplateAndTemplateEvents} from "../../redux/actions/TemplateActions";
 
 class TemplatesList extends Component {
 
@@ -12,14 +12,12 @@ class TemplatesList extends Component {
         this.props.getUser(id, tokens.access)
     }
 
-
-
     render() {
 
         const deleteHandler = (event, id) => {
             event.preventDefault();
             const tokens = getTokens();
-            deleteTemplateAndTemplateEvents(id, tokens.access);
+            this.props.deleteTemplateAndTemplateEvents(id, tokens.access);
             const userId = this.props.userInfo.id;
             this.props.getUser(userId, tokens.access)
         };
@@ -31,7 +29,7 @@ class TemplatesList extends Component {
                 <div id={template.id} className="template" key={template.id}>
                     <div className="template-header">
                         <div className="template-title">{template.title}</div>
-                        <button className="close-button" onClick={event => deleteHandler(event, template.id)}/>
+                        <button className="close-button" style={{backgroundSize: "10px"}} onClick={event => deleteHandler(event, template.id)}/>
                     </div>
                     <div className="template-description">{template.description}</div>
                 </div>

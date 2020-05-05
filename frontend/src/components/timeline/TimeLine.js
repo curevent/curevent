@@ -1,15 +1,15 @@
-import React, {useState} from "react";
-import {useMouseMove} from "react-use-mouse-move";
-import '../css/timeline.css'
+import React from "react";
+import '../../css/timeline.css'
 import {connect} from "react-redux";
-import DateBoard from "./DateBoard";
 import Line from "./Line";
+import Calendar from "./Calendar";
 
 function TimeLine({date}) {
 
     return (
         <div className="timeline-container">
-            <DateBoard/>
+            <Calendar/>
+            <div className="title timeline-title">Timeline</div>
             <div className="timeline">
                 <Line/>
             </div>

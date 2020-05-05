@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import '../css/templates.css'
-import {expand, minimize} from "../redux/actions/TemplateActions";
+import '../../css/templates.css'
+import {expand, minimize} from "../../redux/actions/TemplateActions";
 import ExpandPanel from "./ExpandPanel";
 import TemplatesList from "./TemplatesList";
 
@@ -24,6 +24,7 @@ class TemplatesRepository extends Component {
                         <TemplatesList/>
                     </div>
                 }
+                {this.props.isMinimized && <div className="empty-space"/>}
             </div>
         );
     }

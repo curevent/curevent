@@ -3,6 +3,9 @@ import {putUser} from "../redux/services/UserService";
 import {getWhoAmI} from "../redux/services/AuthService";
 import {currentUser} from "../redux/actions/AuthActions";
 import {connect} from "react-redux";
+import {CountryAndCity} from "./fields/CountryAndCity";
+import {NameAndUsername} from "./fields/NameAndUsername";
+import {UserImage} from "./fields/UserImage";
 
 class UserInfo extends Component {
 
@@ -29,17 +32,15 @@ class UserInfo extends Component {
     }
 
     render() {
+
         return (
             <div className="user-info">
                 <div className="user-image-panel">
-                    <div className="user-image">
-                        {this.state.userInfo.username != null && this.state.userInfo.username.slice(0, 1).toUpperCase()}
-                    </div>
+                    <UserImage userInfo={this.state.userInfo}/>
                 </div>
-                <div className="field name"> {this.state.userInfo.name} {this.state.userInfo.surname} </div>
-                <div className="field login"> {this.state.userInfo.username} </div>
+                <NameAndUsername userInfo={this.state.userInfo}/>
                 <div className="field contact-info"> {this.state.userInfo.email} </div>
-                <div className="field contact-info"> {this.state.userInfo.country}, {this.state.userInfo.city} </div>
+                <CountryAndCity userInfo={this.state.userInfo}/>
             </div>
         );
     }

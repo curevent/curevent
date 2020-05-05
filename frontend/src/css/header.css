@@ -15,45 +15,48 @@
     font-family: 'Lobster', cursive;
     flex-direction: column;
     justify-content: center;
-    color: #000000;
+    color: #326291;
     font-size: 24px;
 }
 
+.border-top {
+    border-top: #e1e1e1 1px solid;
+    margin: 4px 0;
+}
+
 .header-button {
-    background: white;
-    border: #373737 1px solid;
-    border-radius: 4px;
-    height: 30px;
-    margin-right: 20px;
-    margin-top: 2px;
+    background: none;
+    border: none;
 }
 
 .nav-button {
+    text-decoration: none;
+    margin: auto 10px;
+    color: #000000;
+}
+
+.nav-button:hover {
+    text-decoration: none;
+    margin: auto 10px;
     color: #737373;
 }
 
 .nav-menu {
     display: flex;
-    margin: auto;
+    margin-left: 24px;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     width: 276px;
-    padding-top: 6px;
+    flex-grow: 1;
+    font-family: 'Quicksand', sans-serif;
 }
 
 .search-container {
     display: flex;
     flex-direction: row;
-    flex-grow: 1;
-    margin-top: 2px;
-    justify-content: flex-end;
-    margin-right: 20px;
-}
-
-.search-input {
     width: 260px;
     height: 24px;
-    margin: auto 0;
+    margin-top: 3px;
     color: #737373;
     font-size: 16px;
     border: #747474 solid 1px;
@@ -62,9 +65,18 @@
     padding: 0 10px;
 }
 
+.search-input {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    border: none;
+    margin-left: 10px;
+    outline: none;
+}
+
 .search-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background: url("../css/img/search.png");
     background-size: cover;
     margin: auto 0;
@@ -76,6 +88,19 @@
     background: none;
     border: none;
     margin-right: 20px;
+    outline: none;
+    font-size: 14px;
+    color: #00505f;
+}
+
+.create-template-button:hover {
+    display: flex;
+    flex-direction: row;
+    background: none;
+    border: none;
+    margin-right: 20px;
+    outline: none;
+    color: #00a4d7;
 }
 
 .create-template-icon {
@@ -87,7 +112,51 @@
 }
 
 .create-template-text {
-    font-size: 14px;
     margin: auto 5px;
-    color: #00505f;
+    outline: none;
 }
+
+.header-user-image {
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+}
+
+.user-menu-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    user-select: none;
+}
+
+.expand-menu-button {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    font-family: 'Quicksand', sans-serif;
+    margin: auto;
+}
+
+.username {
+    margin: auto 10px;
+}
+
+.user-menu {
+    border-radius: 2px;
+    padding: 2px;
+    margin: auto;
+}
+
+.user-menu-position {
+    width: 200px;
+}
+
+.menu-buttons {
+    border: 1px solid #d7d7d7;
+    background: white;
+    border-radius: 2px;
+    padding: 4px;
+    margin-top: 4px;
+}
+

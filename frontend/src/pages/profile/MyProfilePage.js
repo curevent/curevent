@@ -5,8 +5,8 @@ import {currentUser} from "../../redux/actions/AuthActions";
 import '../../css/profile.css';
 import {Redirect} from "react-router-dom";
 import {putUser} from "../../redux/services/UserService";
-import Calendar from "../../components/Calendar";
-import TimeLine from "../../components/TimeLine";
+import Calendar from "../../components/timeline/Calendar";
+import TimeLine from "../../components/timeline/TimeLine";
 import UserInfo from "../../components/UserInfo";
 
 class MyProfilePage extends Component {
@@ -19,7 +19,6 @@ class MyProfilePage extends Component {
                     <UserInfo/>
                 </form>
                 <div className="content-container">
-                    <Calendar/>
                     <TimeLine/>
                 </div>
             </div>

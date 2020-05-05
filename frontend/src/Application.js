@@ -8,8 +8,8 @@ import {getRefresh} from "./redux/services/AuthService";
 import {getTokens} from "./utils/localStorageUtils";
 import MyProfilePage from "./pages/profile/MyProfilePage";
 import ProfileByIdPage from "./pages/profile/ProfileByIdPage";
-import Header from "./components/Header";
-import TemplatesRepository from "./components/TemplatesRepository";
+import Header from "./components/header/Header";
+import TemplatesRepository from "./components/template/TemplatesRepository";
 import SettingsPage from "./pages/settings/SettingsPage";
 
 class Application extends Component {

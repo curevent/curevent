@@ -1,6 +1,6 @@
-import {FormaliseTime} from "../utils/FormaliseTime";
+import {FormaliseTime} from "../../utils/FormaliseTime";
 import React, {useState} from "react";
-import AddMarkButton from "./AddMarkButton";
+import AddMarkButton from "../AddMarkButton";
 import {connect} from "react-redux";
 import {useMouseMove} from "react-use-mouse-move";
 

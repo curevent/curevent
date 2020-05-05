@@ -1,8 +1,8 @@
 import React, {Component, Fragment, useState} from "react";
 import {connect} from "react-redux";
-import {postTemplate} from "../redux/actions/TemplateActions";
-import {getTokens} from "../utils/localStorageUtils";
-import {getUser} from "../redux/actions/UserActions";
+import {postTemplate} from "../../redux/actions/TemplateActions";
+import {getTokens} from "../../utils/localStorageUtils";
+import {getUser} from "../../redux/actions/UserActions";
 
 const CreateTemplateWindow = ({onClose, userInfo, postTemplate, getUser}) => {
 
@@ -13,7 +13,7 @@ const CreateTemplateWindow = ({onClose, userInfo, postTemplate, getUser}) => {
         newTemplate.ownerId = userInfo.id;
         const tokens = getTokens();
         postTemplate(newTemplate, tokens.access);
-        getUser(userInfo.id, tokens.access)
+        getUser(userInfo.id, tokens.access);
         onClose()
     };
 
@@ -28,7 +28,7 @@ const CreateTemplateWindow = ({onClose, userInfo, postTemplate, getUser}) => {
                 <div className="create-template-container">
                     <div className="ct-title">
                         <div className="ct-title-message">Create template </div>
-                        <button className="auth-button" onClick={onClose}>Close</button>
+                        <button className="close-button" onClick={onClose}/>
                     </div>
                     <div className="field">
                         <div className="template-layout">Title:</div>

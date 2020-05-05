@@ -8,11 +8,32 @@
 .selected-date {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     font-size: 20px;
-    font-family: 'Bowlby One SC', cursive;
-    margin: 24px;
+    margin: auto 24px 10px 24px;
+    padding-bottom: 30px;
     border-bottom: #c3c3c3 1px solid;
+}
+
+.date-time {
+    display: flex;
+    flex-direction: column;
+}
+
+.time {
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    padding-left: 30px;
+    margin: 0 10px 10px 10px;
+}
+
+.date {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 16px;
 }
 
 .split {
@@ -22,6 +43,10 @@
 .timeline {
     display: flex;
     flex-direction: row;
+    height: 300px;
+    background: #b3e7ff;
+    box-shadow: 0 0 10px black;
+    border-radius: 20px;
 }
 
 .line-container {
@@ -30,9 +55,15 @@
     justify-content: center;
     flex-grow: 1;
     height: 40px;
+    margin: auto 0;
 }
 
 .line {
     height: 1px;
     background: black;
+}
+
+.timeline-title {
+    margin: 20px auto;
+    font-size: 32px;
 }

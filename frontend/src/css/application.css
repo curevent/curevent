@@ -27,7 +27,7 @@
     height: 100vh;
     width: 100vw;
     background-size: cover;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.8);
 }
 
 .create-template-container {
@@ -35,9 +35,9 @@
     flex-direction: column;
     margin: auto;
     background: white;
-    width: 500px;
-    height: 260px;
-    border-radius: 20px;
+    width: 420px;
+    height: 230px;
+    border-radius: 6px;
     box-shadow: 0 0 10px #000000;
 }
 
@@ -54,7 +54,7 @@
 .template-input {
     width: 200px;
     height: 20px;
-    margin: 10px 110px auto 0;
+    margin: 10px 60px auto 0;
     color: #737373;
     font-size: 14px;
     border: #747474 solid 1px;
@@ -77,7 +77,7 @@
 .template-window-buttons {
     display: flex;
     flex-direction: row;
-    margin: 0 70px 0 auto;
+    margin: 0 20px 0 auto;
 }
 
 .ct-title-message {
@@ -85,10 +85,10 @@
 }
 
 .close-button {
-    width: 10px;
-    height: 10px;
+    width: 16px;
+    height: 16px;
     background: url("../css/img/close.png") no-repeat center;
-    background-size: 10px;
+    background-size: 16px;
     border: none;
     user-select: none;
     margin-left: auto;
