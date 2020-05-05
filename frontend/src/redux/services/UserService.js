@@ -113,7 +113,7 @@ export async function findUser(username, name, surname) {
 export async function filterUserTemplates(userId, tagsId) {
     const tokens = getTokens();
     const access = `Bearer ${tokens.access}`;
-    const response = await axios.get(FILTER_USER_TEMPLATES_BY_TAGS(id), {headers: {Authorization: access}});
+    const response = await axios.get(FILTER_USER_TEMPLATES_BY_TAGS(tagsId), {headers: {Authorization: access}});
     return response.data;
 }
 

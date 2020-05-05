@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import React from "react";
+import React, {useState} from "react";
 import '../../css/calendar.css'
 import {DaysMenu} from "./DaysMenu";
 import DateBoard from "./DateBoard";
@@ -10,14 +10,25 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 
 const Calendar = () => {
 
-    let date = new Date();
+    const today = new Date();
+
+    const [date, setDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
+
 
     const previousMonth = (event) => {
-
+        if (date.getMonth() > 0) {
+            setDate(new Date(date.getFullYear(),date.getMonth() - 1, 1))
+        } else {
+            setDate(new Date(date.getFullYear() - 1, 11, 1));
+        }
     };
 
     const nextMonth = (event) => {
-
+        if (date.getMonth() < 11) {
+            setDate(new Date(date.getFullYear(),date.getMonth() + 1, 1))
+        } else {
+            setDate(new Date(date.getFullYear() + 1, 0, 1));
+        }
     };
 
     return (
@@ -25,7 +36,7 @@ const Calendar = () => {
             <div className="left-menu">
                 <div className="months-menu">
                     <button className="calendar-button previous" onClick={previousMonth}/>
-                    {monthNames[date.getMonth()]}
+                    {monthNames[date.getMonth()]} {date.getFullYear()}
                     <button className="calendar-button next" onClick={nextMonth}/>
                 </div>
                 <div className="days-menu-container">

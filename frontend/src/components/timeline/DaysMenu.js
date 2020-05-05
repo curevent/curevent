@@ -11,10 +11,6 @@ export const DaysMenu = ({year, month, dayOfWeek}) => {
 
         const days = [];
 
-        for (let counter = 1; counter < dayOfWeek; counter++) {
-            days.push("");
-        }
-
         for (let counter = 1; counter <= monthLength; counter++) {
             days.push(counter);
         }

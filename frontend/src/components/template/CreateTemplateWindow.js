@@ -1,20 +1,21 @@
 import React, {Component, Fragment, useState} from "react";
 import {connect} from "react-redux";
-import {postTemplate} from "../../redux/actions/TemplateActions";
 import {getTokens} from "../../utils/localStorageUtils";
-import {getUser} from "../../redux/actions/UserActions";
+import {saveUser} from "../../redux/actions/UserActions";
+import {getUser} from "../../redux/services/UserService";
+import {postTemplate} from "../../redux/services/TemplateService";
 
-const CreateTemplateWindow = ({onClose, userInfo, postTemplate, getUser}) => {
+const CreateTemplateWindow = ({onClose, userInfo, saveUser}) => {
 
     const [template, setTemplate] = useState({});
 
     const submitHandler = (event) => {
         const newTemplate = template;
         newTemplate.ownerId = userInfo.id;
-        const tokens = getTokens();
-        postTemplate(newTemplate, tokens.access);
-        getUser(userInfo.id, tokens.access);
-        onClose()
+        postTemplate(newTemplate).then(ignore => {
+            getUser(userInfo.id).then(user => saveUser(user));
+        });
+        onClose();
     };
 
     const changeStateHandler = event => {
@@ -75,8 +76,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    postTemplate,
-    getUser
+    saveUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTemplateWindow);

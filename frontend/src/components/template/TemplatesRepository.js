@@ -8,14 +8,6 @@ import TemplatesList from "./TemplatesList";
 class TemplatesRepository extends Component {
     render() {
 
-        const expandHandler = (event) => {
-            if (this.props.isMinimized) {
-                this.props.expand()
-            } else {
-                this.props.minimize()
-            }
-        };
-
         return (
             <div className="templates-board">
                 <ExpandPanel/>

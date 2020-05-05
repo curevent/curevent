@@ -23,7 +23,7 @@ export function minimize() {
 
 export function postTemplate(template) {
     return dispatch => {
-        dispatch({type: POST_TEMPLATE_ACTION, payload: tag});
+        dispatch({type: POST_TEMPLATE_ACTION, payload: template});
     }
 }
 
@@ -33,9 +33,9 @@ export function createTemplateEvents(repeatForm, id) {
     }
 }
 
-export function getTemplate(id) {
+export function getTemplate(template) {
     return dispatch => {
-        dispatch({type: GET_TEMPLATE_ACTION, payload: tag});
+        dispatch({type: GET_TEMPLATE_ACTION, payload: template});
     }
 }
 

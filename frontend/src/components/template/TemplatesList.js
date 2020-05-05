@@ -1,25 +1,28 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getUser} from "../../redux/actions/UserActions";
-import {getTokens} from "../../utils/localStorageUtils";
+
 import {deleteTemplateAndTemplateEvents} from "../../redux/actions/TemplateActions";
+import {getUser} from "../../redux/services/UserService";
+import {saveUser} from "../../redux/actions/UserActions";
 
 class TemplatesList extends Component {
 
+    state = {templates:[]};
+
     componentDidMount() {
         const id = this.props.userInfo.id;
-        const tokens = getTokens();
-        this.props.getUser(id, tokens.access)
+        getUser(id).then(user => this.props.saveUser(user));
+        this.setState({templates: this.props.templates});
     }
 
     render() {
 
         const deleteHandler = (event, id) => {
             event.preventDefault();
-            const tokens = getTokens();
-            this.props.deleteTemplateAndTemplateEvents(id, tokens.access);
+            deleteTemplateAndTemplateEvents(id);
             const userId = this.props.userInfo.id;
-            this.props.getUser(userId, tokens.access)
+            getUser(userId).then(user => this.props.saveUser(user));
+            this.setState([]);
         };
 
         if (this.props.templates.length === 0) {
@@ -49,7 +52,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    getUser,
+    saveUser,
     deleteTemplateAndTemplateEvents
 };
 

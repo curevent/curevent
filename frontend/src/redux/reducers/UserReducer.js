@@ -8,7 +8,7 @@ import {
     GET_USER_FRIENDS_ACTION,
     GET_USER_FRIENDS_EVENTS_IN_INTERVAL_ACTION, GET_USERS_ACTION,
     POST_USER_ACTION,
-    PUT_USER_ACTION
+    PUT_USER_ACTION, SAVE_USER_ACTION
 } from "../constants/ActionTypes";
 
 const initialState = {
@@ -37,6 +37,9 @@ export function userReducer(state = initialState, action) {
     switch (action.type) {
         case GET_USERS_ACTION:
             return {...state, ...{allUsers: action.payload}};
+        case SAVE_USER_ACTION:
+            console.log(action);
+            return {...state, ...{curUser: action.payload}};
         case GET_USER_ACTION:
             return {...state, ...{
                 curUser: action.payload,

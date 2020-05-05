@@ -7,7 +7,7 @@
 .templates-board {
     display: flex;
     flex-direction: column;
-    background: #84b7eb;
+    background: #e2f3f5;
 }
 
 .expand-button {

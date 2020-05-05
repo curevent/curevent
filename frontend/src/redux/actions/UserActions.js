@@ -14,7 +14,7 @@ import {
     GET_USER_FRIENDS_EVENTS_IN_INTERVAL_ACTION,
     GET_USERS_ACTION,
     POST_USER_ACTION,
-    PUT_USER_ACTION
+    PUT_USER_ACTION, SAVE_USER_ACTION
 } from "../constants/ActionTypes";
 
 export function postUser(user) {
@@ -23,9 +23,9 @@ export function postUser(user) {
     }
 }
 
-export function getUser(id) {
+export function saveUser(user) {
     return dispatch => {
-        dispatch({type: GET_USER_ACTION, payload: id});
+        dispatch({type: SAVE_USER_ACTION, payload: user});
     }
 }
 
