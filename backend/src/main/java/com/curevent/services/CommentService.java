@@ -1,38 +1,49 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Comment;
+import com.curevent.models.transfers.CommentTransfer;
 import com.curevent.repositories.CommentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
+@AllArgsConstructor
 @Service
 @Transactional
 public class CommentService {
-
     private final CommentRepository commentRepository;
+    private final ModelMapper mapper;
 
-    @Autowired
-    public CommentService(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
+    private Comment getEntityById(UUID id) {
+        return commentRepository.findById(id).stream().findAny()
+                .orElseThrow(() -> new NotFoundException("No such Comment" + id));
     }
 
-    public Comment getOneById(UUID id) {
-        return commentRepository.findById(id).stream().findAny().orElse(null);
+    public CommentTransfer getOneById(UUID id) {
+        Comment comment = commentRepository.findById(id).stream().findAny()
+                .orElseThrow(() -> new NotFoundException("No such Comment"+id));
+        return mapper.map(comment, CommentTransfer.class);
     }
 
-    public List <Comment> getAllByOwnerId(UUID ownerId) {
-        return commentRepository.findByOwnerId(ownerId);
+    public CommentTransfer add(CommentTransfer commentTransfer) {
+        Comment comment = mapper.map(commentTransfer, Comment.class);
+        return mapper.map(commentRepository.save(comment), CommentTransfer.class);
     }
 
-    public List <Comment> getAllByEventId(UUID eventId) {
-        return commentRepository.findByEventId(eventId);
+    public void delete(UUID id) {
+        Comment comment = getEntityById(id);
+        commentRepository.delete(comment);
     }
 
-    public void add(Comment comment) {
-        commentRepository.save(comment);
+    public CommentTransfer update(CommentTransfer commentTransfer) {
+        Comment comment = mapper.map(commentTransfer, Comment.class);
+        if (!commentRepository.existsById(comment.getId())) {
+            throw new NotFoundException("No such Comment" + comment.getId());
+        }
+        return mapper.map(commentRepository.save(comment), CommentTransfer.class);
     }
 }

@@ -1,35 +1,49 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Event;
+import com.curevent.models.transfers.EventTransfer;
 import com.curevent.repositories.EventRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
+@AllArgsConstructor
 @Service
 @Transactional
 public class EventService {
-
     private final EventRepository eventRepository;
+    private final ModelMapper mapper;
 
-    @Autowired
-    public EventService(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+    private Event getEntityById(UUID id) {
+        return eventRepository.findById(id).stream().findAny()
+                .orElseThrow(() -> new NotFoundException("No such Event" + id));
     }
 
-    public Event getOneById(UUID id) {
-        return eventRepository.findById(id).stream().findAny().orElse(null);
+    public EventTransfer getOneById(UUID id) {
+        Event event = eventRepository.findById(id).stream().findAny()
+                .orElseThrow(() -> new NotFoundException("No such Event"+id));
+        return mapper.map(event, EventTransfer.class);
     }
 
-
-    public List<Event> getAllByOwnerId(UUID ownerId) {
-        return eventRepository.findByOwnerId(ownerId);
+    public EventTransfer add(EventTransfer eventTransfer) {
+        Event event = mapper.map(eventTransfer, Event.class);
+        return mapper.map(eventRepository.save(event), EventTransfer.class);
     }
 
-    public void add(Event event) {
-        eventRepository.save(event);
+    public void delete(UUID id) {
+        Event event = getEntityById(id);
+        eventRepository.delete(event);
+    }
+
+    public EventTransfer update(EventTransfer eventTransfer) {
+        Event event = mapper.map(eventTransfer, Event.class);
+        if (!eventRepository.existsById(event.getId())) {
+            throw new NotFoundException("No such Event" + event.getId());
+        }
+        return mapper.map(eventRepository.save(event), EventTransfer.class);
     }
 }

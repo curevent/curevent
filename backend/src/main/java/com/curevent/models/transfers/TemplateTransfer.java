@@ -2,7 +2,6 @@ package com.curevent.models.transfers;
 
 import lombok.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,13 +13,14 @@ import java.util.UUID;
 public class TemplateTransfer {
     private UUID id;
     private UUID ownerId;
-    private Timestamp time;
     private Long duration;
-    private Long repeat_time;
     private String title;
     private String description;
+    private Double latitude;
+    private Double longitude;
 
-  //  @Column(name = "geotag")
-    private CategoryTransfer privacy;
+    private List<CategoryTransfer> privacy;
     private List<TagTransfer> tags;
+    private List<EventTransfer> events;
+
 }

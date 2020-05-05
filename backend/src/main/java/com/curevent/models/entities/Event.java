@@ -1,8 +1,11 @@
 package com.curevent.models.entities;
 
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import springfox.documentation.service.Tags;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,18 +15,15 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "events")
 public class Event {
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     private UUID id;
 
     @Column(name = "owner_id")
@@ -31,7 +31,7 @@ public class Event {
     private UUID ownerId;
 
     @Column(name = "time")
-  //  @NotNull
+    @NotNull
     private Timestamp time;
 
     @Column(name = "duration")
@@ -45,19 +45,36 @@ public class Event {
     @NotNull
     private String description;
 
-  //  @Column(name = "geotag")
+    @Column(name = "longitude")
+    private Double longitude;
 
-    @OneToOne
-    @JoinColumn(name = "privacy_id")
-    private Category privacy;
+    @Column(name = "latitude")
+    private Double latitude;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable (name="event_tags",
-            joinColumns=@JoinColumn (name="event_id"),
-            inverseJoinColumns=@JoinColumn(name="tag_id"))
+    @Column(name = "template_id")
+    private UUID templateId;
+
+    @ManyToMany
+    @JoinTable(name = "event_privacy",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "privacy_id"))
+    private List<Category> privacy;
+
+    @ManyToMany
+    @JoinTable(name = "event_tags",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<Tag> tags;
 
     @OneToMany
+    @Immutable
     @JoinColumn(name = "event_id")
     private List<Comment> comments;
+
+    @OneToMany
+    @JoinTable(name = "black_lists",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private List <UserEntity> blackList;
 }

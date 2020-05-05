@@ -1,17 +1,20 @@
 package com.curevent.exceptions;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-@Data
-public class NotFoundException extends RuntimeException {
+@Getter
+@Setter
+public class NotFoundException extends ResponseException {
 
     private final String message;
     private final HttpStatus httpStatus;
 
 
-    public NotFoundException(String message, HttpStatus httpStatus) {
+    public NotFoundException(String message) {
+        super();
         this.message = message;
-        this.httpStatus = httpStatus;
+        this.httpStatus = HttpStatus.NOT_FOUND;
     }
 }

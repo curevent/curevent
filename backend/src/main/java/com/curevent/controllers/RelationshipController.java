@@ -1,40 +1,36 @@
 package com.curevent.controllers;
 
-import com.curevent.models.entities.Relationship;
 import com.curevent.models.transfers.RelationshipTransfer;
 import com.curevent.services.RelationshipService;
-import com.curevent.utils.mapping.RelationshipMapper;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/relationships")
-@Transactional
 public class RelationshipController {
-
     private final RelationshipService relationshipService;
-    private final RelationshipMapper mapper;
 
-    public RelationshipController(RelationshipService relationshipService, RelationshipMapper mapper) {
-        this.relationshipService = relationshipService;
-        this.mapper = mapper;
-    }
-
-    @GetMapping("/all/{id}")
-    public List<RelationshipTransfer> getAllRelationshipByOwnerId(@PathVariable UUID id) {
-        List<Relationship> relationshipEntities = relationshipService.getAllByOwnerId(id);
-        return relationshipEntities.stream().map(mapper::toTransfer).collect(Collectors.toList());
+    @GetMapping("/{id}")
+    public RelationshipTransfer getRelationship(@PathVariable UUID id) {
+        return relationshipService.getOneById(id);
     }
 
     @PostMapping("/")
     public RelationshipTransfer addRelationship(@RequestBody @Valid RelationshipTransfer relationshipTransfer) {
-        Relationship relationship = mapper.toEntity(relationshipTransfer);
-        relationshipService.add(relationship);
-        return relationshipTransfer;
+        return relationshipService.add(relationshipTransfer);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRelationship(@PathVariable UUID id) {
+        relationshipService.delete(id);
+    }
+
+    @PutMapping("/")
+    public RelationshipTransfer editRelationship(@RequestBody RelationshipTransfer relationshipTransfer) {
+        return relationshipService.update(relationshipTransfer);
     }
 }

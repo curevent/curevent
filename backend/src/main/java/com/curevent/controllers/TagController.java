@@ -1,44 +1,36 @@
 package com.curevent.controllers;
 
-import com.curevent.exceptions.TagNotFoundException;
-import com.curevent.models.entities.Tag;
 import com.curevent.models.transfers.TagTransfer;
 import com.curevent.services.TagService;
-import com.curevent.utils.mapping.TagMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.UUID;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/tags")
-@Transactional
 public class TagController {
-
     private final TagService tagService;
-    private final TagMapper mapper;
-
-    @Autowired
-    public TagController(TagService tagService, TagMapper mapper) {
-        this.tagService = tagService;
-        this.mapper = mapper;
-    }
 
     @GetMapping("/{id}")
     public TagTransfer getTag(@PathVariable UUID id) {
-        Tag tag = tagService.getOneById(id);
-        if (tag == null) {
-            throw new TagNotFoundException(id);
-        }
-        return mapper.toTransfer(tag);
+        return tagService.getOneById(id);
     }
 
     @PostMapping("/")
     public TagTransfer addTag(@RequestBody @Valid TagTransfer tagTransfer) {
-        Tag tag = mapper.toEntity(tagTransfer);
-        tagService.add(tag);
-        return tagTransfer;
+        return tagService.add(tagTransfer);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTag(@PathVariable UUID id) {
+        tagService.delete(id);
+    }
+
+    @PutMapping("/")
+    public TagTransfer editTag(@RequestBody TagTransfer tagTransfer) {
+        return tagService.update(tagTransfer);
     }
 }

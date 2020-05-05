@@ -16,14 +16,27 @@ spring:
   # JPA properties
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: false
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     generate-ddl: false
+    properties:
+      javax:
+        cache:
+          missing_cache_strategy: create
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+      hibernate:
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region:
+            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
   liquibase:
-    change-log: classpath:/master.xml
+    enabled: false
   flyway:
     enabled: false
 
