@@ -8,7 +8,8 @@
         http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <include file="src/main/resources/db/changelog-0.0.1-init.xml"/>
-    <include file="src/main/resources/db/changelog-0.0.2-generate.xml"/>
-    <include file="src/main/resources/db/changelog-0.0.3-load.xml"/>
+    <changeSet id="load-data-categories-table" author="alsntt" runOnChange="true">
+        <loadData encoding="UTF-8" file="src/main/resources/db/Categories.csv" tableName="categories" separator=";">
+        </loadData>
+    </changeSet>
 </databaseChangeLog>

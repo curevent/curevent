@@ -1,6 +1,7 @@
 package com.curevent.services;
 
 import com.curevent.exceptions.ConflictException;
+import com.curevent.exceptions.InvalidArgumentException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Category;
 import com.curevent.models.transfers.CategoryTransfer;
@@ -10,16 +11,20 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 @Transactional
 public class CategoryService {
+    public static final Long DEFAULT_CATEGORY_PRIVATE_ID = 0L;
+    public static final Long DEFAULT_CATEGORY_ALL_FRIENDS_ID = 1L;
+
     private final CategoryRepository categoryRepository;
     private final ModelMapper mapper;
 
-    private Category getEntityById(Long id) {
+    Category getEntityById(Long id) {
         return categoryRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Category" + id));
     }
@@ -42,11 +47,17 @@ public class CategoryService {
     }
 
     public void delete(Long id) {
+        if (id.equals(DEFAULT_CATEGORY_PRIVATE_ID) || id.equals(DEFAULT_CATEGORY_ALL_FRIENDS_ID)) {
+            throw new InvalidArgumentException("Forbidden to delete default category " + id);
+        }
         Category category = getEntityById(id);
         categoryRepository.delete(category);
     }
 
     public CategoryTransfer update(CategoryTransfer categoryTransfer) {
+        if (categoryTransfer.getId().equals(DEFAULT_CATEGORY_PRIVATE_ID) || categoryTransfer.getId().equals(DEFAULT_CATEGORY_ALL_FRIENDS_ID)) {
+            throw new InvalidArgumentException("Forbidden to edit default category " + categoryTransfer.getId());
+        }
         Category category = mapper.map(categoryTransfer, Category.class);
         if (!categoryRepository.existsById(category.getId())) {
             throw new NotFoundException("No such Category" + category.getId());
@@ -58,5 +69,9 @@ public class CategoryService {
                     "and description " + category.getDescription() + " already exists");
         }
         return mapper.map(categoryRepository.save(category), CategoryTransfer.class);
+    }
+
+    public List<CategoryTransfer> getDefaultCategories() {
+        return List.of(getOneById(DEFAULT_CATEGORY_PRIVATE_ID), (getOneById(DEFAULT_CATEGORY_ALL_FRIENDS_ID)));
     }
 }
