@@ -5,6 +5,7 @@ import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Relationship;
 import com.curevent.models.entities.Role;
 import com.curevent.models.entities.UserEntity;
+import com.curevent.models.enums.DefaultCategory;
 import com.curevent.models.forms.LoginForm;
 import com.curevent.models.forms.RegisterForm;
 import com.curevent.models.transfers.AuthTransfer;
@@ -59,7 +60,7 @@ public class AuthService {
             Relationship relationship = Relationship.builder()
                     .ownerId(userEntity.getId())
                     .friendId(userEntity.getId())
-                    .category(categoryService.getEntityById(CategoryService.DEFAULT_CATEGORY_PRIVATE_ID))
+                    .category(categoryService.getEntityById(DefaultCategory.PRIVATE.id()))
                     .build();
             relationshipRepository.save(relationship);
 
