@@ -4,6 +4,7 @@ import com.curevent.exceptions.ConflictException;
 import com.curevent.exceptions.InvalidArgumentException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Category;
+import com.curevent.models.enums.DefaultCategory;
 import com.curevent.models.transfers.CategoryTransfer;
 import com.curevent.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -18,9 +19,6 @@ import java.util.Optional;
 @Service
 @Transactional
 public class CategoryService {
-    public static final Long DEFAULT_CATEGORY_PRIVATE_ID = 0L;
-    public static final Long DEFAULT_CATEGORY_ALL_FRIENDS_ID = 1L;
-
     private final CategoryRepository categoryRepository;
     private final ModelMapper mapper;
 
@@ -47,7 +45,7 @@ public class CategoryService {
     }
 
     public void delete(Long id) {
-        if (id.equals(DEFAULT_CATEGORY_PRIVATE_ID) || id.equals(DEFAULT_CATEGORY_ALL_FRIENDS_ID)) {
+        if (id.equals(DefaultCategory.PRIVATE.id()) || id.equals(DefaultCategory.ALL_FRIENDS.id())) {
             throw new InvalidArgumentException("Forbidden to delete default category " + id);
         }
         Category category = getEntityById(id);
@@ -55,7 +53,7 @@ public class CategoryService {
     }
 
     public CategoryTransfer update(CategoryTransfer categoryTransfer) {
-        if (categoryTransfer.getId().equals(DEFAULT_CATEGORY_PRIVATE_ID) || categoryTransfer.getId().equals(DEFAULT_CATEGORY_ALL_FRIENDS_ID)) {
+        if (categoryTransfer.getId().equals(DefaultCategory.PRIVATE.id()) || categoryTransfer.getId().equals(DefaultCategory.ALL_FRIENDS.id())) {
             throw new InvalidArgumentException("Forbidden to edit default category " + categoryTransfer.getId());
         }
         Category category = mapper.map(categoryTransfer, Category.class);
@@ -72,6 +70,6 @@ public class CategoryService {
     }
 
     public List<CategoryTransfer> getDefaultCategories() {
-        return List.of(getOneById(DEFAULT_CATEGORY_PRIVATE_ID), (getOneById(DEFAULT_CATEGORY_ALL_FRIENDS_ID)));
+        return List.of(getOneById(DefaultCategory.PRIVATE.id()), (getOneById(DefaultCategory.ALL_FRIENDS.id())));
     }
 }
