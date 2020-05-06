@@ -6,11 +6,12 @@ import {postEvent} from "../../redux/services/EventService";
 
 const CreateEventWindow = ({onClose, userInfo, saveUser}) => {
 
-    const [event, setEvent] = useState({});
+    const [event, setEvent] = useState({date:new Date()});
 
-    const submitHandler = (event) => {
+    const submitHandler = (ignore) => {
         const newEvent = event;
         newEvent.ownerId = userInfo.id;
+        newEvent.time = new Date().getTime();
         postEvent(newEvent).then(ignore => {
             getUser(userInfo.id).then(user => saveUser(user));
         });
@@ -31,25 +32,27 @@ const CreateEventWindow = ({onClose, userInfo, saveUser}) => {
                         <button className="close-button" onClick={onClose}/>
                     </div>
                     <div className="field">
-                        <div className="template-layout">Title:</div>
+                        <div className="template-layout">title:</div>
                         <input
                             id="title"
                             value={event.title}
                             className="template-input"
                             onChange={changeStateHandler}
+                            autoComplete="off"
                         />
                     </div>
                     <div className="field">
-                        <div className="template-layout">Description:</div>
+                        <div className="template-layout">description:</div>
                         <textarea
                             id="description"
                             value={event.description}
                             className="template-input template-textarea"
                             onChange={changeStateHandler}
+                            autoComplete="off"
                         />
                     </div>
                     <div className="field">
-                        <div className="template-layout">Duration:</div>
+                        <div className="template-layout">duration:</div>
                         <input
                             id="duration"
                             type="number"
@@ -57,7 +60,18 @@ const CreateEventWindow = ({onClose, userInfo, saveUser}) => {
                             value={event.duration}
                             className="template-input"
                             onChange={changeStateHandler}
+                            autoComplete="off"
                         />
+                    </div>
+                    <div className="field">
+                        <div className="template-layout">date:</div>
+                        <div className="date-input">
+                            <input placeholder="12"/>.<input placeholder="04"/>.<input placeholder="2020"/>
+                        </div>
+                        <div className="template-layout">time:</div>
+                        <div className="date-input">
+                            <input placeholder="12"/>:<input placeholder="00"/>
+                        </div>
                     </div>
                     <div className="template-window-buttons">
                         <button className="auth-button" onClick={submitHandler}>Create</button>

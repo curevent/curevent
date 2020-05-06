@@ -99,6 +99,7 @@
 }
 
 .template-input {
+    display: flex;
     width: 200px;
     height: 20px;
     margin: 10px 60px auto 0;
@@ -108,6 +109,31 @@
     border-radius: 4px;
     outline: none;
     padding: 0 10px;
+    background: white;
+}
+
+.date-input {
+    display: flex;
+    width: 100px;
+    height: 20px;
+    margin: 10px 0 0 0;
+    color: #737373;
+    font-size: 14px;
+    border: #747474 solid 1px;
+    border-radius: 4px;
+    outline: none;
+    padding: 0 10px;
+    background: white;
+}
+
+.invisible-input {
+    display: flex;
+    flex-direction: row;
+    border: none;
+    outline: none;
+    width: 30px;
+    justify-content: center;
+    margin-left: 4px;
 }
 
 .template-textarea {

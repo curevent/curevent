@@ -34,6 +34,7 @@ export const Authentication = () => {
                 placeholder="Username"
                 value={authForm.username}
                 onChange={changeInputHandler}
+                autoComplete="off"
             />
             <input
                 type="password"
@@ -42,6 +43,7 @@ export const Authentication = () => {
                 placeholder="Password"
                 value={authForm.password}
                 onChange={changeInputHandler}
+                autoComplete="off"
             />
             <button
                 className="auth-button"

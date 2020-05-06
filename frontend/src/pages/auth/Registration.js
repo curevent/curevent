@@ -35,6 +35,7 @@ export const Registration = () => {
                 placeholder="Username"
                 value={registration.username}
                 onChange={changeInputHandler}
+                autoComplete="off"
             />
             <input
                 type="password"
@@ -43,6 +44,7 @@ export const Registration = () => {
                 placeholder="Password"
                 value={registration.password}
                 onChange={changeInputHandler}
+                autoComplete="off"
             />
             <input
                 type="text"
@@ -51,6 +53,7 @@ export const Registration = () => {
                 placeholder="Email"
                 value={registration.email}
                 onChange={changeInputHandler}
+                autoComplete="off"
             />
             <button
                 className="auth-button"

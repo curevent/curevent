@@ -1,6 +1,5 @@
 import React, {Component, Fragment, useState} from "react";
 import {connect} from "react-redux";
-import {getTokens} from "../../utils/localStorageUtils";
 import {saveUser} from "../../redux/actions/UserActions";
 import {getUser} from "../../redux/services/UserService";
 import {postTemplate} from "../../redux/services/TemplateService";
@@ -20,8 +19,11 @@ const CreateTemplateWindow = ({onClose, userInfo, saveUser}) => {
 
     const changeStateHandler = event => {
         event.persist();
+        console.log(event.target.value);
         setTemplate(prevState => ({...prevState, ...{[event.target.id]: event.target.value}}));
     };
+
+    console.log(template);
 
     return (
         <Fragment>
@@ -38,6 +40,7 @@ const CreateTemplateWindow = ({onClose, userInfo, saveUser}) => {
                             value={template.title}
                             className="template-input"
                             onChange={changeStateHandler}
+                            autoComplete="off"
                         />
                     </div>
                     <div className="field">
@@ -47,6 +50,7 @@ const CreateTemplateWindow = ({onClose, userInfo, saveUser}) => {
                             value={template.description}
                             className="template-input template-textarea"
                             onChange={changeStateHandler}
+                            autoComplete="off"
                         />
                     </div>
                     <div className="field">
@@ -58,6 +62,7 @@ const CreateTemplateWindow = ({onClose, userInfo, saveUser}) => {
                             value={template.duration}
                             className="template-input"
                             onChange={changeStateHandler}
+                            autoComplete="off"
                         />
                     </div>
                     <div className="template-window-buttons">
