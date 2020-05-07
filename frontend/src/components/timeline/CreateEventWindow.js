@@ -26,7 +26,7 @@ const CreateEventWindow = ({onClose, userInfo, saveUser}) => {
     return (
         <Fragment>
             <div className="create-template-window">
-                <div className="create-template-container">
+                <div className="create-event-container">
                     <div className="ct-title">
                         <div className="ct-title-message">Create event</div>
                         <button className="close-button" onClick={onClose}/>
@@ -65,13 +65,15 @@ const CreateEventWindow = ({onClose, userInfo, saveUser}) => {
                     </div>
                     <div className="field">
                         <div className="template-layout">date:</div>
-                        <div className="date-input">
-                            <input placeholder="12"/>.<input placeholder="04"/>.<input placeholder="2020"/>
-                        </div>
+                        <input
+                            type = "date"
+                            className="template-input"/>
+                    </div>
+                    <div className="field">
                         <div className="template-layout">time:</div>
-                        <div className="date-input">
-                            <input placeholder="12"/>:<input placeholder="00"/>
-                        </div>
+                        <input
+                            type="time"
+                            className="template-input"/>
                     </div>
                     <div className="template-window-buttons">
                         <button className="auth-button" onClick={submitHandler}>Create</button>
