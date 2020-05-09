@@ -1,23 +1,33 @@
-import React, {useState} from "react";
-import {connect} from "react-redux";
+import React from "react";
+import {NavLink} from "react-router-dom";
+import {UserImage} from "../fields/UserImage";
 
-const SearchMenu = () => {
+export const SearchMenu = ({onClose, users}) => {
+
+    const result = (users) => {
+        if (users === null || users === undefined) {
+            return "No one user was found."
+        } else {
+            return (
+                users.map(user =>
+                    <NavLink
+                        className="user-found"
+                        key={user.id}
+                        to={`/user/${user.id}`}
+                    >
+                        <div className="found-icon">
+                            <UserImage userInfo={user}/>
+                        </div>
+                        <div>{user.username}</div>
+                    </NavLink>
+                )
+            );
+        }
+    };
 
     return (
-        <div className="search-menu">
-            123
+        <div className="search-menu" onMouseLeave={onClose}>
+            {result(users)}
         </div>
     );
 };
-
-const mapStateToProps = state => {
-    return {
-
-    }
-};
-
-const mapDispatchToProps = {
-
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchMenu);

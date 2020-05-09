@@ -98,6 +98,34 @@
     flex-direction: column;
     position: absolute;
     flex-grow: 1;
+    margin-top: 30px;
+    width: 200px;
+    background: white;
+    border: #c3c3c3 1px solid;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+.user-found {
+    display: flex;
+    flex-direction: row;
+    color: #818181;
+    text-decoration: none;
+    font-size: 16px;
+    vertical-align: center;
+    align-items: center;
+}
+
+
+.user-found:hover {
+    color: #00a4d7;
+}
+
+.found-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+    margin-right: 6px;
 }
 
 .create-template-button {
@@ -156,6 +184,11 @@
     margin: auto;
     text-decoration: none;
     color: black;
+    transition: .2s;
+}
+
+.expand-menu-button:hover {
+    color: #73a4ff;
 }
 
 .username {

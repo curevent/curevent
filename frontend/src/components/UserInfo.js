@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {getUser, putUser} from "../redux/services/UserService";
-import {getWhoAmI} from "../redux/services/AuthService";
 import {currentUser} from "../redux/actions/AuthActions";
 import {connect} from "react-redux";
 import {CountryAndCity} from "./fields/CountryAndCity";
