@@ -83,7 +83,18 @@
     margin: auto;
     background: white;
     width: 420px;
-    height: 230px;
+    height: 300px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px #000000;
+}
+
+.create-event-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background: white;
+    width: 420px;
+    height: 330px;
     border-radius: 6px;
     box-shadow: 0 0 10px #000000;
 }
