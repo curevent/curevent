@@ -49,6 +49,8 @@ class UserMenu extends Component {
             );
         };
 
+
+
         return (
             <div className="user-menu-container" onMouseEnter={toggleMenu} onMouseLeave={toggleMenu}>
                 <NavLink className="expand-menu-button" to="/profile">
