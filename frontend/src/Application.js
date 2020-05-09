@@ -38,7 +38,9 @@ class Application extends Component {
                             <Route path="/user/:id" component={ProfileByIdPage}/>
                         </Switch>
                     </div>
-                    {this.props.isAuth && <TemplatesRepository/>}
+                    {(this.props.isAuth
+                        && this.props.user.id === this.props.page.id)
+                    && <TemplatesRepository/>}
                 </div>
             </BrowserRouter>
         );
@@ -48,6 +50,8 @@ class Application extends Component {
 const mapStateToProps = state => {
     return {
         isAuth: state.auth.isAuth,
+        user: state.currentUser.userInfo,
+        page: state.user.curUser
     }
 };
 
