@@ -99,6 +99,7 @@
             <column name="description" type="varchar(100)" >
                 <constraints nullable="false"/>
             </column>
+            <column name="owner_id" type="uuid" />
         </createTable>
     </changeSet>
 
@@ -132,6 +133,7 @@
             <column name="description" type="varchar(100)" >
                 <constraints nullable="false"/>
             </column>
+            <column name="owner_id" type="uuid" />
         </createTable>
     </changeSet>
 

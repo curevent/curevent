@@ -1,5 +1,6 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.ConflictException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Tag;
 import com.curevent.models.transfers.TagTransfer;
@@ -9,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class TagService {
     private final TagRepository tagRepository;
     private final ModelMapper mapper;
 
-    private Tag getEntityById(UUID id) {
+    Tag getEntityById(UUID id) {
         return tagRepository.findById(id).stream().findAny()
                 .orElseThrow(() -> new NotFoundException("No such Tag" + id));
     }
@@ -31,6 +33,10 @@ public class TagService {
 
     public TagTransfer add(TagTransfer tagTransfer) {
         Tag tag = mapper.map(tagTransfer, Tag.class);
+        if(tagRepository.findEqualsTag(tag.getOwnerId(), tag.getDescription()).isPresent()) {
+            throw new ConflictException("Tag with ownerId " + tag.getOwnerId() +
+                    "and description " + tag.getDescription() + " already exists");
+        }
         return mapper.map(tagRepository.save(tag), TagTransfer.class);
     }
 
@@ -43,6 +49,11 @@ public class TagService {
         Tag tag = mapper.map(tagTransfer, Tag.class);
         if (!tagRepository.existsById(tag.getId())) {
             throw new NotFoundException("No such Tag" + tag.getId());
+        }
+        Optional<Tag> equalsTag= tagRepository.findEqualsTag(tag.getOwnerId(), tag.getDescription());
+        if(equalsTag.isPresent() && !equalsTag.get().getId().equals(tag.getId())) {
+            throw new ConflictException("Tag with ownerId " + tag.getOwnerId() +
+                    "and description " + tag.getDescription() + " already exists");
         }
         return mapper.map(tagRepository.save(tag), TagTransfer.class);
     }

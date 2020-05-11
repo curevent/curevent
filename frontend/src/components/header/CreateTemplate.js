@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from "react";
-import CreateTemplateWindow from "../template/CreateTemplateWindow";
+import CreateTemplateWindow from "../repository/CreateTemplateWindow";
 import ReactDOM from 'react-dom'
 
 export class CreateTemplate extends Component {

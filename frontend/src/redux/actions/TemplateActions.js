@@ -8,19 +8,6 @@ import {
     PUT_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION
 } from "../constants/ActionTypes";
 
-
-export function expand() {
-    return dispatch => {
-        dispatch({type: EXPAND_REPOSITORY_ACTION})
-    }
-}
-
-export function minimize() {
-    return dispatch => {
-        dispatch({type: MINIMALIZE_REPOSITORY_ACTION})
-    }
-}
-
 export function postTemplate(template) {
     return dispatch => {
         dispatch({type: POST_TEMPLATE_ACTION, payload: template});

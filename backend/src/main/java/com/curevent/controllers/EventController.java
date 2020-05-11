@@ -5,7 +5,6 @@ import com.curevent.services.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -20,7 +19,7 @@ public class EventController {
     }
 
     @PostMapping("/")
-    public EventTransfer addEvent(@RequestBody @Valid EventTransfer eventTransfer) {
+    public EventTransfer addEvent(@RequestBody EventTransfer eventTransfer) {
         return eventService.add(eventTransfer);
     }
 

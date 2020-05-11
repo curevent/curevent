@@ -19,7 +19,6 @@ const CreateTemplateWindow = ({onClose, userInfo, saveUser}) => {
 
     const changeStateHandler = event => {
         event.persist();
-        console.log(event.target.value);
         setTemplate(prevState => ({...prevState, ...{[event.target.id]: event.target.value}}));
     };
 

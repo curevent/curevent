@@ -29,18 +29,24 @@ class TemplatesList extends Component {
             });
         };
 
+        const toEventHandler = (event, id) => {
+            event.preventDefault();
+
+        };
+
         if (this.props.templates.length === 0) {
-            return <div className="none-templates">You have no templates yet</div>
+            return <div className="none-message">You have no templates yet</div>
         } else {
             return this.props.templates.map(template =>
                 <div id={template.id} className="template" key={template.id}>
                     <div className="template-header">
                         <div className="template-title">{template.title}</div>
+                        <button className="to-event-button" style={{backgroundSize: "10px"}} onClick={event => toEventHandler(event, template.id)}/>
                         <button className="close-button" style={{backgroundSize: "10px"}} onClick={event => deleteHandler(event, template.id)}/>
                     </div>
                     <div className="template-characteristics">
-                        <div className="template-description">Description: {template.description}</div>
-                        <div className="template-duration">Duration: {template.duration} minutes</div>
+                        <div className="template-description">{template.description}</div>
+                        <div className="template-duration">Event duration: {template.duration} minutes</div>
                     </div>
                 </div>
             );

@@ -1,9 +1,6 @@
 package com.curevent.models.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Cacheable
+@Builder
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "relationships")
 public class Relationship {

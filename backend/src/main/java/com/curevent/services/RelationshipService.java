@@ -1,5 +1,6 @@
 package com.curevent.services;
 
+import com.curevent.exceptions.ConflictException;
 import com.curevent.exceptions.NotFoundException;
 import com.curevent.models.entities.Relationship;
 import com.curevent.models.transfers.RelationshipTransfer;
@@ -9,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -31,6 +33,14 @@ public class RelationshipService {
 
     public RelationshipTransfer add(RelationshipTransfer relationshipTransfer) {
         Relationship relationship = mapper.map(relationshipTransfer, Relationship.class);
+        Optional<Relationship> equalsRelationship= relationshipRepository.findEqualsRelationship(relationship.getOwnerId(),
+                relationship.getFriendId(),
+                relationship.getCategory().getId());
+        if(equalsRelationship.isPresent()) {
+            throw new ConflictException("Relationship with ownerId " + relationship.getOwnerId() +
+                    ", friendId " + relationship.getFriendId() +
+                    ", categoryId " + relationship.getCategory().getId() + " already exists");
+        }
         return mapper.map(relationshipRepository.save(relationship), RelationshipTransfer.class);
     }
 
@@ -43,6 +53,14 @@ public class RelationshipService {
         Relationship relationship = mapper.map(relationshipTransfer, Relationship.class);
         if (!relationshipRepository.existsById(relationship.getId())) {
             throw new NotFoundException("No such Relationship" + relationship.getId());
+        }
+        Optional<Relationship> equalsRelationship= relationshipRepository.findEqualsRelationship(relationship.getOwnerId(),
+                relationship.getFriendId(),
+                relationship.getCategory().getId());
+        if(equalsRelationship.isPresent() && !equalsRelationship.get().getId().equals(relationship.getId())) {
+            throw new ConflictException("Relationship with ownerId " + relationship.getOwnerId() +
+                    ", friendId " + relationship.getFriendId() +
+                    ", categoryId " + relationship.getCategory().getId() + " already exists");
         }
         return mapper.map(relationshipRepository.save(relationship), RelationshipTransfer.class);
     }

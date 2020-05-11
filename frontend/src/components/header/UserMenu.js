@@ -35,12 +35,9 @@ class UserMenu extends Component {
 
     render() {
 
-        const AUTH_PAGE = "http://localhost:3000/";
-
         const logoutHandler = (ignore) => {
             invalidateLocalStorage();
             this.props.invalidateAuth(ignore);
-            window.location.replace(AUTH_PAGE);
         };
 
         const toggleMenu = (ignore) => {
@@ -65,7 +62,7 @@ class UserMenu extends Component {
                             <CreateTemplate/>
                             <CreateEvent/>
                             <div className="border-top"/>
-                            <button className="nav-button header-button" onClick={logoutHandler}>Sign-out</button>
+                            <NavLink className="nav-button header-button" onClick={logoutHandler} to="/">Sign-out</NavLink>
                         </div>
                     </div>
                 }

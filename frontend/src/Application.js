@@ -9,8 +9,8 @@ import {getTokens} from "./utils/localStorageUtils";
 import MyProfilePage from "./pages/profile/MyProfilePage";
 import ProfileByIdPage from "./pages/profile/ProfileByIdPage";
 import Header from "./components/header/Header";
-import TemplatesRepository from "./components/template/TemplatesRepository";
 import SettingsPage from "./pages/settings/SettingsPage";
+import Repository from "./components/repository/Repository";
 
 class Application extends Component {
 
@@ -40,7 +40,7 @@ class Application extends Component {
                     </div>
                     {(this.props.isAuth
                         && this.props.user.id === this.props.page.id)
-                    && <TemplatesRepository/>}
+                    && <Repository/>}
                 </div>
             </BrowserRouter>
         );
