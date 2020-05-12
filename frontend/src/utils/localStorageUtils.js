@@ -4,6 +4,10 @@ export const saveTokens = (data) => {
     window.localStorage.setItem("refresh_token", data.refresh_token);
 };
 
+export const refreshToken = (data) => {
+    window.localStorage.setItem("refresh_token", data.refresh_token);
+};
+
 export const invalidateLocalStorage = () => {
     console.log("Clear localStorage");
     window.localStorage.clear();

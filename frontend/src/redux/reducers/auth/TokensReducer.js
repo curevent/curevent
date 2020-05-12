@@ -3,7 +3,7 @@ import {
     GET_REFRESH_ACTION,
     GET_REGISTER_ACTION,
     INVALIDATE_AUTH_ACTION,
-} from "../constants/ActionTypes";
+} from "../../constants/ActionTypes";
 
 const initialState = {
     tokens: {

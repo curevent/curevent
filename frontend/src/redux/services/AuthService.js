@@ -30,7 +30,6 @@ export async function getRefresh() {
         const access = `Bearer ${local_tokens.access}`;
         const response = await axios.get(url, {headers: {Authorization: access}});
         const new_tokens = response.data;
-        saveTokens(new_tokens);
         return new_tokens;
     }
 }

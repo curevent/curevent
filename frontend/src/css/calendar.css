@@ -1,0 +1,66 @@
+.calendar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.left-menu {
+    display: flex;
+    flex-direction: column;
+    width: 210px;
+}
+
+.days {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    user-select: none;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 12px;
+    transition: .2s;
+}
+
+.day:hover {
+    font-size: 24px;
+    color: #73a4ff;
+}
+
+.months-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: #73a4ff;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.calendar-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    user-select: none;
+}
+
+.next {
+    background: url("../css/img/next.png") no-repeat center rgba(255,255,255, 0);
+    background-size: 16px;
+}
+
+.previous {
+    background: url("../css/img/prev.png") no-repeat center rgba(255,255,255, 0);
+    background-size: 16px;
+}
+
+.control-menu {
+    flex-grow: 1;
+    background: #73a4ff;
+}

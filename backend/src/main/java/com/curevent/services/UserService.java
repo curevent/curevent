@@ -49,8 +49,10 @@ public class UserService {
         return mapper.map(userRepository.save(user), UserTransfer.class);
     }
 
-    public List<UserTransfer> getAll() {
+    public List<UserTransfer> getAll(Long limit, Long offset) {
         return userRepository.findAll().stream()
+                .skip(offset)
+                .limit(limit)
                 .map(user -> mapper.map(user, UserTransfer.class))
                 .collect(Collectors.toList());
     }
@@ -80,6 +82,12 @@ public class UserService {
     private void validateUser(UserEntity user, UserEntity curUser) {
         user.setPassword(curUser.getPassword());
         user.setRefreshToken(curUser.getRefreshToken());
+        user.setTemplates(curUser.getTemplates());
+        user.setEvents(curUser.getEvents());
+        user.setRelationships(curUser.getRelationships());
+        user.setCategories(curUser.getCategories());
+        user.setTags(curUser.getTags());
+        user.setComments(curUser.getComments());
     }
 
     public void delete(UUID id) {
@@ -128,5 +136,4 @@ public class UserService {
         }
         return Collections.emptyList();
     }
-
 }

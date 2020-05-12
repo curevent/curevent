@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {postAuth} from "../../redux/auth/AuthService";
-import {auth} from "../../redux/auth/AuthActions";
+import {postAuth} from "../../redux/services/AuthService";
+import {auth} from "../../redux/actions/AuthActions";
 
 export const Authentication = () => {
 
@@ -34,6 +34,7 @@ export const Authentication = () => {
                 placeholder="Username"
                 value={authForm.username}
                 onChange={changeInputHandler}
+                autoComplete="off"
             />
             <input
                 type="password"
@@ -42,6 +43,7 @@ export const Authentication = () => {
                 placeholder="Password"
                 value={authForm.password}
                 onChange={changeInputHandler}
+                autoComplete="off"
             />
             <button
                 className="auth-button"

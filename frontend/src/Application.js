@@ -2,18 +2,25 @@ import React, {Component} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import AuthPage from "./pages/auth/AuthPage";
 import './css/application.css'
-import ProfilePage from "./pages/profile/ProfilePage";
 import {connect} from "react-redux";
-import {refresh} from "./redux/auth/AuthActions";
-import {getRefresh} from "./redux/auth/AuthService";
+import {refresh} from "./redux/actions/AuthActions";
+import {getRefresh} from "./redux/services/AuthService";
 import {getTokens} from "./utils/localStorageUtils";
+import MyProfilePage from "./pages/profile/MyProfilePage";
+import ProfileByIdPage from "./pages/profile/ProfileByIdPage";
+import Header from "./components/header/Header";
+import SettingsPage from "./pages/settings/SettingsPage";
+import Repository from "./components/repository/Repository";
 
 class Application extends Component {
 
     componentDidMount() {
         const tokens = getTokens();
         if (tokens.refresh != null) {
-            getRefresh().then(this.props.refresh);
+            getRefresh().then(tokens => {
+                console.log(tokens);
+                this.props.refresh(tokens);
+            });
         }
     }
 
@@ -21,20 +28,35 @@ class Application extends Component {
         return (
             <BrowserRouter>
                 <div className="application-container">
-                    <Switch>
-                        <Route path="/" exact component={AuthPage}/>
-                        <Route path="/profile" component={ProfilePage}/>
-                        {/*<Route path="/user/:id" component={UserPage}/>*/}
-                    </Switch>
+                    {this.props.isAuth && <div className="space"/>}
+                    <div className="main-space">
+                        {this.props.isAuth && <Header/>}
+                        <Switch>
+                            <Route path="/" exact component={AuthPage}/>
+                            <Route path="/profile" component={MyProfilePage}/>
+                            <Route path="/settings" component={SettingsPage}/>
+                            <Route path="/user/:id" component={ProfileByIdPage}/>
+                        </Switch>
+                    </div>
+                    {(this.props.isAuth
+                        && this.props.user.id === this.props.page.id)
+                    && <Repository/>}
                 </div>
             </BrowserRouter>
         );
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        isAuth: state.auth.isAuth,
+        user: state.currentUser.userInfo,
+        page: state.user.curUser
+    }
+};
 
 const mapDispatchToProps = {
     refresh,
 };
 
-export default connect(null, mapDispatchToProps)(Application);
+export default connect(mapStateToProps, mapDispatchToProps)(Application);

@@ -1,74 +1,45 @@
-import axios from "axios";
-import {
-    DELETE_TEMPLATE_AND_TEMPLATE_EVENTS, DELETE_TEMPLATE_EVENTS,
-    GET_TEMPLATE_BY_ID, POST_REPEAT_FORM_AND_CREATE_TEMPLATE_EVENTS,
-    POST_TEMPLATE,
-    PUT_TEMPLATE_AND_TEMPLATE_EVENTS
-} from "../constants/ApiEndpoints";
 import {
     CREATE_TEMPLATE_EVENTS_ACTION,
-    DELETE_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION, DELETE_TEMPLATE_EVENTS_ACTION,
+    DELETE_TEMPLATE_EVENTS_ACTION,
+    EXPAND_REPOSITORY_ACTION,
     GET_TEMPLATE_ACTION,
+    MINIMALIZE_REPOSITORY_ACTION,
     POST_TEMPLATE_ACTION,
     PUT_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION
 } from "../constants/ActionTypes";
 
-export function postTemplate(template, token) {
+export function postTemplate(template) {
     return dispatch => {
-        axios.post(POST_TEMPLATE, template, {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: POST_TEMPLATE_ACTION, payload: response.data})
-        });
+        dispatch({type: POST_TEMPLATE_ACTION, payload: template});
     }
 }
 
-export function createTemplateEvents(repeatForm, id, token) {
+export function createTemplateEvents(repeatForm, id) {
     return dispatch => {
-        axios.post(POST_REPEAT_FORM_AND_CREATE_TEMPLATE_EVENTS(id), repeatForm, {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: CREATE_TEMPLATE_EVENTS_ACTION, payload: response.data})
-        });
+        dispatch({type: CREATE_TEMPLATE_EVENTS_ACTION, payload: {repeatForm:repeatForm, id:id}});
     }
 }
 
-export function getTemplate(id, token) {
+export function getTemplate(template) {
     return dispatch => {
-        axios.get(GET_TEMPLATE_BY_ID(id), {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: GET_TEMPLATE_ACTION, payload: response.data})
-        });
+        dispatch({type: GET_TEMPLATE_ACTION, payload: template});
     }
 }
 
-export function putTemplateAndTemplateEvents(template, token) {
+export function putTemplateAndTemplateEvents(template) {
     return dispatch => {
-        axios.put(PUT_TEMPLATE_AND_TEMPLATE_EVENTS, template, {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: PUT_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION, payload: response.data})
-        });
+        dispatch({type: PUT_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION, payload: template});
     }
 }
 
-export function deleteTemplateAndTemplateEvents(id, token) {
+export function deleteTemplateAndTemplateEvents(id) {
     return dispatch => {
-        axios.delete(DELETE_TEMPLATE_AND_TEMPLATE_EVENTS(id), {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: DELETE_TEMPLATE_AND_TEMPLATE_EVENTS_ACTION, payload: id})
-        });
+        dispatch({type: DELETE_TEMPLATE_EVENTS_ACTION, payload: id});
     }
 }
 
-export function deleteTemplateEvents(id, token) {
+export function deleteTemplateEvents(id) {
     return dispatch => {
-        axios.delete(DELETE_TEMPLATE_EVENTS(id), {
-            headers: {'Authorization':`Bearer ${token}`}
-        }).then(response => {
-            dispatch({type: DELETE_TEMPLATE_EVENTS_ACTION, payload: response.data})
-        });
+        dispatch({type: DELETE_TEMPLATE_EVENTS_ACTION, payload: id});
     }
 }
