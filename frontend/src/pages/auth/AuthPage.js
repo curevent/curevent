@@ -29,19 +29,22 @@ const AuthPage = ({isAuth}) => {
         setAuthComponent({name: "auth"})
     };
 
-    return (
-        <div className="auth-container">
-            <div className="swap-panel">
-                <button id="left-swap" className="swap-button" onClick={swapRegHandler}>Sign-in</button>
-                <button id="right-swap" className="swap-button" onClick={swapAuthHandler}>Sign-up</button>
+    if (!isAuth) {
+        return (
+            <div className="auth-container">
+                <div className="swap-panel">
+                    <button id="left-swap" className="swap-button" onClick={swapRegHandler}>Sign-in</button>
+                    <button id="right-swap" className="swap-button" onClick={swapAuthHandler}>Sign-up</button>
+                </div>
+                <div className="auth-form">
+                    {authComponent.name === "auth" && <Authentication/>}
+                    {authComponent.name === "reg" && <Registration/>}
+                </div>
             </div>
-            <div className="auth-form">
-                {isAuth && <Redirect to="/profile"/>}
-                {authComponent.name === "auth" && <Authentication/>}
-                {authComponent.name === "reg" && <Registration/>}
-            </div>
-        </div>
-    );
+        );
+    } else {
+        return <Redirect to="/profile"/>
+    }
 };
 
 const mapStateToProps = state => {

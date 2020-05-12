@@ -117,6 +117,62 @@
     align-items: center;
 }
 
+.you-icon {
+    font-size: 12px;
+    margin: auto auto auto 10px;
+    padding: 2px 4px;
+    background: #a2c5ff;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 2px 2px 4px #4b4b4b;
+    user-select: none;
+    outline: none;
+}
+
+.friends-icon {
+    font-size: 10px;
+    margin: auto auto auto 10px;
+    padding: 2px 4px;
+    background: #ffffff;
+    border-radius: 2px;
+    border: 1px #7483c3 solid;
+    user-select: none;
+    outline: none;
+}
+
+.friends-icon:after {
+    content: "Your friend";
+}
+
+.friends-icon:hover:after {
+    content: "Not friends";
+}
+
+.friends-icon:hover {
+    font-size: 10px;
+    margin: auto auto auto 10px;
+    padding: 2px 4px;
+    background: #ffdfe5;
+    border-radius: 2px;
+    border: 1px #c36c63 solid;
+    user-select: none;
+    outline: none;
+}
+
+.add-friend-button {
+    font-size: 10px;
+    margin: auto auto auto 10px;
+    padding: 2px 4px;
+    background: #ffffff;
+    border-radius: 2px;
+    border: 1px #57c357 solid;
+    user-select: none;
+    outline: none;
+}
+
+.add-friend-button:hover {
+    background: #e6ffde;
+}
 
 .user-found:hover {
     color: #00a4d7;
@@ -127,6 +183,15 @@
     height: 24px;
     font-size: 18px;
     margin-right: 6px;
+}
+
+.found-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.found-mail {
+    font-size: 10px;
 }
 
 .create-template-button {

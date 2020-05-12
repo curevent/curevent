@@ -24,16 +24,12 @@ const CreateEventWindow = ({onClose, template, userInfo, saveUser}) => {
         setEvent(prevState => ({...prevState, ...{[event.target.id]: event.target.value}}));
     };
 
-    if (template.id === null) {
-        return <CreateNewEvent
-            event={event}
-            onClose={onClose}
-            changeStateHandler={changeStateHandler}
-            submitHandler={submitHandler}
-        />
-    } else {
-
-    }
+    return <CreateNewEvent
+        event={event}
+        onClose={onClose}
+        changeStateHandler={changeStateHandler}
+        submitHandler={submitHandler}
+    />
 };
 
 const mapStateToProps = state => {

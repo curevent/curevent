@@ -1,14 +1,12 @@
-import React, {Component, useState} from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
 import UserInfo from "../../components/UserInfo";
 import {saveUser} from "../../redux/actions/UserActions";
 import {getUser} from "../../redux/services/UserService";
 
 class ProfileByIdPage extends Component {
 
-    componentDidMount() {
-        console.log(this.props.match.params);
+    updateState() {
         const {id} = this.props.match.params;
         getUser(id).then(user => {
             this.props.saveUser(user);
@@ -17,6 +15,15 @@ class ProfileByIdPage extends Component {
     }
 
     render() {
+
+        console.log(this.state);
+
+        const {id} = this.props.match.params;
+
+        if (this.state == null || this.state.id !== id) {
+            this.updateState();
+        }
+
         return (
             <div className="profile-container">
                 <UserInfo userInfo={this.props.page}/>
