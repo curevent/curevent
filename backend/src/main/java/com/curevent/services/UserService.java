@@ -82,6 +82,12 @@ public class UserService {
     private void validateUser(UserEntity user, UserEntity curUser) {
         user.setPassword(curUser.getPassword());
         user.setRefreshToken(curUser.getRefreshToken());
+        user.setTemplates(curUser.getTemplates());
+        user.setEvents(curUser.getEvents());
+        user.setRelationships(curUser.getRelationships());
+        user.setCategories(curUser.getCategories());
+        user.setTags(curUser.getTags());
+        user.setComments(curUser.getComments());
     }
 
     public void delete(UUID id) {
