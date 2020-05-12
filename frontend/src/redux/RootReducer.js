@@ -8,7 +8,7 @@ import {categoryReducer} from "./reducers/CategoryReducer";
 import {templateReducer} from "./reducers/TemplateReducer";
 import {eventReducer} from "./reducers/EventReducer";
 import {timelineReducer} from "./reducers/timeline/TimelineReducer";
-import {templatesRepoReducer} from "./reducers/TemplatesRepoReducer";
+import {repositoryReducer} from "./reducers/RepositoryReducer";
 
 export const rootReducer = combineReducers(
     {
@@ -21,6 +21,6 @@ export const rootReducer = combineReducers(
             categories: categoryReducer,
             friends: relationshipReducer,
             timeline: timelineReducer,
-            repo: templatesRepoReducer
+            repo: repositoryReducer
     }
 );

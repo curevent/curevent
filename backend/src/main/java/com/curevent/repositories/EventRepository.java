@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -16,4 +17,6 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
     List<Event> findByOwnerIdAndTimeBetween(@Param("ownerId")UUID ownerId,
                                             @Param("startTime")Timestamp startTime,
                                             @Param("endTime")Timestamp endTime);
+
+    Optional<List<Event>> findByOwnerId(UUID ownerId);
 }

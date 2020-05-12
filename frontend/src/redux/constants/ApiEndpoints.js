@@ -11,7 +11,6 @@ export const CATEGORY_ENDPOINT = BASE_ENDPOINT + `/categories`;
 export const COMMENT_ENDPOINT = BASE_ENDPOINT + `/comments`;
 export const RELATIONSHIP_ENDPOINT = BASE_ENDPOINT + `/relationships`;
 
-
 export const POST_AUTH = `${BASE_ENDPOINT}/login`;
 export const POST_REGISTER = `${BASE_ENDPOINT}/register`;
 export const GET_WHO_AM_I = `${BASE_ENDPOINT}/whoami`;

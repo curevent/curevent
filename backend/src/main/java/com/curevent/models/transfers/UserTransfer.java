@@ -27,4 +27,6 @@ public class UserTransfer {
     private List<EventTransfer> events;
     private List<TemplateTransfer> templates;
     private List<CommentTransfer> comments;
+    private List<CategoryTransfer> categories;
+    private List<TagTransfer> tags;
 }
