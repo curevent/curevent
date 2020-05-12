@@ -33,8 +33,9 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List <UserTransfer> getAllUsers() {
-        return userService.getAll();
+    public List <UserTransfer> getAllUsers(@RequestParam(value = "limit", defaultValue = "20") Long limit,
+                                            @RequestParam(value = "offset", defaultValue = "0") Long offset) {
+        return userService.getAll(limit, offset);
     }
 
     @GetMapping("/{id}/friends")

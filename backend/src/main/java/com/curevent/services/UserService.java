@@ -49,8 +49,10 @@ public class UserService {
         return mapper.map(userRepository.save(user), UserTransfer.class);
     }
 
-    public List<UserTransfer> getAll() {
+    public List<UserTransfer> getAll(Long limit, Long offset) {
         return userRepository.findAll().stream()
+                .skip(offset)
+                .limit(limit)
                 .map(user -> mapper.map(user, UserTransfer.class))
                 .collect(Collectors.toList());
     }

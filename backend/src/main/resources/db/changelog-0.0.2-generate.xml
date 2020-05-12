@@ -27,6 +27,7 @@
             <column name="city" type="varchar(50)"/>
             <column name="image" type="varchar(128)"/>
             <column name="status" type="varchar(50)"/>
+            <column name="image" type="varchar(128)"/>
         </createTable>
     </changeSet>
 
