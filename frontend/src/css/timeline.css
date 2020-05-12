@@ -1,0 +1,89 @@
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0 20px 0 20px;
+}
+
+.selected-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: 20px;
+    margin: auto 24px 10px 24px;
+    padding-bottom: 30px;
+    border-bottom: #c3c3c3 1px solid;
+}
+
+.date-time {
+    display: flex;
+    flex-direction: column;
+}
+
+.time {
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    padding-left: 30px;
+    margin: 0 10px 10px 10px;
+}
+
+.date {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.split {
+    margin: 0 10px 0 10px
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    border: #cdcdcd 1px solid;
+    border-radius: 2px;
+    padding: 5px 10px;
+}
+
+.line-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    height: 40px;
+    margin: auto 0;
+}
+
+.line {
+    height: 1px;
+    background: #9b9b9b;
+    margin-bottom: auto;
+}
+
+.timeline-title {
+    margin: 10px 0;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.timeline-header {
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    flex-grow: 1;
+    font-size: 12px;
+    font-family: 'Quicksand', sans-serif;
+    justify-content: space-between;
+}
+
+.events {
+    position: absolute;
+}
+
+.event-line {
+    background: #73a4ff;
+}

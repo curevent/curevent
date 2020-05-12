@@ -6,21 +6,24 @@ import {
 } from "../constants/ActionTypes";
 
 const initialState = {
-    relationships:[]
+    relationshipInfo: {
+        id: null,
+        ownerId: null,
+        friendId: null,
+        category: null
+    }
 };
 
 export function relationshipReducer(state = initialState, action) {
     switch (action.type) {
         case GET_RELATIONSHIP_ACTION:
-            return state.relationships.map(relationship => {
-                return relationship.id !== action.payload.id ? relationship : action.payload});
+            return {...state, ...{relationshipInfo: action.payload}};
         case POST_RELATIONSHIP_ACTION:
-            return {...state, relationships: [...state.relationships, action.payload]};
+            return {...state, ...{relationshipInfo: action.payload}};
         case PUT_RELATIONSHIP_ACTION:
-            return state.relationships.map(relationship => {
-                return relationship.id !== action.payload.id ? relationship : action.payload});
+            return {...state, ...{relationshipInfo: action.payload}};
         case DELETE_RELATIONSHIP_ACTION:
-            return state.relationships.filter(relationship => relationship.id !== action.payload);
+            return {...state, ...initialState};
         default:
             return state;
     }

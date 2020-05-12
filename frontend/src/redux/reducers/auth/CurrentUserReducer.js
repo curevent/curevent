@@ -1,4 +1,4 @@
-import {INVALIDATE_USER_INFO_ACTION, WHO_AM_I_ACTION} from "../constants/ActionTypes";
+import {INVALIDATE_USER_INFO_ACTION, WHO_AM_I_ACTION} from "../../constants/ActionTypes";
 
 const initialState = {
     userInfo: {
