@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {getUser} from "../../redux/services/UserService";
 import {saveUser} from "../../redux/actions/UserActions";
-import {deleteTemplate} from "../../redux/services/TemplateService";
+import {deleteTemplate, deleteTemplateEvents} from "../../redux/services/TemplateService";
 
 class TemplatesList extends Component {
 
@@ -17,10 +17,10 @@ class TemplatesList extends Component {
     }
 
     render() {
-
         const deleteHandler = (event, id) => {
             event.preventDefault();
-            deleteTemplate(id).then(ignore => {
+            deleteTemplate(id).then(ignore => {});
+            deleteTemplateEvents(id).then(ignore => {
                 const userId = this.props.userInfo.id;
                 getUser(userId).then(user => {
                     this.props.saveUser(user);

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import UserInfo from "../../components/UserInfo";
 import {saveUser} from "../../redux/actions/UserActions";
 import {getUser} from "../../redux/services/UserService";
+import TimelineCurevent from "../../components/timeline/TimeLine";
 
 class ProfileByIdPage extends Component {
 
@@ -16,8 +17,6 @@ class ProfileByIdPage extends Component {
 
     render() {
 
-        console.log(this.state);
-
         const {id} = this.props.match.params;
 
         if (this.state == null || this.state.id !== id) {
@@ -27,6 +26,9 @@ class ProfileByIdPage extends Component {
         return (
             <div className="profile-container">
                 <UserInfo userInfo={this.props.page}/>
+                <div className="content-container">
+                    <TimelineCurevent user={this.props.page} listEvent={this.props.page.events}/>
+                </div>
             </div>
         );
     }

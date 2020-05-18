@@ -12,7 +12,7 @@ const CreateEventWindow = ({onClose, template, userInfo, saveUser}) => {
     const submitHandler = (ignore) => {
         const newEvent = event;
         newEvent.ownerId = userInfo.id;
-        newEvent.time = new Date().getTime();
+        newEvent.time = event.date;
         postEvent(newEvent).then(ignore => {
             getUser(userInfo.id).then(user => saveUser(user));
         });
@@ -24,11 +24,16 @@ const CreateEventWindow = ({onClose, template, userInfo, saveUser}) => {
         setEvent(prevState => ({...prevState, ...{[event.target.id]: event.target.value}}));
     };
 
+    const changeDateHandler = date => {
+        setEvent(prevState => ({...prevState, ...{date: date}}));
+    };
+
     return <CreateNewEvent
         event={event}
         onClose={onClose}
         changeStateHandler={changeStateHandler}
         submitHandler={submitHandler}
+        changeDateHandler={changeDateHandler}
     />
 };
 
