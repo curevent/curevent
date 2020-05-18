@@ -26,13 +26,13 @@ class Application extends Component {
     }
 
     render() {
+
         return (
             <BrowserRouter>
                 <div className="application-container">
-                    {(this.props.isAuth
-                        && this.props.user.id === this.props.page.id)
-                    && <Repository/>}
+                    {(this.props.isAuth && this.props.user.id === this.props.page.id) && <Repository/>}
                     {this.props.isAuth && this.props.isMinimized && <div className="space"/>}
+                    {this.props.isAuth && this.props.user.id !== this.props.page.id && !this.props.isMinimized && <div className="space"/>}
                     <div className="main-space">
                         {this.props.isAuth && <Header/>}
                         <Switch>

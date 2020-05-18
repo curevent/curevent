@@ -41,6 +41,34 @@
     justify-content: center;
     width: 300px;
     margin: 0 auto;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    display: flex;
+}
+
+::-webkit-scrollbar-thumb {
+    border-width:1px 1px 1px 2px;
+    border-color: #777;
+    background-color: #aaa;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    border-width: 1px 1px 1px 2px;
+    border-color: #555;
+    background-color: #777;
+}
+
+::-webkit-scrollbar-track {
+    border-width:0;
+}
+
+::-webkit-scrollbar-track:hover {
+    border-left: solid 1px #aaa;
+    background-color: #eee;
 }
 
 .none-message {
@@ -85,6 +113,7 @@
     flex-wrap: nowrap;
     margin-top: 10px;
     margin-left: 10px;
+    margin-bottom: 4px;
     background: #ffffff;
     border: none;
     border-radius: 4px;
@@ -106,7 +135,7 @@
 }
 
 .template {
-    margin: 10px auto;
+    margin: 15px auto;
     width: 200px;
 }
 
@@ -240,6 +269,16 @@
     margin-right: auto;
 }
 
+.to-event-button {
+    width: 16px;
+    height: 16px;
+    background: url("../css/img/create-template.png") no-repeat center;
+    background-size: 16px;
+    border: none;
+    user-select: none;
+    margin-left: auto;
+}
+
 .close-button {
     width: 16px;
     height: 16px;
@@ -247,7 +286,6 @@
     background-size: 16px;
     border: none;
     user-select: none;
-    margin-left: auto;
 }
 
 .template-header {
