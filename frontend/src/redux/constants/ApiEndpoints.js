@@ -1,4 +1,4 @@
-const BASE_ADDRESS = `http://localhost:`;
+const BASE_ADDRESS = `http://5.189.237.211:`;
 const PORT = `8080`;
 const API_VERSION = `/api/v1`;
 

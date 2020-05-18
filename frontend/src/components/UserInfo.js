@@ -9,7 +9,7 @@ import {saveUser} from "../redux/actions/UserActions";
 
 class UserInfo extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         const id = this.props.userInfo.id;
         getUser(id).then(user => {
             this.props.saveUser(user);

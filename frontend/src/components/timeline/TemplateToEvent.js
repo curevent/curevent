@@ -46,7 +46,8 @@ export const TemplateToEvent = ({template, event, changeStateHandler, onClose, s
                         <div className="template-layout">date:</div>
                         <input
                             type = "date"
-                            className="template-input"/>
+                            className="template-input"
+                        />
                     </div>
                     <div className="field">
                         <div className="template-layout">time:</div>

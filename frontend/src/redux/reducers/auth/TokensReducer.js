@@ -10,7 +10,7 @@ const initialState = {
         access_token: null,
         refresh_token: null
     },
-    isAuth: false
+    isAuth: null
 };
 
 export function tokensReducer(state = initialState, action) {

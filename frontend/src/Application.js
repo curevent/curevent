@@ -11,10 +11,11 @@ import ProfileByIdPage from "./pages/profile/ProfileByIdPage";
 import Header from "./components/header/Header";
 import SettingsPage from "./pages/settings/SettingsPage";
 import Repository from "./components/repository/Repository";
+import FriendsPage from "./pages/friends/FriendsPage";
 
 class Application extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         const tokens = getTokens();
         if (tokens.refresh != null) {
             getRefresh().then(tokens => {
@@ -25,22 +26,23 @@ class Application extends Component {
     }
 
     render() {
+
         return (
             <BrowserRouter>
                 <div className="application-container">
-                    {this.props.isAuth && <div className="space"/>}
+                    {(this.props.isAuth && this.props.user.id === this.props.page.id) && <Repository/>}
+                    {this.props.isAuth && this.props.isMinimized && <div className="space"/>}
+                    {this.props.isAuth && this.props.user.id !== this.props.page.id && !this.props.isMinimized && <div className="space"/>}
                     <div className="main-space">
                         {this.props.isAuth && <Header/>}
                         <Switch>
                             <Route path="/" exact component={AuthPage}/>
                             <Route path="/profile" component={MyProfilePage}/>
+                            <Route path="/friends" component={FriendsPage}/>
                             <Route path="/settings" component={SettingsPage}/>
                             <Route path="/user/:id" component={ProfileByIdPage}/>
                         </Switch>
                     </div>
-                    {(this.props.isAuth
-                        && this.props.user.id === this.props.page.id)
-                    && <Repository/>}
                 </div>
             </BrowserRouter>
         );
@@ -51,6 +53,7 @@ const mapStateToProps = state => {
     return {
         isAuth: state.auth.isAuth,
         user: state.currentUser.userInfo,
+        isMinimized: state.repo.isMinimized,
         page: state.user.curUser
     }
 };
