@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LocationPickerExample from "./newMap.js"
-export const CreateNewEvent = ({event, changeStateHandler, onClose, submitHandler, changeDateHandler}) => {
+export const CreateNewEvent = ({event, changeStateHandler, onClose, submitHandler, changeDateHandler, handleLocationChange}) => {
 
     return (
         <Fragment>
@@ -58,6 +58,7 @@ export const CreateNewEvent = ({event, changeStateHandler, onClose, submitHandle
                     {/* <div className="field"> */}
                         <div className="map-popup">
                         <LocationPickerExample
+                        onChange={handleLocationChange}
                         />
                         </div>
                     {/* </div> */}
