@@ -7,6 +7,7 @@ import {CreateTemplate} from "./CreateTemplate";
 import {invalidateLocalStorage} from "../../utils/localStorageUtils";
 import {NavLink} from "react-router-dom";
 import {CreateEvent} from "./CreateEvent";
+import {getUser} from "../../redux/services/UserService";
 
 class UserMenu extends Component {
 
@@ -26,7 +27,9 @@ class UserMenu extends Component {
         if (userInfo.id == null) {
             getWhoAmI().then(userInfo => {
                 this.props.currentUser(userInfo);
-                this.setState({userInfo});
+                getUser(userInfo.id).then( user => {
+                    this.setState(prev => ({...prev, ...{userInfo: user}}));
+                });
             })
         } else {
             this.setState({userInfo});
@@ -61,6 +64,9 @@ class UserMenu extends Component {
                         <div className="menu-buttons">
                             <CreateTemplate/>
                             <CreateEvent/>
+                            <div className="border-top"/>
+                            <NavLink className="nav-button header-button" to="/settings">Settings</NavLink>
+                            <NavLink className="nav-button header-button" to="/friends">Friends</NavLink>
                             <div className="border-top"/>
                             <NavLink className="nav-button header-button" onClick={logoutHandler} to="/">Sign-out</NavLink>
                         </div>

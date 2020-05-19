@@ -15,12 +15,6 @@ const Header = ({isAuth}) => {
             <div className="header-content">
                 <div className="header-logo">Curevent</div>
                 <Search/>
-                <div className="nav-menu">
-                    <NavLink className="nav-button" to="/profile">Profile</NavLink>
-                    <NavLink className="nav-button" to="/friends">Friends</NavLink>
-                    <NavLink className="nav-button" to="/timeline">Timeline</NavLink>
-                    <NavLink className="nav-button" to="/settings">Settings</NavLink>
-                </div>
                 <div className="user-menu-position">
                     <UserMenu/>
                 </div>

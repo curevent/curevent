@@ -31,7 +31,7 @@ class ExpandPanel extends Component {
                             <button className="nav-button header-button" onClick={this.props.categoriesRepository}>categories</button>
                         </Fragment>
                 }
-                </div>
+            </div>
         );
     }
 }
