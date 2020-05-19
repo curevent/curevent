@@ -22,7 +22,10 @@ export const Search = () => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        const wordsArray = search.split(" ");
+        let wordsArray = [];
+        if (search !== undefined) {
+            wordsArray = search.split(" ");
+        }
 
         for (let counter = 0; counter < wordsArray.length; counter++) {
             if (wordsArray[counter] === "") {
@@ -59,9 +62,7 @@ export const Search = () => {
     };
 
     return (
-        <div
-            className="search-container"
-        >
+        <div className="search-container">
             <div className="search-icon" onClick={submitHandler}/>
             <input
                 className="search-input"

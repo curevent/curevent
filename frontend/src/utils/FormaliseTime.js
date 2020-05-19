@@ -5,6 +5,12 @@ export const FormaliseTime = (hour,minute) => {
     return `${hour}:${minute}`
 };
 
+export const FormaliseDate = (year, month, day) => {
+    const monthString = makeTwoCharacter(month);
+    const dayString = makeTwoCharacter(day);
+    return dayString + "." + monthString + "." + year;
+};
+
 export const makeTwoCharacter = (timeNumber) => {
     return (timeNumber < 10 && timeNumber >= 0) ? '0' + timeNumber : timeNumber;
 };
@@ -20,4 +26,10 @@ export const countTime = (element, period, mousePosition, startHour) => {
     const minute = Math.floor((x - timeLineStart) / minuteCoefficient);
 
     return FormaliseTime(hour, minute);
+};
+
+export const createDateTimeString = (date) => {
+    const timeString = FormaliseTime(date.getHours(), date.getMinutes());
+    const dateString = FormaliseDate(date.getFullYear(), date.getMonth(), date.getDate());
+    return dateString + ", " + timeString;
 };

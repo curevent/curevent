@@ -1,6 +1,8 @@
 import React, {Fragment} from "react";
-
-export const CreateNewEvent = ({event, changeStateHandler, onClose, submitHandler}) => {
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import LocationPickerExample from "./newMap.js"
+export const CreateNewEvent = ({event, changeStateHandler, onClose, submitHandler, changeDateHandler}) => {
 
     return (
         <Fragment>
@@ -44,16 +46,21 @@ export const CreateNewEvent = ({event, changeStateHandler, onClose, submitHandle
                     </div>
                     <div className="field">
                         <div className="template-layout">date:</div>
-                        <input
-                            type = "date"
-                            className="template-input"/>
+                        <DatePicker
+                            id="date"
+                            selected={event.date}
+                            className="template-input"
+                            onChange={changeDateHandler}
+                            showTimeSelect
+                            dateFormat="Pp"
+                        />
                     </div>
-                    <div className="field">
-                        <div className="template-layout">time:</div>
-                        <input
-                            type="time"
-                            className="template-input"/>
-                    </div>
+                    {/* <div className="field"> */}
+                        <div className="map-popup">
+                        <LocationPickerExample
+                        />
+                        </div>
+                    {/* </div> */}
                     <div className="template-window-buttons">
                         <button className="auth-button" onClick={submitHandler}>Create</button>
                     </div>

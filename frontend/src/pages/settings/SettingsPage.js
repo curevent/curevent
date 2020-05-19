@@ -31,7 +31,8 @@ class SettingsPage extends Component {
     render() {
         const submitHandler = async event => {
             event.preventDefault();
-            const user = await putUser(this.state.userInfo);
+            const user =
+             await putUser();
             this.setState(perv => ({...perv, ...{enableEdit: false}}));
         };
 

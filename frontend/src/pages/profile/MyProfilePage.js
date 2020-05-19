@@ -4,7 +4,7 @@ import {currentUser} from "../../redux/actions/AuthActions";
 import '../../css/profile.css';
 import {Redirect} from "react-router-dom";
 import {getUser, putUser} from "../../redux/services/UserService";
-import TimeLine from "../../components/timeline/TimeLine";
+import TimelineCurevent from "../../components/timeline/TimeLine";
 import UserInfo from "../../components/UserInfo";
 import {getWhoAmI} from "../../redux/services/AuthService";
 import {saveUser} from "../../redux/actions/UserActions";
@@ -30,7 +30,7 @@ class MyProfilePage extends Component {
                     <UserInfo userInfo={this.props.page}/>
                 </form>
                 <div className="content-container">
-                    <TimeLine user={this.props.page}/>
+                <TimelineCurevent user={this.props.page} listEvent={this.props.page.events}/>
                 </div>
             </div>
         );
@@ -41,7 +41,8 @@ const mapStateToProps = state => {
     return {
         isAuth: state.auth.isAuth,
         userInfo: state.currentUser.userInfo,
-        page: state.user.curUser
+        page: state.user.curUser,
+        events: state.events
     }
 };
 

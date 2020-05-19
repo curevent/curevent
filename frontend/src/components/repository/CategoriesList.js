@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {connect} from "react-redux";
 import {getUser} from "../../redux/services/UserService";
 import {saveUser} from "../../redux/actions/UserActions";
@@ -29,20 +29,26 @@ class CategoriesList extends Component {
             });
         };
 
-        if (this.props.templates.length === 0) {
-            return <div className="none-templates">You have no templates yet</div>
+        if (this.props.categories.length === 0) {
+            return <div className="none-message">You have no categories yet</div>
         } else {
-            return this.props.templates.map(template =>
-                <div id={template.id} className="template" key={template.id}>
-                    <div className="template-header">
-                        <div className="template-title">{template.title}</div>
-                        <button className="close-button" style={{backgroundSize: "10px"}} onClick={event => deleteHandler(event, template.id)}/>
+            return this.props.categories.map(category =>
+                <Fragment>
+                    <div
+                        id={category.id}
+                        className="tag"
+                        key={category.id}
+                    >
+                        {category.description}
                     </div>
-                    <div className="template-characteristics">
-                        <div className="template-description">Description: {template.description}</div>
-                        <div className="template-duration">Duration: {template.duration} minutes</div>
+                    <div className="flex-column">
+                        <button
+                            className="close-button"
+                            style={{backgroundSize: "10px"}}
+                            onClick={event => deleteHandler(event, category.id)}
+                        />
                     </div>
-                </div>
+                </Fragment>
             );
         }
     }
@@ -51,7 +57,7 @@ class CategoriesList extends Component {
 const mapStateToProps = state => {
     return {
         userInfo: state.currentUser.userInfo,
-        templates: state.user.curUser.templates
+        categories: state.user.curUser.categories
     }
 };
 

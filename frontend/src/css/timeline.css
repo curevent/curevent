@@ -47,6 +47,10 @@
     border: #cdcdcd 1px solid;
     border-radius: 2px;
     padding: 5px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    max-width: 1080px;
 }
 
 .line-container {
@@ -86,4 +90,8 @@
 
 .event-line {
     background: #73a4ff;
+}
+.react-calendar-timeline
+.rct-header-root{
+    background-color: rgb(66, 135, 245)!important;
 }
