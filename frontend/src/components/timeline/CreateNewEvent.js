@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import LocationPickerExample from "./newMap.js"
 export const CreateNewEvent = ({event, changeStateHandler, onClose, submitHandler, changeDateHandler}) => {
 
     return (
@@ -55,6 +55,12 @@ export const CreateNewEvent = ({event, changeStateHandler, onClose, submitHandle
                             dateFormat="Pp"
                         />
                     </div>
+                    {/* <div className="field"> */}
+                        <div className="map-popup">
+                        <LocationPickerExample
+                        />
+                        </div>
+                    {/* </div> */}
                     <div className="template-window-buttons">
                         <button className="auth-button" onClick={submitHandler}>Create</button>
                     </div>
