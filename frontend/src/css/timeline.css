@@ -90,3 +90,7 @@
 .event-line {
     background: #73a4ff;
 }
+.react-calendar-timeline
+.rct-header-root{
+    background-color: rgb(66, 135, 245)!important;
+}

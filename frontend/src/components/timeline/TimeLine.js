@@ -41,7 +41,6 @@ class TimelineCurevent extends Component {
 
   constructor(props) {
     super(props);
-    //Проблемы с timezone, поэтому вречную переводим на три часа меньше
     const defaultTimeStart = moment().startOf('day').toDate();
     const defaultTimeEnd = moment().startOf('day').add(1, 'day').toDate();
     this.state = {
@@ -58,9 +57,9 @@ class TimelineCurevent extends Component {
       items.push({
         id: event.id,
         className:
-          moment(event.time).day() === 6 || moment(event.time).day() === 0 ? 'item-weekend' : '',
-        start: Number(new Date(event.time) - (3 * 1000 * 60 * 60)),
-        end: Number(new Date(event.time)) + (event.duration * 60 * 1000) - (3 * 1000 * 60 * 60),
+        moment(event.time).day() === 6 || moment(event.time).day() === 0 ? 'item-weekend' : '',
+        start: Number(new Date(event.time)),
+        end: Number(new Date(event.time)) + (event.duration * 60 * 1000),
         title: event.title,
         itemProps: {
           'data-tip': event.description,

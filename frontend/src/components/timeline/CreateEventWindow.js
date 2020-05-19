@@ -30,6 +30,10 @@ const CreateEventWindow = ({onClose, template, userInfo, saveUser}) => {
         });
         onClose();
     };
+    const handleLocationChange = position  => {
+        console.log(position)
+        setEvent(prevState => ({...prevState, ...{longitude: position.position.lng, latitude: position.position.lat}}));
+  }
 
     const eventsByTemplateHandler = (ignore) => {
         const repeatForm = {
@@ -80,6 +84,7 @@ const CreateEventWindow = ({onClose, template, userInfo, saveUser}) => {
             changeStateHandler={changeEventHandler}
             submitHandler={createEventHandler}
             changeDateHandler={changeEventDateHandler}
+            handleLocationChange={handleLocationChange}
         />
     } else {
         return <CreateEventsByTemplate
