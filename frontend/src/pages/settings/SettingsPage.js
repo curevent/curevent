@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 import {getWhoAmI} from "../../redux/services/AuthService";
-import {putUser} from "../../redux/services/UserService";
+import {getUser, putUser} from "../../redux/services/UserService";
 import {currentUser} from "../../redux/actions/AuthActions";
 import {connect} from "react-redux";
+import {UserImage} from "../../components/fields/UserImage";
+import {saveUser} from "../../redux/actions/UserActions";
 
 class SettingsPage extends Component {
 
@@ -17,23 +19,23 @@ class SettingsPage extends Component {
     };
 
     componentDidMount() {
-        const userInfo = this.props.userInfo;
-        if (userInfo.id == null) {
-            getWhoAmI().then(userInfo => {
-                this.props.currentUser(userInfo);
-                this.setState({userInfo});
-            })
-        } else {
-            this.setState({userInfo});
-        }
+        getWhoAmI().then(userInfo => {
+                const id = userInfo.id;
+                getUser(id).then(user => {
+                    this.props.saveUser(user);
+                    this.setState({userInfo: userInfo});
+                });
+            }
+        );
     }
 
     render() {
-        const submitHandler = async event => {
+        const submitHandler = event => {
             event.preventDefault();
-            const user =
-             await putUser();
-            this.setState(perv => ({...perv, ...{enableEdit: false}}));
+            const user = this.state.userInfo;
+            putUser(user).then( ignore => {
+                this.setState(perv => ({...perv, ...{enableEdit: false}}));
+            });
         };
 
         const startEditHandler = () => {
@@ -56,7 +58,7 @@ class SettingsPage extends Component {
                 <input
                     type="text"
                     id={fieldName}
-                    className="profile-input"
+                    className="auth-input"
                     placeholder={`Input your ${fieldName}`}
                     value={this.state.userInfo[fieldName]}
                     onChange={changeInputHandler}
@@ -66,13 +68,10 @@ class SettingsPage extends Component {
         };
 
         return (
-            <div className="user-info">
-                <div className="user-image-panel">
-                    <div className="user-image">
-                        {this.state.userInfo.username != null && this.state.userInfo.username.slice(0, 1).toUpperCase()}
-                    </div>
-                    <div className="field">
-                        {this.state.userInfo.username}
+            <div className="profile-container">
+                <div className="user-info">
+                    <div className="user-image-panel">
+                        <UserImage userInfo={this.props.page}/>
                     </div>
                 </div>
                 <div className="main-info-panel">
@@ -91,6 +90,7 @@ class SettingsPage extends Component {
                     </div>
                 </div>
             </div>
+
         );
     }
 }
@@ -98,12 +98,14 @@ class SettingsPage extends Component {
 const mapStateToProps = state => {
     return {
         userInfo: state.currentUser.userInfo,
+        page: state.user.curUser,
     }
 };
 
 const mapDispatchToProps = {
     currentUser,
-    putUser
+    putUser,
+    saveUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage);

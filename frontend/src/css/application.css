@@ -24,3 +24,12 @@ body {
     font-family: Roboto, serif;
     font-size: 16px;
 }
+
+.main-info-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 200px;
+    height: 200px;
+    margin: 30px 100px;
+}
