@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import {getUser} from "../../redux/services/UserService";
 import {saveUser} from "../../redux/actions/UserActions";
 import {deleteTemplate, deleteTemplateEvents} from "../../redux/services/TemplateService";
+import ReactDOM from "react-dom";
+import CreateEventWindow from "../timeline/CreateEventWindow";
 
 class TemplatesList extends Component {
 
@@ -29,9 +31,8 @@ class TemplatesList extends Component {
             });
         };
 
-        const toEventHandler = (event, id) => {
-            event.preventDefault();
-
+        const toggleModal = () => {
+            this.setState(prev => ({...prev, isActive: !prev.isActive}));
         };
 
         if (this.props.templates.length === 0) {
@@ -41,7 +42,12 @@ class TemplatesList extends Component {
                 <div id={template.id} className="template" key={template.id}>
                     <div className="template-header">
                         <div className="template-title">{template.title}</div>
-                        <button className="to-event-button" style={{backgroundSize: "10px"}} onClick={event => toEventHandler(event, template.id)}/>
+                        <button className="to-event-button" style={{backgroundSize: "10px"}} onClick={toggleModal}/>
+                        {this.state.isActive &&
+                        ReactDOM.createPortal(
+                            <CreateEventWindow onClose={toggleModal} template={template}/>,
+                            document.getElementById("create-event")
+                        )}
                         <button className="close-button" style={{backgroundSize: "10px"}} onClick={event => deleteHandler(event, template.id)}/>
                     </div>
                     <div className="template-characteristics">

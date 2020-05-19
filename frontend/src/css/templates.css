@@ -3,6 +3,8 @@
     flex-direction: row-reverse;
     user-select: none;
     background: #b4e6ff;
+    vertical-align: center;
+    align-items: center;
 }
 
 .templates-board {
