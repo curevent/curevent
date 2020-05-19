@@ -18,6 +18,10 @@ const CreateEventWindow = ({onClose, template, userInfo, saveUser}) => {
         });
         onClose();
     };
+    const handleLocationChange = position  => {
+        console.log(position)
+        setEvent(prevState => ({...prevState, ...{longitude: position.position.lng, latitude: position.position.lat}}));
+  }
 
     const changeStateHandler = event => {
         event.persist();
@@ -34,6 +38,7 @@ const CreateEventWindow = ({onClose, template, userInfo, saveUser}) => {
         changeStateHandler={changeStateHandler}
         submitHandler={submitHandler}
         changeDateHandler={changeDateHandler}
+        handleLocationChange={handleLocationChange}
     />
 };
 

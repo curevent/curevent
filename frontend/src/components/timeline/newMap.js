@@ -20,12 +20,12 @@ class LocationPickerExample extends Component {
          lng: 0
       }
     };
-    this.handleLocationChange = this.handleLocationChange.bind(this);
+    // this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
-  handleLocationChange ({ position, places }) {
-    this.setState({ position});
-  }
+  // handleLocationChange ({ position}) {
+  //   this.setState({ position});
+  // }handleLocationChange
 
   render () {
     return (
@@ -35,7 +35,7 @@ class LocationPickerExample extends Component {
             containerElement={ <div style={ {height: '70%'} } /> }
             mapElement={ <div style={ {height: '300px'} } /> }
             defaultPosition={defaultPosition}
-            onChange={this.handleLocationChange}
+            onChange={this.props.onChange}
           />
         </div>
       </div>
