@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -98,6 +99,7 @@ public class UserServiceTests {
         userEntity.setUsername(username);
         userEntity.setEmail(email);
         userEntity.setId(id);
+        userEntity.setCategories(new ArrayList<>());
         return userEntity;
     }
 }
